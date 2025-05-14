@@ -9,9 +9,9 @@ public class PlayerBase : MonoBehaviour
     const float kMoveSpeed = 10.0f;
     const float kDrag = 0.05f;
     Vector2 m_inputAxis = new();
-    const float kInputAxisThreshold = 0.1f;
-    const float kRotateSpeed = 0.2f;
+    const float kRotateSpeed = 0.02f;
     Vector3 m_myVel = new();
+    const float kRotateThreshold = 0.001f;
 
     // Start is called before the first frame update
     void Start()
@@ -39,7 +39,10 @@ public class PlayerBase : MonoBehaviour
         m_myVel = tempVel;
 
         // Ž©•ª‚Å“®‚¢‚½ˆÚ“®•ûŒü‚ÉŒü‚«‚ð•Ï‚¦‚é
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(m_myVel), kRotateSpeed);
+        if (m_myVel.sqrMagnitude >= kRotateThreshold)
+        {
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(m_myVel.normalized), kRotateSpeed);
+        }
     }
 
     public void GetMoveAxis(InputAction.CallbackContext context)
