@@ -1,5 +1,5 @@
 {
-    "name": "Kurenai",
+    "name": "Player",
     "maps": [
         {
             "name": "Player",
@@ -248,6 +248,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "Gamepad",
+                    "action": "Attack",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8b899adb-082d-48e8-93db-ec9de1573a26",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "Keyboard&Mouse",
                     "action": "Attack",
                     "isComposite": false,
                     "isPartOfComposite": false
