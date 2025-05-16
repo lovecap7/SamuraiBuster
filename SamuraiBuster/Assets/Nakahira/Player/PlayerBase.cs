@@ -1,9 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
-public class PlayerBase : MonoBehaviour
+abstract public class PlayerBase : MonoBehaviour
 {
     private Rigidbody m_rigid;
     const float kMoveSpeed = 1000.0f;
@@ -12,20 +9,40 @@ public class PlayerBase : MonoBehaviour
     Vector3 m_myVel = new();
     const float kRotateThreshold = 0.001f;
 
+    protected InputHolder m_inputHolder;
+    protected Animator m_anim;
+
     // Start is called before the first frame update
-    void Start()
+    protected virtual void Start()
     {
         m_rigid = GetComponent<Rigidbody>();
+        m_inputHolder = GetComponent<InputHolder>();
+        m_anim = GetComponent<Animator>();
 
         Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame
-    void Update()
+    protected virtual void Update()
     {
-        // ƒ‹[ƒg2ˆÚ“®‚ğ‘j~
-        m_inputAxis.Normalize();
+        // “ü—Í‚ğó‚¯æ‚é
+        GetInput();
 
+        Move();
+
+        if (m_inputHolder.isTriggerAttack)
+        {
+            Attack();
+        }
+    }
+
+    private void GetInput()
+    {
+        m_inputAxis = m_inputHolder.inputAxis;
+    }
+
+    private void Move()
+    {
         // ‰Á‘¬
         Vector3 addForce = kMoveSpeed * Time.deltaTime * new Vector3(m_inputAxis.x, 0, m_inputAxis.y);
         m_rigid.AddForce(addForce);
@@ -39,8 +56,6 @@ public class PlayerBase : MonoBehaviour
         }
     }
 
-    public void GetMoveAxis(InputAction.CallbackContext context)
-    {
-        m_inputAxis = context.ReadValue<Vector2>();
-    }
+    // ƒ[ƒ‹‚É‚æ‚Á‚ÄÀ‘•‚ğ•Ï‚¦‚é
+    abstract public void Attack();
 }
