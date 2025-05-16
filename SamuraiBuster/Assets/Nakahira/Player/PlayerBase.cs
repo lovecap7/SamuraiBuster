@@ -6,10 +6,9 @@ using UnityEngine.InputSystem;
 public class PlayerBase : MonoBehaviour
 {
     private Rigidbody m_rigid;
-    const float kMoveSpeed = 10.0f;
-    const float kDrag = 0.05f;
+    const float kMoveSpeed = 1000.0f;
     Vector2 m_inputAxis = new();
-    const float kRotateSpeed = 0.02f;
+    const float kRotateSpeed = 0.2f;
     Vector3 m_myVel = new();
     const float kRotateThreshold = 0.001f;
 
@@ -17,26 +16,21 @@ public class PlayerBase : MonoBehaviour
     void Start()
     {
         m_rigid = GetComponent<Rigidbody>();
+
+        Application.targetFrameRate = 60;
     }
 
     // Update is called once per frame
     void Update()
     {
-        var keyBoard = Keyboard.current;
-
         // ƒ‹[ƒg2ˆÚ“®‚ð‘jŽ~
         m_inputAxis.Normalize();
 
         // ‰Á‘¬
-        m_rigid.AddForce(new Vector3(m_inputAxis.x, 0, m_inputAxis.y) *kMoveSpeed);
+        Vector3 addForce = kMoveSpeed * Time.deltaTime * new Vector3(m_inputAxis.x, 0, m_inputAxis.y);
+        m_rigid.AddForce(addForce);
 
-        // X,Y‚¾‚¯Œ¸Š
-        Vector3 tempVel = m_rigid.velocity;
-        tempVel.x -= tempVel.x * kDrag;
-        tempVel.z -= tempVel.z * kDrag;
-        m_rigid.velocity = tempVel;
-
-        m_myVel = tempVel;
+        m_myVel = addForce;
 
         // Ž©•ª‚Å“®‚¢‚½ˆÚ“®•ûŒü‚ÉŒü‚«‚ð•Ï‚¦‚é
         if (m_myVel.sqrMagnitude >= kRotateThreshold)
