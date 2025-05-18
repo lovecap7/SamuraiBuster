@@ -8,7 +8,6 @@ public enum StateType//状態
     Idle,   //待機
     Chase,  //追いかける
     Attack, //攻撃
-    Freeze, //硬直
     Hit,    //やられ
     Dead,   //死亡
 }
@@ -33,12 +32,12 @@ public class Warrior : MonoBehaviour
     [SerializeField] private float kChaseSpeed = 10.0f;
     [SerializeField] private float kChaseDis = 1.0f;
 
-    //攻撃フレーム
-    [SerializeField] private float kAttackCoolTime = 60.0f;
+    //次の攻撃までにかかる時間
+    [SerializeField] private float kAttackCoolTime = 5.0f;
     private float m_attackCoolTime;
-    //硬直フレーム
-    [SerializeField] private float kFreezeTime = 30.0f;
-    private float m_freezeTime;
+    //攻撃の全体フレーム
+    [SerializeField] private float kAttackTotalFrame = 3.0f;
+    private float m_attackTotalFrame;
 
     //アニメーション
     private Animator m_animator;
@@ -55,7 +54,7 @@ public class Warrior : MonoBehaviour
         m_animator = GetComponent<Animator>();
 
         m_attackCoolTime = kAttackCoolTime;
-        m_freezeTime = kFreezeTime;
+        m_attackTotalFrame = kAttackTotalFrame;
     }
 
     private void UpdateIdle()//待機
@@ -72,6 +71,7 @@ public class Warrior : MonoBehaviour
         {
             ChangeState(StateType.Chase);
             return;
+
         }
     }
 
@@ -87,28 +87,17 @@ public class Warrior : MonoBehaviour
         }
         //移動
         Vector3 moveVec = m_targetDir * Time.deltaTime * kChaseSpeed;
-        Debug.Log(moveVec);
         rb.AddForce(moveVec);
+        //移動方向を向く
+        transform.rotation = Quaternion.LookRotation(moveVec.normalized,Vector3.up);
     }
 
     private void UpdateAttack()//攻撃
     {
         Debug.Log("WarriorはAttack状態\n");
-
+        m_attackTotalFrame -= Time.deltaTime;
         //アニメーションが終了したら
-        if(AnimEnd())
-        {
-            ChangeState(StateType.Freeze);
-            return;
-        }
-    }
-
-    private void UpdateFreeze()//硬直
-    {
-        Debug.Log("WarriorはFreeze状態\n");
-        //硬直フレーム
-        m_freezeTime -= Time.deltaTime;
-        if(m_freezeTime <= 0.0f)
+        if (m_attackTotalFrame <= 0.0f)
         {
             ChangeState(StateType.Idle);
             return;
@@ -137,21 +126,17 @@ public class Warrior : MonoBehaviour
                 break;
             //追いかける
             case StateType.Chase:
+                m_animator.SetBool("Attack", false);
                 m_animator.SetBool("Chase", true);
                 m_nextState = StateType.Chase;
                 break;
             //攻撃
             case StateType.Attack:
                 m_animator.SetBool("Attack", true);
-                m_attackCoolTime = kAttackCoolTime;//クールタイム
-                m_nextState = StateType.Attack;
-                break;
-            //硬直
-            case StateType.Freeze:
-                m_animator.SetBool("Attack", false);
                 m_animator.SetBool("Chase", false);
-                m_freezeTime = kFreezeTime;//硬直
-                m_nextState = StateType.Freeze;
+                m_attackCoolTime = kAttackCoolTime;//クールタイム
+                m_attackTotalFrame = kAttackTotalFrame;//攻撃フレーム
+                m_nextState = StateType.Attack;
                 break;
             //やられ
             case StateType.Hit:
@@ -196,12 +181,6 @@ public class Warrior : MonoBehaviour
         }
     }
 
-    private bool AnimEnd()
-    {
-        AnimatorStateInfo animState = m_animator.GetCurrentAnimatorStateInfo(0);
-        return animState.normalizedTime >= 1.0f;//1以上なら再生中
-    }
-
     // Update is called once per frame
     void Update()
     {
@@ -228,10 +207,6 @@ public class Warrior : MonoBehaviour
                 //攻撃
                 case StateType.Attack:
                     UpdateAttack();
-                    break;
-                //硬直
-                case StateType.Freeze:
-                    UpdateFreeze();
                     break;
                 //やられ
                 case StateType.Hit:
