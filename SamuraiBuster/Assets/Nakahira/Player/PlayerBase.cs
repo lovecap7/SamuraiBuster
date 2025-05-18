@@ -3,11 +3,10 @@ using UnityEngine;
 abstract public class PlayerBase : MonoBehaviour
 {
     private Rigidbody m_rigid;
-    const float kMoveSpeed = 1000.0f;
+    const float kMoveSpeed = 2000.0f;
     Vector2 m_inputAxis = new();
     const float kRotateSpeed = 0.2f;
-    Vector3 m_myVel = new();
-    const float kRotateThreshold = 0.001f;
+    const float kMoveThreshold = 0.001f;
 
     protected InputHolder m_inputHolder;
     protected Animator m_anim;
@@ -33,6 +32,11 @@ abstract public class PlayerBase : MonoBehaviour
         if (m_inputHolder.isTriggerAttack)
         {
             Attack();
+            m_anim.SetBool("Attacking", true);
+        }
+        else
+        {
+            m_anim.SetBool("Attacking", false);
         }
     }
 
@@ -47,12 +51,20 @@ abstract public class PlayerBase : MonoBehaviour
         Vector3 addForce = kMoveSpeed * Time.deltaTime * new Vector3(m_inputAxis.x, 0, m_inputAxis.y);
         m_rigid.AddForce(addForce);
 
-        m_myVel = addForce;
-
-        // 自分で動いた移動方向に向きを変える
-        if (m_myVel.sqrMagnitude >= kRotateThreshold)
+        // もし移動したなら
+        if (addForce.sqrMagnitude >= kMoveThreshold)
         {
-            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(m_myVel.normalized), kRotateSpeed);
+            // 自分で動いた移動方向に向きを変える
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(addForce.normalized), kRotateSpeed);
+
+            // 歩きモーション
+            m_anim.SetBool("Moving", true);
+        }
+        else
+        {
+            // 歩いてない
+            // ステートパターン使いたいけどやり方わからんしなあ
+            m_anim.SetBool("Moving", false);
         }
     }
 
