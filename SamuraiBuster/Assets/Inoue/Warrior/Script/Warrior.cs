@@ -27,13 +27,15 @@ public class Warrior : MonoBehaviour
     private StateType m_nextState;
     //リジッドボディ
     private Rigidbody rb;
+    //サーチに成功したか
+    private bool m_isHitSearch = false;
 
     //追いかける速度
     [SerializeField] private float kChaseSpeed = 10.0f;
     [SerializeField] private float kChaseDis = 1.4f;
 
     //次の攻撃までにかかる時間
-    [SerializeField] private float kAttackCoolTime = 5.0f;
+    [SerializeField]  private float kAttackCoolTime = 3.0f;
     private float m_attackCoolTime;
     //攻撃判定
     [SerializeField] private GameObject m_sword;
@@ -41,10 +43,10 @@ public class Warrior : MonoBehaviour
 
     //アニメーション
     private Animator m_animator;
-    bool m_isFinishAnim = false;
+    bool m_isFinishAttackAnim = false;
 
     //回転速度
-    private float kRotateSpeed = 10.0f;
+    private float kRotateSpeed = 30.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -61,6 +63,7 @@ public class Warrior : MonoBehaviour
 
         //攻撃判定
         m_swordColl = m_sword.GetComponent<CapsuleCollider>();
+        m_swordColl.enabled = false;
     }
 
     private void UpdateIdle()//待機
@@ -79,9 +82,6 @@ public class Warrior : MonoBehaviour
             return;
 
         }
-        //クールタイムを数える
-        AttackCoolTime();
-       
         //モデルの向き更新
         ModelDir();
     }
@@ -89,28 +89,26 @@ public class Warrior : MonoBehaviour
     private void UpdateChase()//追いかける
     {
         Debug.Log("WarriorはChase状態\n");
-
         //近づいたら
-        if (m_targetDis <= kChaseDis)
+        if (m_targetDis < kChaseDis)
         {
             ChangeState(StateType.Idle);
             return;
         }
         //移動
         Vector3 moveVec = m_targetDir * Time.deltaTime * kChaseSpeed;
-        rb.AddForce(moveVec);
+        rb.AddForce(moveVec,ForceMode.Force);
         //モデルの向き更新
         ModelDir();
-        //クールタイムを数える
-        AttackCoolTime();
     }
 
     private void UpdateAttack()//攻撃
     {
         Debug.Log("WarriorはAttack状態\n");
         //アニメーションが終了したら
-        if (m_isFinishAnim)
+        if (m_isFinishAttackAnim)
         {
+            m_attackCoolTime = kAttackCoolTime;//クールタイム
             ChangeState(StateType.Idle);
             return;
         }
@@ -134,19 +132,20 @@ public class Warrior : MonoBehaviour
             case StateType.Idle:
                 m_animator.SetBool("Attack", false);
                 m_animator.SetBool("Chase", false);
-                m_nextState= StateType.Idle;
+                m_isFinishAttackAnim = false;
+                m_nextState = StateType.Idle;
                 break;
             //追いかける
             case StateType.Chase:
                 m_animator.SetBool("Attack", false);
                 m_animator.SetBool("Chase", true);
+                m_isFinishAttackAnim = false;
                 m_nextState = StateType.Chase;
                 break;
             //攻撃
             case StateType.Attack:
                 m_animator.SetBool("Attack", true);
                 m_animator.SetBool("Chase", false);
-                m_attackCoolTime = kAttackCoolTime;//クールタイム
                 m_nextState = StateType.Attack;
                 break;
             //やられ
@@ -162,11 +161,15 @@ public class Warrior : MonoBehaviour
 
     private void SerchDir()//ターゲットの距離と方向を探索
     {
+        //ターゲットを見つけれたか
+        m_isHitSearch = false;
         //最も近いターゲットを探す
         Vector3 myPos = transform.position;
         float shortDistance = 100000;//適当な値
         for (int i = 0; i < kTargetNum; ++i)
         {
+            //中身がないなら飛ばす
+            if (m_targetList[i] == null) continue;    
             //相手に向かうベクトル
             Vector3 vec = m_targetList[i].transform.position - myPos;
             vec.y = 0.0f;//縦方向は考慮しない
@@ -177,6 +180,8 @@ public class Warrior : MonoBehaviour
                 shortDistance = vec.magnitude;
                 //向き
                 m_targetDir = vec.normalized;//正規化
+
+                m_isHitSearch = true;
             }
         }
         m_targetDis = shortDistance;//最短距離を保存
@@ -203,11 +208,12 @@ public class Warrior : MonoBehaviour
     //アニメーションの再生状態に合わせて呼び出す
     public void OnFinishAnimFlag()
     {
-        m_isFinishAnim = true;
+        m_isFinishAttackAnim = true;
+        Debug.Log("攻撃");
     }
     public void OffFinishAnimFlag()
     {
-        m_isFinishAnim = false;
+        m_isFinishAttackAnim = false;
     }
     //攻撃判定が出るタイミングで呼び出す
     public void OnActiveAttackFlag()
@@ -224,6 +230,13 @@ public class Warrior : MonoBehaviour
     {
         //距離とターゲットのベクトルを計算
         SerchDir();
+        //攻撃クールタイム
+        AttackCoolTime();
+        //追いかけるターゲットがいないなら待機状態にする
+        if (!m_isHitSearch)
+        {
+            ChangeState(StateType.Idle);
+        }
         //無限ループを防ぐ
         int count = 0;
         do

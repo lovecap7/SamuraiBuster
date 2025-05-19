@@ -17,4 +17,9 @@ public class PlayerTestRota : MonoBehaviour
     {
         transform.RotateAround(new Vector3(0.0f,0.0f,0.0f),Vector3.up,360.0f/ (1.0f / m_speed) * Time.deltaTime);
     }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        Destroy(this.gameObject);
+    }
 }
