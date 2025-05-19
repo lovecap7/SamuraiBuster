@@ -2,14 +2,16 @@ using UnityEngine;
 
 abstract public class PlayerBase : MonoBehaviour
 {
-    private Rigidbody m_rigid;
     const float kMoveSpeed = 2000.0f;
-    Vector2 m_inputAxis = new();
     const float kRotateSpeed = 0.2f;
     const float kMoveThreshold = 0.001f;
 
     protected InputHolder m_inputHolder;
     protected Animator m_anim;
+    protected Rigidbody m_rigid;
+    protected Vector2 m_inputAxis = new();
+
+    private bool m_canMove = true;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -29,7 +31,7 @@ abstract public class PlayerBase : MonoBehaviour
 
         Move();
 
-        if (m_inputHolder.isTriggerAttack)
+        if (m_inputHolder.IsTriggerAttack)
         {
             Attack();
             m_anim.SetBool("Attacking", true);
@@ -38,17 +40,30 @@ abstract public class PlayerBase : MonoBehaviour
         {
             m_anim.SetBool("Attacking", false);
         }
+
+        if (m_inputHolder.IsTriggerSkill)
+        {
+            Skill();
+            m_anim.SetBool("Skilling", true);
+        }
+        else
+        {
+            m_anim.SetBool("Skilling", false);
+        }
     }
 
     private void GetInput()
     {
-        m_inputAxis = m_inputHolder.inputAxis;
+        m_inputAxis = m_inputHolder.InputAxis;
     }
 
     private void Move()
     {
         // â¡ë¨
         Vector3 addForce = kMoveSpeed * Time.deltaTime * new Vector3(m_inputAxis.x, 0, m_inputAxis.y);
+
+        if (!m_canMove) return;
+
         m_rigid.AddForce(addForce);
 
         // Ç‡Çµà⁄ìÆÇµÇΩÇ»ÇÁ
@@ -70,4 +85,15 @@ abstract public class PlayerBase : MonoBehaviour
 
     // ÉçÅ[ÉãÇ…ÇÊÇ¡Çƒé¿ëïÇïœÇ¶ÇÈ
     abstract public void Attack();
+    abstract public void Skill();
+
+    public void EnableMove()
+    {
+        m_canMove= true;
+    }
+
+    public void DisableMove()
+    {
+        m_canMove= false;
+    }
 }
