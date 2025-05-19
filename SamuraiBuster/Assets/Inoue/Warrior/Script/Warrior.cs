@@ -264,5 +264,11 @@ public class Warrior : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         //UŒ‚‚³‚ê‚½‚Æ‚«
+        if(other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")
+        {
+            //‚â‚ç‚êƒŠƒAƒNƒVƒ‡ƒ“
+            ChangeState(StateType.Hit);
+            return;
+        }
     }
 }
