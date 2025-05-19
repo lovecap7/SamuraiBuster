@@ -141,6 +141,34 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_speed: 0.05
+--- !u!1 &331845238 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6895957511583089933, guid: 94025afe18059204e901d3bec7d70224, type: 3}
+  m_PrefabInstance: {fileID: 1998636707}
+  m_PrefabAsset: {fileID: 0}
+--- !u!136 &331845242
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 331845238}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 1
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Radius: 0.050260063
+  m_Height: 0.7912356
+  m_Direction: 1
+  m_Center: {x: -0.0010924938, y: 0.40246975, z: 0.00000014441983}
 --- !u!1 &430136476 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 32703181780682688, guid: cbe96a0702205e24e9ca7d6a62a91a87, type: 3}
@@ -353,6 +381,14 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: d5c8603086ba9c6469ebbf182027b8c3, type: 2}
+    - target: {fileID: 6895957511583089933, guid: 94025afe18059204e901d3bec7d70224, type: 3}
+      propertyPath: m_Name
+      value: EnemyMeleeAttack
+      objectReference: {fileID: 0}
+    - target: {fileID: 6895957511583089933, guid: 94025afe18059204e901d3bec7d70224, type: 3}
+      propertyPath: m_TagString
+      value: EnemyMeleeAttack
+      objectReference: {fileID: 0}
     - target: {fileID: 7994144800645364664, guid: 94025afe18059204e901d3bec7d70224, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.08615735
@@ -374,6 +410,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 126130302089793275, guid: 94025afe18059204e901d3bec7d70224, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2124008773}
+    - targetCorrespondingSourceObject: {fileID: 6895957511583089933, guid: 94025afe18059204e901d3bec7d70224, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 331845242}
   m_SourcePrefab: {fileID: 100100000, guid: 94025afe18059204e901d3bec7d70224, type: 3}
 --- !u!1 &2048989647 stripped
 GameObject:
@@ -572,9 +611,9 @@ MonoBehaviour:
   - {fileID: 430136476}
   - {fileID: 2048989647}
   kChaseSpeed: 500
-  kChaseDis: 1.2
-  kAttackCoolTime: 5
-  kAttackTotalFrame: 40
+  kChaseDis: 1.4
+  kAttackCoolTime: 3
+  m_sword: {fileID: 0}
 --- !u!1 &2145061773
 GameObject:
   m_ObjectHideFlags: 0
