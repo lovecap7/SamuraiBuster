@@ -30,17 +30,21 @@ public class Warrior : MonoBehaviour
 
     //追いかける速度
     [SerializeField] private float kChaseSpeed = 10.0f;
-    [SerializeField] private float kChaseDis = 1.0f;
+    [SerializeField] private float kChaseDis = 1.4f;
 
     //次の攻撃までにかかる時間
     [SerializeField] private float kAttackCoolTime = 5.0f;
     private float m_attackCoolTime;
-    //攻撃の全体フレーム
-    [SerializeField] private float kAttackTotalFrame = 3.0f;
-    private float m_attackTotalFrame;
+    //攻撃判定
+    [SerializeField] private GameObject m_sword;
+    CapsuleCollider m_swordColl;
 
     //アニメーション
     private Animator m_animator;
+    bool m_isFinishAnim = false;
+
+    //回転速度
+    private float kRotateSpeed = 10.0f;
 
     // Start is called before the first frame update
     void Start()
@@ -54,13 +58,13 @@ public class Warrior : MonoBehaviour
         m_animator = GetComponent<Animator>();
 
         m_attackCoolTime = kAttackCoolTime;
-        m_attackTotalFrame = kAttackTotalFrame;
+
+        //攻撃判定
+        m_swordColl = m_sword.GetComponent<CapsuleCollider>();
     }
 
     private void UpdateIdle()//待機
     {
-        //敵方向を向く
-        transform.rotation = Quaternion.LookRotation(m_targetDir.normalized, Vector3.up);
         Debug.Log("WarriorはIdle状態\n");
         //攻撃
         if (m_attackCoolTime <= 0.0f)
@@ -69,12 +73,17 @@ public class Warrior : MonoBehaviour
             return;
         }
         //遠いなら追いかける
-        else if (m_targetDis > kChaseDis)
+        if (m_targetDis > kChaseDis)
         {
             ChangeState(StateType.Chase);
             return;
 
         }
+        //クールタイムを数える
+        AttackCoolTime();
+       
+        //モデルの向き更新
+        ModelDir();
     }
 
     private void UpdateChase()//追いかける
@@ -90,16 +99,17 @@ public class Warrior : MonoBehaviour
         //移動
         Vector3 moveVec = m_targetDir * Time.deltaTime * kChaseSpeed;
         rb.AddForce(moveVec);
-        //移動方向を向く
-        transform.rotation = Quaternion.LookRotation(moveVec.normalized,Vector3.up);
+        //モデルの向き更新
+        ModelDir();
+        //クールタイムを数える
+        AttackCoolTime();
     }
 
     private void UpdateAttack()//攻撃
     {
         Debug.Log("WarriorはAttack状態\n");
-        m_attackTotalFrame -= Time.deltaTime;
         //アニメーションが終了したら
-        if (m_attackTotalFrame <= 0.0f)
+        if (m_isFinishAnim)
         {
             ChangeState(StateType.Idle);
             return;
@@ -137,7 +147,6 @@ public class Warrior : MonoBehaviour
                 m_animator.SetBool("Attack", true);
                 m_animator.SetBool("Chase", false);
                 m_attackCoolTime = kAttackCoolTime;//クールタイム
-                m_attackTotalFrame = kAttackTotalFrame;//攻撃フレーム
                 m_nextState = StateType.Attack;
                 break;
             //やられ
@@ -173,6 +182,14 @@ public class Warrior : MonoBehaviour
         m_targetDis = shortDistance;//最短距離を保存
     }
 
+    private void ModelDir()
+    {
+        //自分の向き取得
+        Quaternion myDir = transform.rotation;
+        Quaternion target = Quaternion.LookRotation(m_targetDir);
+        //だんだん相手のほうを向く
+        transform.rotation = Quaternion.RotateTowards(myDir, target, kRotateSpeed * Time.deltaTime);
+    }
     private void AttackCoolTime()
     {
         //クールタイムを進める
@@ -183,13 +200,30 @@ public class Warrior : MonoBehaviour
         }
     }
 
+    //アニメーションの再生状態に合わせて呼び出す
+    public void OnFinishAnimFlag()
+    {
+        m_isFinishAnim = true;
+    }
+    public void OffFinishAnimFlag()
+    {
+        m_isFinishAnim = false;
+    }
+    //攻撃判定が出るタイミングで呼び出す
+    public void OnActiveAttackFlag()
+    {
+        m_swordColl.enabled = true;
+    }
+    public void OffActiveAttackFlag()
+    {
+        m_swordColl.enabled = false;
+    }
+
     // Update is called once per frame
     void Update()
     {
         //距離とターゲットのベクトルを計算
         SerchDir();
-        //クールタイムを数える
-        AttackCoolTime();
         //無限ループを防ぐ
         int count = 0;
         do
@@ -227,5 +261,8 @@ public class Warrior : MonoBehaviour
         } while (m_nextState == m_nowState);//状態が変化していないならループを抜ける
     }
 
-  
+    private void OnTriggerEnter(Collider other)
+    {
+        //攻撃されたとき
+    }
 }
