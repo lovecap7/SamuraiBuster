@@ -12,6 +12,10 @@ TagManager:
   - MeleeEnemy
   - RangeEnemy
   - Boss
+  - PlayerMeleeAttack
+  - PlayerRangeAttack
+  - EnemyMeleeAttack
+  - EnemyRangeAttack
   layers:
   - Default
   - TransparentFX
