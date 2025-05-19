@@ -59,6 +59,8 @@ public class Warrior : MonoBehaviour
 
     private void UpdateIdle()//‘Ò‹@
     {
+        //“G•ûŒü‚ğŒü‚­
+        transform.rotation = Quaternion.LookRotation(m_targetDir.normalized, Vector3.up);
         Debug.Log("Warrior‚ÍIdleó‘Ô\n");
         //UŒ‚
         if (m_attackCoolTime <= 0.0f)
