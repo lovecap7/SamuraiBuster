@@ -2,15 +2,16 @@ using UnityEngine;
 
 public class Fighter : PlayerBase
 {
-    // 剣のオブジェクト
-    CapsuleCollider m_sword;
+    [SerializeField] GameObject m_katana;
+    CapsuleCollider m_katanaCollider;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
 
-        //m_sword = GameObject.Find("Sword").GetComponent<CapsuleCollider>();
+        m_katanaCollider = m_katana.GetComponent<CapsuleCollider>();
+        m_katanaCollider.enabled = false;
     }
 
     // Update is called once per frame
@@ -19,15 +20,18 @@ public class Fighter : PlayerBase
         base.Update();
     }
 
-    // 剣を振る
     public override void Attack()
     {
-        // アニメーション
         //m_anim.SetBool("Attaking", true);
+    }
 
-        // 剣の当たり判定をオンにする
-        //m_sword.enabled = true;
+    public void EnableKatanaCol()
+    {
+        m_katanaCollider.enabled = true;
+    }
 
-        //Debug.Log("Attack!!");
+    public void DisableKatanaCol()
+    {
+        m_katanaCollider.enabled = false;
     }
 }
