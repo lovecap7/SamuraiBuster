@@ -572,9 +572,9 @@ MonoBehaviour:
   - {fileID: 430136476}
   - {fileID: 2048989647}
   kChaseSpeed: 500
-  kChaseDis: 1.5
+  kChaseDis: 1.2
   kAttackCoolTime: 5
-  kAttackTotalFrame: 5
+  kAttackTotalFrame: 40
 --- !u!1 &2145061773
 GameObject:
   m_ObjectHideFlags: 0
