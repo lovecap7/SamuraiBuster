@@ -117,6 +117,12 @@ public class Warrior : EnemyBase
     private void UpdateHit()//やられ
     {
         Debug.Log("WarriorはHit状態\n");
+        if(m_isFinishHitAnim)
+        {
+            m_isFinishHitAnim = false;
+            ChangeState(StateType.Idle);
+            return;
+        }
     }
 
     private void UpdateDead()//死亡
@@ -132,25 +138,33 @@ public class Warrior : EnemyBase
             case StateType.Idle:
                 m_animator.SetBool("Attack", false);
                 m_animator.SetBool("Chase", false);
+                m_animator.SetBool("Hit", false);
                 break;
             //追いかける
             case StateType.Chase:
                 m_animator.SetBool("Attack", false);
                 m_animator.SetBool("Chase", true);
+                m_animator.SetBool("Hit", false);
                 break;
             //攻撃
             case StateType.Attack:
                 m_animator.SetBool("Attack", true);
                 m_animator.SetBool("Chase", false);
+                m_animator.SetBool("Hit", false);
                 m_isFinishAttackAnim = false;
                 break;
             //やられ
             case StateType.Hit:
-               
+                m_animator.SetBool("Attack", false);
+                m_animator.SetBool("Chase", false);
+                m_animator.SetBool("Hit", true);
                 break;
             //死亡
             case StateType.Dead:
-               
+                m_animator.SetBool("Attack", false);
+                m_animator.SetBool("Chase", false);
+                m_animator.SetBool("Hit", false);
+                m_animator.SetBool("Dead", true);
                 break;
         }
         m_nextState = state;
@@ -194,11 +208,11 @@ public class Warrior : EnemyBase
         } while (m_nextState == m_nowState);//状態が変化していないならループを抜ける
     }
     //攻撃判定が出るタイミングで呼び出す
-    public void OnActiveAttackFlag()
+    public void OnActiveAttack()
     {
         m_swordCollider.enabled = true;
     }
-    public void OffActiveAttackFlag()
+    public void OffActiveAttack()
     {
         m_swordCollider.enabled = false;
     }
@@ -221,9 +235,18 @@ public class Warrior : EnemyBase
         //攻撃されたとき
         if(other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")
         {
-            //やられリアクション
-            ChangeState(StateType.Hit);
-            return;
+            //ヒットアニメーション中にまた殴られたら最初から
+            if (m_nowState == StateType.Hit)
+            {
+                //最初から再生
+                m_animator.Play("Warrior_Hit", 0, 0);
+            }
+            else
+            {
+                //やられリアクション
+                ChangeState(StateType.Hit);
+                return;
+            }
         }
     }
 }

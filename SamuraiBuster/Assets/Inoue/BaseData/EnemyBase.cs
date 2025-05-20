@@ -40,7 +40,8 @@ abstract public class EnemyBase : MonoBehaviour
 
     //アニメーション
     protected Animator m_animator;
-    protected bool m_isFinishAttackAnim = false;
+    protected bool m_isFinishAttackAnim = false;//攻撃アニメーションが終了したらtrue
+    protected bool m_isFinishHitAnim = false;//ヒットアニメーションが終了したらtrue
 
     //回転速度
     [SerializeField] protected float kRotateSpeed = 30.0f;
@@ -86,6 +87,12 @@ abstract public class EnemyBase : MonoBehaviour
     {
         m_isFinishAttackAnim = false;
     }
+
+    virtual public void OnFinishAnimHit()
+    {
+        m_isFinishHitAnim = true;
+    }
+
 
     abstract protected void AttackCoolTime();//攻撃クールタイム
     abstract protected void SerchTarget();//距離とターゲットのベクトルを計算
