@@ -1,0 +1,94 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public enum StateType//状態
+{
+    Idle,   //待機
+    Chase,  //追いかける
+    Back,   //下がる
+    Attack, //攻撃
+    Hit,    //やられ
+    Dead,   //死亡
+    Freeze, //硬直
+}
+
+abstract public class EnemyBase : MonoBehaviour
+{
+    //ターゲットの数
+    protected const int kTargetNum = 4;
+    //ターゲット候補
+    [SerializeField] protected GameObject[] m_targetList = new GameObject[kTargetNum];
+    //ターゲット
+    protected GameObject m_target;
+
+    //ターゲットとの距離
+    protected float m_targetDis = 0.0f;
+    //ターゲットへのベクトル
+    protected Vector3 m_targetDir = new Vector3();
+    //自分の状態
+    protected StateType m_nowState;
+    protected StateType m_nextState;
+    //リジッドボディ
+    protected Rigidbody rb;
+    //サーチに成功したか
+    protected bool m_isHitSearch = false;
+
+    //次の攻撃までにかかる時間
+    [SerializeField] protected float kAttackCoolTime = 3.0f;
+    protected float m_attackCoolTime;
+
+    //アニメーション
+    protected Animator m_animator;
+    protected bool m_isFinishAttackAnim = false;
+
+    //回転速度
+    [SerializeField] protected float kRotateSpeed = 30.0f;
+
+    // Start is called before the first frame update
+    virtual protected void Start()
+    {
+        rb = GetComponent<Rigidbody>();
+
+        m_animator = GetComponent<Animator>();
+
+        m_attackCoolTime = kAttackCoolTime;
+
+        //一番近い敵をターゲットに
+        SerchTarget();
+    }
+
+    // Update is called once per frame
+    virtual protected void Update()
+    {
+        //一番近い敵をターゲットに
+        SerchTarget();
+        //攻撃クールタイム
+        AttackCoolTime();
+    }
+    virtual protected void ModelDir()//モデルの向き
+    {
+        if (!m_isHitSearch) return;//ターゲットがいないなら早期リターン
+        //自分の向き取得
+        Quaternion myDir = transform.rotation;
+        Quaternion target = Quaternion.LookRotation(m_targetDir);
+        //だんだん相手のほうを向く
+        transform.rotation = Quaternion.RotateTowards(myDir, target, kRotateSpeed * Time.deltaTime);
+    }
+
+    //アニメーションの再生状態に合わせて呼び出す
+    virtual public void OnFinishAnimAttack()
+    {
+        m_isFinishAttackAnim = true;
+        Debug.Log("攻撃");
+    }
+    virtual public void OffFinishAnimAttack()
+    {
+        m_isFinishAttackAnim = false;
+    }
+
+    abstract protected void AttackCoolTime();//攻撃クールタイム
+    abstract protected void SerchTarget();//距離とターゲットのベクトルを計算
+    abstract protected void ChangeState(StateType state);//距離とターゲットのベクトルを計算
+    abstract protected void UpdateState();//距離とターゲットのベクトルを計算
+}

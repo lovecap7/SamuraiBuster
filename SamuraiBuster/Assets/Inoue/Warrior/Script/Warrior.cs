@@ -3,67 +3,63 @@ using System.Collections.Generic;
 using UnityEngine;
 using static UnityEngine.GraphicsBuffer;
 
-public enum StateType//状態
+public class Warrior : EnemyBase
 {
-    Idle,   //待機
-    Chase,  //追いかける
-    Attack, //攻撃
-    Hit,    //やられ
-    Dead,   //死亡
-}
 
-public class Warrior : MonoBehaviour
-{
-    //ターゲットの数
-    private const int kTargetNum = 4;
-    //ターゲット候補
-    [SerializeField ]private GameObject[] m_targetList = new GameObject[kTargetNum];
-    //ターゲットとの距離
-    private float m_targetDis = 0.0f;
-    //ターゲットへのベクトル
-    private Vector3 m_targetDir = new Vector3();
-    //自分の状態
-    private StateType m_nowState;
-    private StateType m_nextState;
-    //リジッドボディ
-    private Rigidbody rb;
-    //サーチに成功したか
-    private bool m_isHitSearch = false;
+    //攻撃判定
+    [SerializeField] private GameObject m_sword;
+    private CapsuleCollider m_swordCollider;
 
     //追いかける速度
     [SerializeField] private float kChaseSpeed = 10.0f;
     [SerializeField] private float kChaseDis = 1.4f;
-
-    //次の攻撃までにかかる時間
-    [SerializeField]  private float kAttackCoolTime = 3.0f;
-    private float m_attackCoolTime;
-    //攻撃判定
-    [SerializeField] private GameObject m_sword;
-    CapsuleCollider m_swordColl;
-
-    //アニメーション
-    private Animator m_animator;
-    bool m_isFinishAttackAnim = false;
-
-    //回転速度
-    private float kRotateSpeed = 30.0f;
-
     // Start is called before the first frame update
-    void Start()
+    override protected void Start()
     {
+        base.Start();
         //待機状態
         m_nowState = StateType.Idle;
         m_nextState = m_nowState;
-
-        rb = GetComponent<Rigidbody>();
-
-        m_animator = GetComponent<Animator>();
-
-        m_attackCoolTime = kAttackCoolTime;
-
         //攻撃判定
-        m_swordColl = m_sword.GetComponent<CapsuleCollider>();
-        m_swordColl.enabled = false;
+        m_swordCollider = m_sword.GetComponent<CapsuleCollider>();
+        m_swordCollider.enabled = false;
+    }
+    override protected void SerchTarget()//ターゲットの距離と方向を探索
+    {
+        //ターゲットを見つけれたか
+        m_isHitSearch = false;
+        //最も近いターゲットを探す
+        Vector3 myPos = transform.position;
+        float shortDistance = 100000;//適当な値
+        for (int i = 0; i < kTargetNum; ++i)
+        {
+            //中身がないなら飛ばす
+            if (m_targetList[i] == null) continue;
+            //相手に向かうベクトル
+            Vector3 vec = m_targetList[i].transform.position - myPos;
+            vec.y = 0.0f;//縦方向は考慮しない
+            //最短距離なら
+            if (shortDistance > vec.magnitude)
+            {
+                //現在の最短にする
+                shortDistance = vec.magnitude;
+                //ターゲットへのベクトル
+                m_targetDir = vec;
+                //ターゲットにする
+                m_target = m_targetList[i];
+                m_isHitSearch = true;
+            }
+        }
+        m_targetDis = shortDistance;//最短距離を保存
+    }
+    override protected void AttackCoolTime()
+    {
+        //クールタイムを進める
+        m_attackCoolTime -= Time.deltaTime;
+        if (m_attackCoolTime <= 0.0f)
+        {
+            m_attackCoolTime = 0.0f;
+        }
     }
 
     private void UpdateIdle()//待機
@@ -83,7 +79,7 @@ public class Warrior : MonoBehaviour
 
         }
         //モデルの向き更新
-        ModelDir();
+        base.ModelDir();
     }
 
     private void UpdateChase()//追いかける
@@ -96,10 +92,14 @@ public class Warrior : MonoBehaviour
             return;
         }
         //移動
+        if (m_targetDir.magnitude > 0.0f)
+        {
+            m_targetDir.Normalize();//正規化
+        }
         Vector3 moveVec = m_targetDir * Time.deltaTime * kChaseSpeed;
         rb.AddForce(moveVec,ForceMode.Force);
         //モデルの向き更新
-        ModelDir();
+        base.ModelDir();
     }
 
     private void UpdateAttack()//攻撃
@@ -124,7 +124,7 @@ public class Warrior : MonoBehaviour
         Debug.Log("WarriorはDead状態\n");
     }
 
-    private void ChangeState(StateType state)
+    override protected void ChangeState(StateType state)
     {
         switch (state)
         {
@@ -132,111 +132,31 @@ public class Warrior : MonoBehaviour
             case StateType.Idle:
                 m_animator.SetBool("Attack", false);
                 m_animator.SetBool("Chase", false);
-                m_isFinishAttackAnim = false;
-                m_nextState = StateType.Idle;
                 break;
             //追いかける
             case StateType.Chase:
                 m_animator.SetBool("Attack", false);
                 m_animator.SetBool("Chase", true);
-                m_isFinishAttackAnim = false;
-                m_nextState = StateType.Chase;
                 break;
             //攻撃
             case StateType.Attack:
                 m_animator.SetBool("Attack", true);
                 m_animator.SetBool("Chase", false);
-                m_nextState = StateType.Attack;
+                m_isFinishAttackAnim = false;
                 break;
             //やられ
             case StateType.Hit:
-                m_nextState= StateType.Hit;
+               
                 break;
             //死亡
             case StateType.Dead:
-                m_nextState= StateType.Dead;
+               
                 break;
         }
+        m_nextState = state;
     }
-
-    private void SerchDir()//ターゲットの距離と方向を探索
+    override protected void UpdateState()
     {
-        //ターゲットを見つけれたか
-        m_isHitSearch = false;
-        //最も近いターゲットを探す
-        Vector3 myPos = transform.position;
-        float shortDistance = 100000;//適当な値
-        for (int i = 0; i < kTargetNum; ++i)
-        {
-            //中身がないなら飛ばす
-            if (m_targetList[i] == null) continue;    
-            //相手に向かうベクトル
-            Vector3 vec = m_targetList[i].transform.position - myPos;
-            vec.y = 0.0f;//縦方向は考慮しない
-            //最短距離なら
-            if (shortDistance > vec.magnitude)
-            {
-                //次の最短距離にする
-                shortDistance = vec.magnitude;
-                //向き
-                m_targetDir = vec.normalized;//正規化
-
-                m_isHitSearch = true;
-            }
-        }
-        m_targetDis = shortDistance;//最短距離を保存
-    }
-
-    private void ModelDir()
-    {
-        //自分の向き取得
-        Quaternion myDir = transform.rotation;
-        Quaternion target = Quaternion.LookRotation(m_targetDir);
-        //だんだん相手のほうを向く
-        transform.rotation = Quaternion.RotateTowards(myDir, target, kRotateSpeed * Time.deltaTime);
-    }
-    private void AttackCoolTime()
-    {
-        //クールタイムを進める
-        m_attackCoolTime -= Time.deltaTime;
-        if (m_attackCoolTime <= 0.0f)
-        {
-            m_attackCoolTime = 0.0f;
-        }
-    }
-
-    //アニメーションの再生状態に合わせて呼び出す
-    public void OnFinishAnimFlag()
-    {
-        m_isFinishAttackAnim = true;
-        Debug.Log("攻撃");
-    }
-    public void OffFinishAnimFlag()
-    {
-        m_isFinishAttackAnim = false;
-    }
-    //攻撃判定が出るタイミングで呼び出す
-    public void OnActiveAttackFlag()
-    {
-        m_swordColl.enabled = true;
-    }
-    public void OffActiveAttackFlag()
-    {
-        m_swordColl.enabled = false;
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        //距離とターゲットのベクトルを計算
-        SerchDir();
-        //攻撃クールタイム
-        AttackCoolTime();
-        //追いかけるターゲットがいないなら待機状態にする
-        if (!m_isHitSearch)
-        {
-            ChangeState(StateType.Idle);
-        }
         //無限ループを防ぐ
         int count = 0;
         do
@@ -272,6 +192,28 @@ public class Warrior : MonoBehaviour
             if (count > 10) break;//ループを抜ける
 
         } while (m_nextState == m_nowState);//状態が変化していないならループを抜ける
+    }
+    //攻撃判定が出るタイミングで呼び出す
+    public void OnActiveAttackFlag()
+    {
+        m_swordCollider.enabled = true;
+    }
+    public void OffActiveAttackFlag()
+    {
+        m_swordCollider.enabled = false;
+    }
+
+    // Update is called once per frame
+    override protected void Update()
+    {
+        base.Update();
+        //追いかけるターdゲットがいないなら待機状態にする
+        if (!m_isHitSearch)
+        {
+            ChangeState(StateType.Idle);
+        }
+        //状態に合わせた処理
+        UpdateState();
     }
 
     private void OnTriggerEnter(Collider other)
