@@ -13,6 +13,7 @@ public class Fighter : PlayerBase
     const int kAttackInterval = 30;
 
     int m_dodgeTimer = 0;
+    int m_attackTimer = 0;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -31,12 +32,18 @@ public class Fighter : PlayerBase
         // タイマー進めて値も制限
         ++m_dodgeTimer;
         if (m_dodgeTimer > kDodgeInterval) m_dodgeTimer = kDodgeInterval;
+        ++m_attackTimer;
+        if (m_attackTimer > kAttackInterval) m_attackTimer = kAttackInterval;
+
+
     }
 
     public override void Attack()
     {
+        if (m_attackTimer < kAttackInterval) return;
+
         // 刀を振る
-        //m_anim.SetBool("Attaking", true);
+        m_anim.SetBool("Attaking", true);
     }
 
     public override void Skill()
@@ -45,6 +52,7 @@ public class Fighter : PlayerBase
         if (m_dodgeTimer < kDodgeInterval) return;
 
         m_rigid.AddForce(transform.rotation*kDodgeForce, ForceMode.Impulse);
+        m_anim.SetBool("Skilling", true);
 
         m_dodgeTimer = 0; 
     }

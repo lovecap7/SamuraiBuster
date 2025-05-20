@@ -44,11 +44,6 @@ abstract public class PlayerBase : MonoBehaviour
         if (m_inputHolder.IsTriggerSkill)
         {
             Skill();
-            m_anim.SetBool("Skilling", true);
-        }
-        else
-        {
-            m_anim.SetBool("Skilling", false);
         }
     }
 
