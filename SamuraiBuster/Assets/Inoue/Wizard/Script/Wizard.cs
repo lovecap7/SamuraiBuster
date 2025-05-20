@@ -41,14 +41,14 @@ public class Wizard : EnemyBase
     {
         m_isFinishAnimBack = false;
     }
-    public void BackForceImpulse()//アニメーションが呼び出す
+    private void BackForce()//アニメーションが呼び出す
     {
         //バックステップ
         if (m_targetDir.magnitude > 0.0f)
         {
             m_targetDir.Normalize();
         }
-        rb.AddForce(m_targetDir * -kBackSpeed, ForceMode.Impulse);
+        rb.AddForce(m_targetDir * -kBackSpeed, ForceMode.Force);
     }
 
     override protected void SerchTarget()//ターゲットの距離と方向を探索
@@ -106,6 +106,13 @@ public class Wizard : EnemyBase
         Debug.Log("WizardはIdle状態\n");
         //モデルの向き更新
         base.ModelDir();
+
+        //近すぎるなら離れる
+        if (m_targetDis <= kBackDis && m_backCoolTime <= 0.0f)
+        {
+            ChangeState(StateType.Back);
+            return;
+        }
         //攻撃
         if (m_attackCoolTime <= 0.0f)
         {
@@ -116,12 +123,6 @@ public class Wizard : EnemyBase
         if (m_targetDis > kChaseDis)
         {
             ChangeState(StateType.Chase);
-            return;
-        }
-        //近すぎるなら離れる
-        if (m_targetDis <= kBackDis && m_backCoolTime <= 0.0f)
-        {
-            ChangeState(StateType.Back);
             return;
         }
     }
@@ -146,6 +147,7 @@ public class Wizard : EnemyBase
     }
     private void UpdateBack()//下がる
     {
+        BackForce();
         Debug.Log("WizardはBack状態\n");
         if (m_isFinishAnimBack)
         {
@@ -170,6 +172,12 @@ public class Wizard : EnemyBase
     private void UpdateHit()//やられ
     {
         Debug.Log("WizardはHit状態\n");
+        if (m_isFinishHitAnim)
+        {
+            m_isFinishHitAnim = false;
+            ChangeState(StateType.Idle);
+            return;
+        }
     }
     private void UpdateDead()//死亡
     {
@@ -184,18 +192,24 @@ public class Wizard : EnemyBase
                 m_animator.SetBool("Attack", false);
                 m_animator.SetBool("Chase", false);
                 m_animator.SetBool("Back", false);
+                m_animator.SetBool("Hit", false);
+                m_animator.SetBool("Dead", false);
                 break;
             //追いかける
             case StateType.Chase:
                 m_animator.SetBool("Attack", false);
                 m_animator.SetBool("Chase", true);
                 m_animator.SetBool("Back", false);
+                m_animator.SetBool("Hit", false);
+                m_animator.SetBool("Dead", false);
                 break;
             //下がる
             case StateType.Back:
                 m_animator.SetBool("Attack", false);
                 m_animator.SetBool("Chase", false);
                 m_animator.SetBool("Back", true);
+                m_animator.SetBool("Hit", false);
+                m_animator.SetBool("Dead", false);
                 //バックステップのクールタイム
                 m_backCoolTime = kBackCoolTime;
                 m_isFinishAnimBack = false;
@@ -205,15 +219,25 @@ public class Wizard : EnemyBase
                 m_animator.SetBool("Attack", true);
                 m_animator.SetBool("Chase", false);
                 m_animator.SetBool("Back", false);
+                m_animator.SetBool("Hit", false);
+                m_animator.SetBool("Dead", false);
                 m_isFinishAttackAnim = false;   
                 break;
             //やられ
             case StateType.Hit:
-               
+                m_animator.SetBool("Attack", false);
+                m_animator.SetBool("Chase", false);
+                m_animator.SetBool("Back", false);
+                m_animator.SetBool("Hit", true);
+                m_animator.SetBool("Dead", false);
                 break;
             //死亡
             case StateType.Dead:
-             
+                m_animator.SetBool("Attack", false);
+                m_animator.SetBool("Chase", false);
+                m_animator.SetBool("Back", false);
+                m_animator.SetBool("Hit", false);
+                m_animator.SetBool("Dead", true);
                 break;
         }
         m_nextState = state;
@@ -275,5 +299,25 @@ public class Wizard : EnemyBase
         }
         //状態に合わせた処理
         UpdateState();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        //攻撃されたとき
+        if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")
+        {
+            //ヒットアニメーション中にまた殴られたら最初から
+            if(m_nowState == StateType.Hit)
+            {
+                //最初から再生
+                m_animator.Play("Wizard_Hit", 0, 0);
+            }
+            else
+            {
+                //やられリアクション
+                ChangeState(StateType.Hit);
+                return;
+            }
+        }
     }
 }
