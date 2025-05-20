@@ -34,11 +34,6 @@ abstract public class PlayerBase : MonoBehaviour
         if (m_inputHolder.IsTriggerAttack)
         {
             Attack();
-            m_anim.SetBool("Attacking", true);
-        }
-        else
-        {
-            m_anim.SetBool("Attacking", false);
         }
 
         if (m_inputHolder.IsTriggerSkill)
@@ -90,5 +85,15 @@ abstract public class PlayerBase : MonoBehaviour
     public void DisableMove()
     {
         m_canMove= false;
+    }
+
+    public void OnTriggerEnter(Collider other)
+    {
+        // 敵からの攻撃なら
+        if (other.CompareTag("EnemyMeleeAttack") || other.CompareTag("EnemyRangeAttack"))
+        {
+            // ダメージを受けておく
+            // これはそれぞれのロール
+        }
     }
 }

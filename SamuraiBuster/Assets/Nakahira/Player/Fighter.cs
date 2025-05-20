@@ -1,16 +1,21 @@
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Fighter : PlayerBase
 {
     [SerializeField] GameObject m_katana;
     CapsuleCollider m_katanaCollider;
-    // 先行して入力で
-    bool m_isAttackInput = false;
 
-    Vector3 kDodgeForce = new(0,0,5.0f);
+    // 通常攻撃のクールタイム1~2,2~3段目
+    const int kAttackInterval0 = 60;
+    const int kAttackInterval1 = 60;
+    // 出し切ったor連続攻撃の猶予を過ぎた
+    const int kAttackInterval2 = 120;
+    int m_attackInterval = 0;
+
+    Vector3 kDodgeForce = new(0,0,10.0f);
 
     const int kDodgeInterval = 60;
-    const int kAttackInterval = 30;
 
     int m_dodgeTimer = 0;
     int m_attackTimer = 0;
@@ -33,17 +38,34 @@ public class Fighter : PlayerBase
         ++m_dodgeTimer;
         if (m_dodgeTimer > kDodgeInterval) m_dodgeTimer = kDodgeInterval;
         ++m_attackTimer;
-        if (m_attackTimer > kAttackInterval) m_attackTimer = kAttackInterval;
 
-
+        if (m_attackTimer > m_attackInterval)
+        {
+            m_anim.SetBool("Attacking", false);
+        }
     }
 
     public override void Attack()
     {
-        if (m_attackTimer < kAttackInterval) return;
+        if (m_attackTimer < m_attackInterval) return;
+
+        Debug.Log("通ってる");
+
+        //　今日の クソコード　一日一糞
+        var nowState = m_anim.GetCurrentAnimatorStateInfo(0);
+
+        if (nowState.IsName("FighterAtk2")) return;
+        else if (nowState.IsName("FighterAtk0")) m_attackInterval = kAttackInterval1;
+        else if (nowState.IsName("FighterAtk1")) m_attackInterval = kAttackInterval2;
+        else                                     m_attackInterval = kAttackInterval0;
+
+        Debug.Log(m_attackInterval);
 
         // 刀を振る
-        m_anim.SetBool("Attaking", true);
+        m_anim.SetBool("Attacking", true);
+
+        // タイマーリセット
+        m_attackTimer = 0;
     }
 
     public override void Skill()
@@ -51,8 +73,15 @@ public class Fighter : PlayerBase
         // ドッジロール
         if (m_dodgeTimer < kDodgeInterval) return;
 
-        m_rigid.AddForce(transform.rotation*kDodgeForce, ForceMode.Impulse);
-        m_anim.SetBool("Skilling", true);
+        m_anim.SetTrigger("Skilling");
+
+        // 今の入力方向にプレイヤーを向ける
+        if (m_inputAxis.sqrMagnitude >= 0.1f)
+        {
+            transform.rotation = Quaternion.LookRotation(new (m_inputAxis.x, 0, m_inputAxis.y));
+        }
+
+        m_rigid.AddForce(transform.rotation * kDodgeForce, ForceMode.Impulse);
 
         m_dodgeTimer = 0; 
     }
