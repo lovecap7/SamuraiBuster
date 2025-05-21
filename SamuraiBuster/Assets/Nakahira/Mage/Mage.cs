@@ -7,6 +7,7 @@ public class Mage : PlayerBase
     CapsuleCollider m_stuffCollider;
 
     int m_attackInterval = 0;
+    const int kAttackInterval = 50;
     const int kDodgeInterval = 60;
     const int kInitHP = 1;
 
@@ -34,13 +35,17 @@ public class Mage : PlayerBase
         ++m_dodgeTimer;
         if (m_dodgeTimer > kDodgeInterval) m_dodgeTimer = kDodgeInterval;
         ++m_attackTimer;
+        if (m_attackTimer > kAttackInterval) m_attackTimer = kAttackInterval;
 
         Debug.Log($"今の攻撃クールタイム:{m_attackInterval - m_attackTimer},回避クールタイム{kDodgeInterval - m_dodgeTimer}");
     }
 
     public override void Attack()
     {
-        // 刀を振る
+        // タイマーがクールタイムに達していないと何もしない
+        if (m_attackTimer < kAttackInterval) return;
+
+        // 弾を撃つ
         m_anim.SetTrigger("Attack");
 
         // タイマーリセット
