@@ -178,8 +178,10 @@ public class Boss : EnemyBase
     }
     private void UpdateTackleA()
     {
+        //モデルの向き更新
+        base.ModelDir();
         //チャージが完了したら
-        if(m_isChargeCmp)
+        if (m_isChargeCmp)
         {
             m_tackleTime -= Time.deltaTime;
             //移動
@@ -189,9 +191,7 @@ public class Boss : EnemyBase
             }
             //突進
             Vector3 moveVec = m_targetDir * kTackleSpeed * Time.deltaTime ;
-            rb.AddForce(moveVec, ForceMode.Force);
-            //モデルの向き更新
-            base.ModelDir();
+            rb.AddForce(moveVec, ForceMode.Acceleration);
             //タックルの持続が終わったら
             if (m_tackleTime <= 0.0f)
             {
@@ -255,6 +255,8 @@ public class Boss : EnemyBase
                 break;
             //攻撃
             case StateType.Attack:
+                OffActivemMeleeAttack();
+                OffActivemTackleAttack();
                 if (m_isMeleeAttack)
                 {
                     //メレーアタック
