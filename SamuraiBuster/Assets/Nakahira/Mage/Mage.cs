@@ -1,16 +1,11 @@
 using Unity.VisualScripting;
 using UnityEngine;
 
-public class Fighter : PlayerBase
+public class Mage : PlayerBase
 {
-    [SerializeField] GameObject m_katana;
-    CapsuleCollider m_katanaCollider;
+    [SerializeField] GameObject m_stuff;
+    CapsuleCollider m_stuffCollider;
 
-    // 通常攻撃のクールタイム1~2,2~3段目
-    const int kAttackInterval0 = 30;
-    const int kAttackInterval1 = 70;
-    // 出し切ったor連続攻撃の猶予を過ぎた
-    const int kAttackInterval2 = 120;
     int m_attackInterval = 0;
     const int kDodgeInterval = 60;
     const int kInitHP = 1;
@@ -25,8 +20,8 @@ public class Fighter : PlayerBase
     {
         base.Start();
 
-        m_katanaCollider = m_katana.GetComponent<CapsuleCollider>();
-        m_katanaCollider.enabled = false;
+        m_stuffCollider = m_stuff.GetComponent<CapsuleCollider>();
+        m_stuffCollider.enabled = false;
         m_hitPoint = kInitHP;
     }
 
@@ -40,32 +35,13 @@ public class Fighter : PlayerBase
         if (m_dodgeTimer > kDodgeInterval) m_dodgeTimer = kDodgeInterval;
         ++m_attackTimer;
 
-        // 攻撃のクールタイムを消化していれば
-        if (m_attackTimer < m_attackInterval)
-        {
-            m_anim.SetBool("Attacking", false);
-        }
-
         Debug.Log($"今の攻撃クールタイム:{m_attackInterval - m_attackTimer},回避クールタイム{kDodgeInterval - m_dodgeTimer}");
     }
 
     public override void Attack()
     {
-        // 攻撃のクールタイムが経過していないなら実行しない
-        if (m_attackTimer < m_attackInterval) return;
-
-        Debug.Log("通ってる");
-
-        //　今日の クソコード　一日一糞
-        var nowState = m_anim.GetCurrentAnimatorStateInfo(0);
-
-        if (nowState.IsName("FighterAtk2")) return;
-        else if (nowState.IsName("FighterAtk0")) m_attackInterval = kAttackInterval1;
-        else if (nowState.IsName("FighterAtk1")) m_attackInterval = kAttackInterval2;
-        else                                     m_attackInterval = kAttackInterval0;
-
         // 刀を振る
-        m_anim.SetBool("Attacking", true);
+        m_anim.SetTrigger("Attack");
 
         // タイマーリセット
         m_attackTimer = 0;
@@ -106,11 +82,17 @@ public class Fighter : PlayerBase
 
     public void EnableKatanaCol()
     {
-        m_katanaCollider.enabled = true;
+        m_stuffCollider.enabled = true;
     }
 
     public void DisableKatanaCol()
     {
-        m_katanaCollider.enabled = false;
+        m_stuffCollider.enabled = false;
+    }
+
+    // Triggerが戻らないので自分で戻す
+    public void ResetAttackTrigger()
+    {
+        m_anim.ResetTrigger("Attack");
     }
 }

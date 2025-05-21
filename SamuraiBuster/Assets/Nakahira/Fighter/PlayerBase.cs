@@ -17,8 +17,8 @@ abstract public class PlayerBase : MonoBehaviour
     // €‚ñ‚¾‚ç“§–¾‚É‚È‚Á‚ÄŠÏí‚µ‚©‚Å‚«‚È‚¢
     protected bool m_isGhostMode = false;
 
-    private bool m_canMove = true;
-
+    protected bool m_canMove = true;
+    protected bool m_canAttack = true;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -38,7 +38,7 @@ abstract public class PlayerBase : MonoBehaviour
 
         Move();
 
-        if (m_inputHolder.IsTriggerAttack)
+        if (m_inputHolder.IsTriggerAttack && m_canAttack)
         {
             Attack();
         }
@@ -96,6 +96,16 @@ abstract public class PlayerBase : MonoBehaviour
     public void DisableMove()
     {
         m_canMove= false;
+    }
+
+    public void EnableAttack()
+    {
+        m_canAttack = true;
+    }
+
+    public void DisableAttack()
+    {
+        m_canAttack = false;
     }
 
     public void OnTriggerEnter(Collider other)
