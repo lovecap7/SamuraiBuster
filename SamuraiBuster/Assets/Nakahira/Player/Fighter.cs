@@ -13,7 +13,7 @@ public class Fighter : PlayerBase
     const int kAttackInterval2 = 120;
     int m_attackInterval = 0;
     const int kDodgeInterval = 60;
-    const int kInitHP = 100;
+    const int kInitHP = 1;
 
     Vector3 kDodgeForce = new(0,0,10.0f);
 
@@ -27,6 +27,7 @@ public class Fighter : PlayerBase
 
         m_katanaCollider = m_katana.GetComponent<CapsuleCollider>();
         m_katanaCollider.enabled = false;
+        m_hitPoint = kInitHP;
     }
 
     // Update is called once per frame
@@ -90,10 +91,6 @@ public class Fighter : PlayerBase
 
     public override void OnDamage(int damage)
     {
-        // 無敵ならくらわない
-        // これ基底クラスに置いたほうがきれいかも？
-        if (m_isInvincibleFrame > 0) return;
-
         // HPが減る
         m_hitPoint -= damage;
 
