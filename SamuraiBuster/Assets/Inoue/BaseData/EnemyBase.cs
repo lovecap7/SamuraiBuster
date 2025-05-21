@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static Unity.VisualScripting.Metadata;
 
 public enum StateType//状態
 {
@@ -15,10 +16,10 @@ public enum StateType//状態
 
 abstract public class EnemyBase : MonoBehaviour
 {
-    //ターゲットの数
-    protected const int kTargetNum = 4;
+    //プレイヤーをまとめたオブジェクト
+    [SerializeField] protected GameObject m_players;
     //ターゲット候補
-    [SerializeField] protected GameObject[] m_targetList = new GameObject[kTargetNum];
+    protected GameObject[] m_targetList;
     //ターゲット
     protected GameObject m_target;
 
@@ -54,6 +55,13 @@ abstract public class EnemyBase : MonoBehaviour
         m_animator = GetComponent<Animator>();
 
         m_attackCoolTime = kAttackCoolTime;
+
+        // 子オブジェクト達を入れる配列の初期化
+        m_targetList = new GameObject[m_players.transform.childCount];
+        for (int i = 0;i < m_targetList.Length;++i)
+        {
+            m_targetList[i] = m_players.transform.GetChild(i).gameObject;
+        }
 
         //一番近い敵をターゲットに
         SerchTarget();
