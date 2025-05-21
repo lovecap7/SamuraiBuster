@@ -5,6 +5,7 @@ abstract public class PlayerBase : MonoBehaviour
     const float kMoveSpeed = 2000.0f;
     const float kRotateSpeed = 0.2f;
     const float kMoveThreshold = 0.001f;
+    const int kInvincibleFrame = 60;
 
     protected InputHolder m_inputHolder;
     protected Animator m_anim;
@@ -46,6 +47,9 @@ abstract public class PlayerBase : MonoBehaviour
         {
             Skill();
         }
+
+        // 無敵時間の経過
+        --m_isInvincibleFrame;
     }
 
     private void GetInput()
@@ -99,9 +103,15 @@ abstract public class PlayerBase : MonoBehaviour
         // 敵からの攻撃なら
         if (other.CompareTag("EnemyMeleeAttack") || other.CompareTag("EnemyRangeAttack"))
         {
+            if (m_isInvincibleFrame > 0) return;
+
             // ダメージを受けておく
             // これはそれぞれのロール
             OnDamage(/*other.GetComponent<EnemyBase>()*/1);
+
+            // 無敵判定は基底でやってもいいでしょ
+            m_isInvincibleFrame = kInvincibleFrame;
+
             return;
         }
     }
