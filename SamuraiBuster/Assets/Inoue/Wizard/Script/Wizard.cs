@@ -58,7 +58,7 @@ public class Wizard : EnemyBase
         //最も近いターゲットを探す
         Vector3 myPos = transform.position;
         float shortDistance = 100000;//適当な値
-        for (int i = 0; i < kTargetNum; ++i)
+        for (int i = 0; i < m_targetList.Length; ++i)
         {
             //中身がないなら飛ばす
             if (m_targetList[i] == null) continue;
@@ -230,6 +230,7 @@ public class Wizard : EnemyBase
                 m_animator.SetBool("Back", false);
                 m_animator.SetBool("Hit", true);
                 m_animator.SetBool("Dead", false);
+                m_isFinishHitAnim = false;
                 break;
             //死亡
             case StateType.Dead:
