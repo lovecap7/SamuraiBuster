@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5e9b37dd2b8b41648a4731a21c853b2f
+guid: c8320a17fc9a23d4799e01e61b428394
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Human@HandsClosed01
+      name: HumanM@ObjectGripShoulder02_L
       takeName: Untitled
       internalID: 3094330708855449807
       firstFrame: 0

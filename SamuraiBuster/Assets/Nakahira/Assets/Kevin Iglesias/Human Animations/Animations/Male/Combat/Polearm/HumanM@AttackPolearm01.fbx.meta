@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5e9b37dd2b8b41648a4731a21c853b2f
+guid: 04d7996e4b80c684a97630c930541aff
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,11 +33,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Human@HandsClosed01
+      name: HumanM@AttackPolearm01
       takeName: Untitled
       internalID: 3094330708855449807
       firstFrame: 0
-      lastFrame: 10
+      lastFrame: 41
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
