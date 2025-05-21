@@ -7,15 +7,15 @@ public class Fighter : PlayerBase
     CapsuleCollider m_katanaCollider;
 
     // 通常攻撃のクールタイム1~2,2~3段目
-    const int kAttackInterval0 = 60;
-    const int kAttackInterval1 = 60;
+    const int kAttackInterval0 = 30;
+    const int kAttackInterval1 = 70;
     // 出し切ったor連続攻撃の猶予を過ぎた
     const int kAttackInterval2 = 120;
     int m_attackInterval = 0;
+    const int kDodgeInterval = 60;
+    const int kInitHP = 100;
 
     Vector3 kDodgeForce = new(0,0,10.0f);
-
-    const int kDodgeInterval = 60;
 
     int m_dodgeTimer = 0;
     int m_attackTimer = 0;
@@ -39,14 +39,18 @@ public class Fighter : PlayerBase
         if (m_dodgeTimer > kDodgeInterval) m_dodgeTimer = kDodgeInterval;
         ++m_attackTimer;
 
-        if (m_attackTimer > m_attackInterval)
+        // 攻撃のクールタイムを消化していれば
+        if (m_attackTimer < m_attackInterval)
         {
             m_anim.SetBool("Attacking", false);
         }
+
+        Debug.Log($"今の攻撃クールタイム:{m_attackInterval - m_attackTimer},回避クールタイム{kDodgeInterval - m_dodgeTimer}");
     }
 
     public override void Attack()
     {
+        // 攻撃のクールタイムが経過していないなら実行しない
         if (m_attackTimer < m_attackInterval) return;
 
         Debug.Log("通ってる");
@@ -58,8 +62,6 @@ public class Fighter : PlayerBase
         else if (nowState.IsName("FighterAtk0")) m_attackInterval = kAttackInterval1;
         else if (nowState.IsName("FighterAtk1")) m_attackInterval = kAttackInterval2;
         else                                     m_attackInterval = kAttackInterval0;
-
-        Debug.Log(m_attackInterval);
 
         // 刀を振る
         m_anim.SetBool("Attacking", true);
@@ -84,6 +86,25 @@ public class Fighter : PlayerBase
         m_rigid.AddForce(transform.rotation * kDodgeForce, ForceMode.Impulse);
 
         m_dodgeTimer = 0; 
+    }
+
+    public override void OnDamage(int damage)
+    {
+        // 無敵ならくらわない
+        // これ基底クラスに置いたほうがきれいかも？
+        if (m_isInvincibleFrame > 0) return;
+
+        // HPが減る
+        m_hitPoint -= damage;
+
+        // ダメージモーション
+        m_anim.SetTrigger("Damage");
+
+        // ここが三途の川
+        if (m_hitPoint > 0) return;
+
+        // やっぱ死亡モーション
+        m_anim.SetTrigger("Death");
     }
 
     public void EnableKatanaCol()
