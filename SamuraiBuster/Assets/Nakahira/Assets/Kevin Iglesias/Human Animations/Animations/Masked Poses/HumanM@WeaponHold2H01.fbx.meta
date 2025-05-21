@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 5e9b37dd2b8b41648a4731a21c853b2f
+guid: 3d694a1e4e41a3346b76b6f2a46a6037
 ModelImporter:
   serializedVersion: 22200
   internalIDToNameTable: []
@@ -33,7 +33,7 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Human@HandsClosed01
+      name: HumanM@WeaponHold2H01
       takeName: Untitled
       internalID: 3094330708855449807
       firstFrame: 0
