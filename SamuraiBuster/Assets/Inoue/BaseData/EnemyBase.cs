@@ -6,6 +6,7 @@ using static Unity.VisualScripting.Metadata;
 public enum StateType//ó‘Ô
 {
     Idle,   //‘Ò‹@
+    Run,    //‘–‚é
     Chase,  //’Ç‚¢‚©‚¯‚é
     Back,   //‰º‚ª‚é
     Attack, //UŒ‚
