@@ -10,8 +10,14 @@ abstract public class PlayerBase : MonoBehaviour
     protected Animator m_anim;
     protected Rigidbody m_rigid;
     protected Vector2 m_inputAxis = new();
+    protected int m_isInvincibleFrame = 0;
+    // 派生先で初期値を入れてくれ
+    protected int m_hitPoint = 0;
+    // 死んだら透明になって観戦しかできない
+    protected bool m_isGhostMode = false;
 
     private bool m_canMove = true;
+
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -76,6 +82,7 @@ abstract public class PlayerBase : MonoBehaviour
     // ロールによって実装を変える
     abstract public void Attack();
     abstract public void Skill();
+    abstract public void OnDamage(int damage);
 
     public void EnableMove()
     {
@@ -94,6 +101,8 @@ abstract public class PlayerBase : MonoBehaviour
         {
             // ダメージを受けておく
             // これはそれぞれのロール
+            OnDamage(/*other.GetComponent<EnemyBase>()*/1);
+            return;
         }
     }
 }
