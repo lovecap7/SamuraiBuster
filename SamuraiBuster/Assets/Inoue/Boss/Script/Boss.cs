@@ -131,8 +131,20 @@ public class Boss : EnemyBase
         //UŒ‚
         if (m_attackCoolTime <= 0.0f)
         {
-
-            m_isTackleAttack = true;
+            //ƒ‰ƒ“ƒ_ƒ€‚Å‚Ç‚ê‚©‘I‚Ô
+            int seleceAttack = Random.Range(0, 3);
+            if (seleceAttack <= 0)
+            {
+                m_isMeleeAttack = true;
+            }
+            else if(seleceAttack == 1)
+            {
+                m_isTackleAttack = true;
+            }
+            else if (seleceAttack == 2)
+            {
+                m_isRangeAttack = true;
+            }
             ChangeState(StateType.Attack);
             return;
         }
