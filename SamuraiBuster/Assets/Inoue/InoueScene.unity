@@ -204,6 +204,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 5730744664667206452, guid: cbe96a0702205e24e9ca7d6a62a91a87, type: 3}
   m_PrefabInstance: {fileID: 4018539224905847928}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &872048942 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4728426434207774260, guid: 3cb5adcb7a3e3f44aaed73c31ebc833f, type: 3}
+  m_PrefabInstance: {fileID: 2064928994}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1306398059 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: -290750445479886849, guid: 3cb5adcb7a3e3f44aaed73c31ebc833f, type: 3}
@@ -415,8 +420,8 @@ Rigidbody:
   m_GameObject: {fileID: 1990898693}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 2
+  m_AngularDrag: 0.1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -431,7 +436,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!114 &1990898700
 MonoBehaviour:
@@ -450,6 +455,9 @@ MonoBehaviour:
   kRotateSpeed: 40
   m_rightHand: {fileID: 1306398059}
   m_tackle: {fileID: 2090133842}
+  m_leftHand: {fileID: 872048942}
+  m_magicShotPrefab: {fileID: 5306759777461869583, guid: 34b8a3109d3d1f04e908f8c8e0d9295e, type: 3}
+  kShotSpeed: 5
   kFreezeFrame: 60
   kTackleFrame: 40
   kTackleSpeed: 70
@@ -1408,7 +1416,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1840211370160394578, guid: 8b3e52ff91181414980f65c1bcc2bb54, type: 3}
       propertyPath: kChaseSpeed
-      value: 40
+      value: 60
       objectReference: {fileID: 0}
     - target: {fileID: 1840211370160394578, guid: 8b3e52ff91181414980f65c1bcc2bb54, type: 3}
       propertyPath: kBackCoolTime
@@ -3055,15 +3063,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2429304186189659489, guid: 1d8fa5fd5c2717140a14f14f6fa96ec2, type: 3}
       propertyPath: m_Drag
-      value: 0
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2429304186189659489, guid: 1d8fa5fd5c2717140a14f14f6fa96ec2, type: 3}
       propertyPath: m_Mass
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2429304186189659489, guid: 1d8fa5fd5c2717140a14f14f6fa96ec2, type: 3}
+      propertyPath: m_AngularDrag
+      value: 0.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 2429304186189659489, guid: 1d8fa5fd5c2717140a14f14f6fa96ec2, type: 3}
       propertyPath: m_Constraints
-      value: 80
+      value: 84
       objectReference: {fileID: 0}
     - target: {fileID: 2546070266916115816, guid: 1d8fa5fd5c2717140a14f14f6fa96ec2, type: 3}
       propertyPath: m_LocalPosition.x
@@ -3099,7 +3111,7 @@ PrefabInstance:
       objectReference: {fileID: 425380737}
     - target: {fileID: 2566269608204104561, guid: 1d8fa5fd5c2717140a14f14f6fa96ec2, type: 3}
       propertyPath: kChaseSpeed
-      value: 40
+      value: 70
       objectReference: {fileID: 0}
     - target: {fileID: 2566269608204104561, guid: 1d8fa5fd5c2717140a14f14f6fa96ec2, type: 3}
       propertyPath: m_targetList.Array.size
@@ -4624,8 +4636,8 @@ Rigidbody:
   m_GameObject: {fileID: 2499452442862418994}
   serializedVersion: 4
   m_Mass: 1
-  m_Drag: 0
-  m_AngularDrag: 0.05
+  m_Drag: 2
+  m_AngularDrag: 0.1
   m_CenterOfMass: {x: 0, y: 0, z: 0}
   m_InertiaTensor: {x: 1, y: 1, z: 1}
   m_InertiaRotation: {x: 0, y: 0, z: 0, w: 1}
@@ -4640,7 +4652,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 80
+  m_Constraints: 84
   m_CollisionDetection: 0
 --- !u!136 &9152487317083421940
 CapsuleCollider:

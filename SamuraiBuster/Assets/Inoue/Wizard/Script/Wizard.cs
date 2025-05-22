@@ -10,7 +10,7 @@ public class Wizard : EnemyBase
     //’e
     [SerializeField] private GameObject m_magicShotPrefab;
     //’e‚Ì‘¬“x
-    public float m_shotSpeed = 5.0f;
+    [SerializeField] private float kShotSpeed = 5.0f;
     //‹ß‚Ã‚­‘¬“x
     [SerializeField] private float kChaseSpeed = 500.0f;
     //“G‚ª—£‚ê‚·‚¬‚Ä‚¢‚é‚Æ‹ß‚Ã‚­
@@ -99,7 +99,7 @@ public class Wizard : EnemyBase
             m_targetDir.Normalize();
         }
         //’e‚ÌˆÚ“®
-        shotRb.AddForce(m_targetDir * m_shotSpeed, ForceMode.Impulse);
+        shotRb.AddForce(m_targetDir * kShotSpeed, ForceMode.Impulse);
     }
     private void UpdateIdle()//‘Ò‹@
     {

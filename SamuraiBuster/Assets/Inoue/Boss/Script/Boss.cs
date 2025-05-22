@@ -9,6 +9,12 @@ public class Boss : EnemyBase
     private CapsuleCollider m_rightHandCollider;
     [SerializeField] private GameObject m_tackle;
     private SphereCollider m_tackleCollider;
+    //左手から魔法を出す
+    [SerializeField] private GameObject m_leftHand;
+    //弾
+    [SerializeField] private GameObject m_magicShotPrefab;
+    //弾の速度
+    [SerializeField] private float kShotSpeed = 5.0f;
 
     //硬直フレーム
     [SerializeField] private float kFreezeFrame = 3.0f;
@@ -103,6 +109,20 @@ public class Boss : EnemyBase
     {
         m_isChargeCmp= true;
     }
+    public void MagicShot()//弾を打つ
+    {
+        //弾の生成
+        GameObject magicShot = Instantiate(m_magicShotPrefab, m_leftHand.transform.position, Quaternion.identity);
+        //リジッドボディを取得
+        Rigidbody shotRb = magicShot.GetComponent<Rigidbody>();
+        //弾の移動方向
+        if (m_targetDir.magnitude > 0.0f)
+        {
+            m_targetDir.Normalize();
+        }
+        //弾の移動
+        shotRb.AddForce(m_targetDir * kShotSpeed, ForceMode.Impulse);
+    }
     private void UpdateIdle()
     {
         Debug.Log("BossはIdle状態\n");
@@ -111,7 +131,7 @@ public class Boss : EnemyBase
         //攻撃
         if (m_attackCoolTime <= 0.0f)
         {
-            //m_isMeleeAttack = true;
+
             m_isTackleAttack = true;
             ChangeState(StateType.Attack);
             return;
@@ -210,6 +230,8 @@ public class Boss : EnemyBase
     }
     private void UpdateRangeA()
     {
+        //モデルの向き更新
+        base.ModelDir();
         //アニメーションが終了したら
         if (m_isFinishAttackAnim)
         {
@@ -247,6 +269,7 @@ public class Boss : EnemyBase
             case StateType.Idle:
                 m_animator.SetBool("MeleeA", false);
                 m_animator.SetBool("TackleA", false);
+                m_animator.SetBool("RangeA", false);
                 m_animator.SetBool("Freeze", false);
                 break;
             //移動
@@ -262,6 +285,7 @@ public class Boss : EnemyBase
                     //メレーアタック
                     m_animator.SetBool("MeleeA", true);
                     m_animator.SetBool("TackleA", false);
+                    m_animator.SetBool("RangeA", false);
                     m_animator.SetBool("Freeze", false);
                 }
                 else if(m_isTackleAttack)
@@ -271,11 +295,16 @@ public class Boss : EnemyBase
                     m_isChargeCmp = false;
                     m_animator.SetBool("MeleeA", false);
                     m_animator.SetBool("TackleA", true);
+                    m_animator.SetBool("RangeA", false);
                     m_animator.SetBool("Freeze", false);
                 }
                 else if(m_isRangeAttack)
                 {
                     //レンジアタック
+                    m_animator.SetBool("MeleeA", false);
+                    m_animator.SetBool("TackleA", false);
+                    m_animator.SetBool("RangeA", true);
+                    m_animator.SetBool("Freeze", false);
                 }
                 else if(m_isUltAttack)
                 {
