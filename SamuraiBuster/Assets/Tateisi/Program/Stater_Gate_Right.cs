@@ -4,25 +4,25 @@ using UnityEngine;
 
 public class Stater_Gate_Right : MonoBehaviour
 {
-    private bool GameClear;
+    private bool GameStater;
     private void Start()
     {
-        GameClear = false;
+        GameStater = false;
     }
     void Update()
     {
         Transform transform = this.transform;
         Vector3 vector = transform.eulerAngles;
 
-        if (Input.GetKeyDown(KeyCode.C))
+        if (Input.GetKeyDown(KeyCode.Z))
         {
-            GameClear = true;
-            Debug.Log("ゲームクリア(Cキー)が押されました。");
+            GameStater = true;
+            Debug.Log("ゲームクリア(Zキー)が押されました。");
         }
         // クリアー時の処理
-        if (GameClear)
+        if (GameStater)
         {
-            if (vector.y <= 340.0f)
+            if (vector.y <= 170.0f)
             {
                 transform.Rotate(new Vector3(0.0f, 0.5f, 0.0f));
             }
