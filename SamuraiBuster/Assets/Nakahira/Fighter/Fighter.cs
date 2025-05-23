@@ -89,10 +89,4 @@ public class Fighter : PlayerBase
     {
         m_katanaCollider.enabled = false;
     }
-
-    // Trigger‚ª–ß‚ç‚È‚¢‚Ì‚ÅŽ©•ª‚Å–ß‚·
-    public void ResetAttackTrigger()
-    {
-        m_anim.ResetTrigger("Attack");
-    }
 }
