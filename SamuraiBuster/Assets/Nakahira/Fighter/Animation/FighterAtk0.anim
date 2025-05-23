@@ -11148,11 +11148,11 @@ AnimationClip:
   m_HasMotionFloatCurves: 0
   m_Events:
   - time: 0.083333336
-    functionName: ResetAttackTrigger
+    functionName: set_damage
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 0
+    intParameter: 300
     messageOptions: 0
   - time: 0.16666667
     functionName: DisableMove
@@ -11163,6 +11163,13 @@ AnimationClip:
     messageOptions: 0
   - time: 0.26666668
     functionName: EnableKatanaCol
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.41666666
+    functionName: ResetAttackTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
