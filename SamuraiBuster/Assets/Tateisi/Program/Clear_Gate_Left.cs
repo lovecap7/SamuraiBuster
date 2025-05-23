@@ -4,23 +4,14 @@ using UnityEngine;
 
 public class Clear_Gate_Left : MonoBehaviour
 {
-    private bool GameClear;
-    private void Start()
-    {
-        GameClear = false;
-    }
+
     void Update()
     {
         Transform transform = this.transform;
         Vector3 vector = transform.eulerAngles;
 
-        if (Input.GetKeyDown(KeyCode.C))
-        {
-            GameClear = true;
-            Debug.Log("ゲームクリア(Cキー)が押されました。");
-        }
         // クリアー時の処理
-        if (GameClear)
+        if (GameDirector.Instance.IsGameCleared)
         {
             if (vector.y >= 200.0f)
             {
