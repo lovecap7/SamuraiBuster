@@ -11,7 +11,7 @@ public class Stater_Gate_Right : MonoBehaviour
         Vector3 vector = transform.eulerAngles;
 
         // スタート時の処理
-        if (GameManager.Instance.IsGameStarted)
+        if (GameDirector.Instance.IsGameStarted)
         {
             if (vector.y <= 170.0f)
             {

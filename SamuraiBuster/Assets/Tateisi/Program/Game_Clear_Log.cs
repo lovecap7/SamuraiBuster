@@ -14,7 +14,7 @@ public class Game_Clear_Log : MonoBehaviour
     }
     void Update()
     {
-        if (GameManager.Instance.IsGameCleared)
+        if (GameDirector.Instance.IsGameCleared)
         {
             ScoreText.text = ("ƒQ[ƒ€ƒNƒŠƒA!!");
         }

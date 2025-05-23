@@ -22,12 +22,12 @@ public class Score : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            TotalScore = TotalScore + GameManager.Instance.Damage;
+            TotalScore = TotalScore + GameDirector.Instance.Damage;
             Debug.Log("左ボタンが押されています。");
         }
         if (Input.GetMouseButtonDown(1))
         {
-            TotalScore = TotalScore + GameManager.Instance.Des;
+            TotalScore = TotalScore + GameDirector.Instance.Des;
             Debug.Log("右ボタンが押されています。");
         }
         ScoreText.text = TotalScore.ToString("0");

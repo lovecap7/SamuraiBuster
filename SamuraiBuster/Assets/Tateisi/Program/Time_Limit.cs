@@ -22,8 +22,8 @@ public class Time_Limit : MonoBehaviour
 
     private void Start()
     {
-        Min = GameManager.Instance.Min;
-        Sec = GameManager.Instance.Sec;
+        Min = GameDirector.Instance.Min;
+        Sec = GameDirector.Instance.Sec;
         TotalTimeLimit = Min * 60 + Sec;
         oldSecTime = 0f;
         timerText = GetComponentInChildren<Text>();

@@ -11,7 +11,7 @@ public class Clear_Gate_Left : MonoBehaviour
         Vector3 vector = transform.eulerAngles;
 
         // ƒNƒŠƒA[Žž‚Ìˆ—
-        if (GameManager.Instance.IsGameCleared)
+        if (GameDirector.Instance.IsGameCleared)
         {
             if (vector.y >= 200.0f)
             {
