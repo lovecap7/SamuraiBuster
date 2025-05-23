@@ -97,12 +97,6 @@ public class Tank : PlayerBase
         m_axeCollider.enabled = false;
     }
 
-    // Triggerが戻らないので自分で戻す
-    public void ResetAttackTrigger()
-    {
-        m_anim.ResetTrigger("Attack");
-    }
-
     // 敵がこのクラスを見てヘイト管理する想定
     public bool IsGuarding()
     {

@@ -83,10 +83,4 @@ public class Healer : PlayerBase
         // ‚â‚Á‚Ï€–Sƒ‚[ƒVƒ‡ƒ“
         m_anim.SetTrigger("Death");
     }
-
-    // Trigger‚ª–ß‚ç‚È‚¢‚Ì‚Å©•ª‚Å–ß‚·
-    public void ResetAttackTrigger()
-    {
-        m_anim.ResetTrigger("Attack");
-    }
 }
