@@ -283,6 +283,7 @@ public class Boss : EnemyBase
                 m_animator.SetBool("TackleA", false);
                 m_animator.SetBool("RangeA", false);
                 m_animator.SetBool("Freeze", false);
+                m_animator.SetBool("Dead", false);
                 break;
             //ˆÚ“®
             case StateType.Run:
@@ -299,6 +300,7 @@ public class Boss : EnemyBase
                     m_animator.SetBool("TackleA", false);
                     m_animator.SetBool("RangeA", false);
                     m_animator.SetBool("Freeze", false);
+                    m_animator.SetBool("Dead", false);
                 }
                 else if(m_isTackleAttack)
                 {
@@ -309,6 +311,7 @@ public class Boss : EnemyBase
                     m_animator.SetBool("TackleA", true);
                     m_animator.SetBool("RangeA", false);
                     m_animator.SetBool("Freeze", false);
+                    m_animator.SetBool("Dead", false);
                 }
                 else if(m_isRangeAttack)
                 {
@@ -317,6 +320,7 @@ public class Boss : EnemyBase
                     m_animator.SetBool("TackleA", false);
                     m_animator.SetBool("RangeA", true);
                     m_animator.SetBool("Freeze", false);
+                    m_animator.SetBool("Dead", false);
                 }
                 else if(m_isUltAttack)
                 {
@@ -330,10 +334,14 @@ public class Boss : EnemyBase
                 m_animator.SetBool("MeleeA", false);
                 m_animator.SetBool("TackleA", false);
                 m_animator.SetBool("Freeze", true);
+                m_animator.SetBool("Dead", false);
                 break;
             //€–S
             case StateType.Dead:
-             
+                m_animator.SetBool("MeleeA", false);
+                m_animator.SetBool("TackleA", false);
+                m_animator.SetBool("Freeze", true);
+                m_animator.SetBool("Dead", true);
                 break;
         }
         m_nextState = state;
@@ -380,6 +388,12 @@ public class Boss : EnemyBase
     override protected void Update()
     {
         base.Update();
+        //€–S‚µ‚Ä‚¢‚½‚ç
+        if (m_isDead)
+        {
+            ChangeState(StateType.Dead);
+            return;
+        }
         //’Ç‚¢‚©‚¯‚éƒ^[dƒQƒbƒg‚ª‚¢‚È‚¢‚È‚ç‘Ò‹@ó‘Ô‚É‚·‚é
         if (!m_isHitSearch)
         {
@@ -387,5 +401,15 @@ public class Boss : EnemyBase
         }
         //ó‘Ô‚É‡‚í‚¹‚½ˆ—
         UpdateState();
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        if (m_isDead) return;//€–S‚µ‚Ä‚¢‚½‚ç‰½‚à‚µ‚È‚¢
+        //UŒ‚‚³‚ê‚½‚Æ‚«
+        if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")
+        {
+         
+        }
     }
 }
