@@ -5,6 +5,10 @@ using static UnityEngine.GraphicsBuffer;
 
 public class Warrior : EnemyBase
 {
+    //体力
+    [SerializeField] private int kHP = 1000;
+    //ダメージ
+    [SerializeField] private int kDamage = 100;
 
     //攻撃判定
     [SerializeField] private GameObject m_sword;
@@ -13,10 +17,14 @@ public class Warrior : EnemyBase
     //追いかける速度
     [SerializeField] private float kChaseSpeed = 10.0f;
     [SerializeField] private float kChaseDis = 1.4f;
+
     // Start is called before the first frame update
     override protected void Start()
     {
         base.Start();
+        //体力とダメージ
+        m_characterStatus.hitPoint = kHP;
+        m_characterStatus.damage = kDamage;
         //待機状態
         m_nowState = StateType.Idle;
         m_nextState = m_nowState;
@@ -254,6 +262,7 @@ public class Warrior : EnemyBase
                 ChangeState(StateType.Hit);
                 return;
             }
+           
         }
     }
 }

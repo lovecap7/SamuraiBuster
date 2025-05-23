@@ -53,12 +53,17 @@ abstract public class EnemyBase : MonoBehaviour
     //死亡アニメーションが終わったらtrue
     protected bool m_isFinishDeadAnim = false;//死亡アニメーションが終了したらtrue
 
+    //体力とダメージの処理に使うクラス
+    protected CharacterStatus m_characterStatus;
+
     // Start is called before the first frame update
     virtual protected void Start()
     {
         rb = GetComponent<Rigidbody>();
 
         m_animator = GetComponent<Animator>();
+
+        m_characterStatus = GetComponent<CharacterStatus>();
 
         m_attackCoolTime = kAttackCoolTime;
 
