@@ -5,19 +5,13 @@ using UnityEngine.UI;
 
 public class Score : MonoBehaviour
 {
-    // 制限時間
+    // 合計スコア
     private float TotalScore;
-
-    // ダメージスコア
-    [SerializeField]
-    private int Damage;
-
-    // 撃破スコア
-    [SerializeField]
-    private int Des;
 
     // 前回Update時の秒数
     private float oldSecTime;
+    // スコア表示用UIテキスト
+    [SerializeField]
     private Text ScoreText;
     private void Start()
     {
@@ -28,12 +22,12 @@ public class Score : MonoBehaviour
     {
         if (Input.GetMouseButtonDown(0))
         {
-            TotalScore = TotalScore + Damage;
+            TotalScore = TotalScore + GameDirector.Instance.Damage;
             Debug.Log("左ボタンが押されています。");
         }
         if (Input.GetMouseButtonDown(1))
         {
-            TotalScore = TotalScore + Des;
+            TotalScore = TotalScore + GameDirector.Instance.Des;
             Debug.Log("右ボタンが押されています。");
         }
         ScoreText.text = TotalScore.ToString("0");
