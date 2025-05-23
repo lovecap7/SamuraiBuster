@@ -1743,6 +1743,7 @@ GameObject:
   - component: {fileID: 6111530163653308506}
   - component: {fileID: 5716392288534905199}
   - component: {fileID: 4235004959404180656}
+  - component: {fileID: 4811383491218171006}
   m_Layer: 0
   m_Name: Fighter
   m_TagString: Fighter
@@ -1981,6 +1982,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1f83ad92ab4fb4b4f90d200f904bce22, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &4811383491218171006
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6364168805674056223}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4332e96c301ac246a83805a1a73f348, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6490862861079388850

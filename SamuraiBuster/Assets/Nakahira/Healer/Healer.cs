@@ -1,9 +1,9 @@
-using Unity.VisualScripting;
 using UnityEngine;
 
 public class Healer : PlayerBase
 {
     [SerializeField] GameObject m_magicBall;
+    [SerializeField] GameObject m_wand;
 
     const int kSkillInterval = 420;
     const int kInitHP = 50;
@@ -84,9 +84,9 @@ public class Healer : PlayerBase
         m_anim.SetTrigger("Death");
     }
 
-    // Trigger‚ª–ß‚ç‚È‚¢‚Ì‚ÅŽ©•ª‚Å–ß‚·
-    public void ResetAttackTrigger()
+    public void Shoot()
     {
-        m_anim.ResetTrigger("Attack");
+        // ’e‚ðŒ‚‚Â
+        var magicBall =  Instantiate(m_magicBall, m_wand.transform.position, transform.rotation);
     }
 }

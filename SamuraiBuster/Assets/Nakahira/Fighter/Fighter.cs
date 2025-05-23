@@ -5,10 +5,11 @@ public class Fighter : PlayerBase
 {
     [SerializeField] GameObject m_katana;
     CapsuleCollider m_katanaCollider;
+    CharacterStatus m_chara;
 
     int m_attackInterval = 0;
     const int kDodgeInterval = 60;
-    const int kInitHP = 1;
+    const int kInitHP = 150;
 
     Vector3 kDodgeForce = new(0,0,10.0f);
 
@@ -23,6 +24,8 @@ public class Fighter : PlayerBase
         m_katanaCollider = m_katana.GetComponent<CapsuleCollider>();
         m_katanaCollider.enabled = false;
         m_hitPoint = kInitHP;
+        m_chara = GetComponent<CharacterStatus>();
+        m_chara.hitPoint = kInitHP;
     }
 
     // Update is called once per frame

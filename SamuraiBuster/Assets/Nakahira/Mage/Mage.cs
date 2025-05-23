@@ -10,7 +10,7 @@ public class Mage : PlayerBase
     int m_attackInterval = 0;
     const int kAttackInterval = 120;
     const int kSkillInterval = 60;
-    const int kInitHP = 1;
+    const int kInitHP = 50;
 
     Quaternion kFireRotation = Quaternion.AngleAxis(20, Vector3.up);
 
@@ -22,6 +22,8 @@ public class Mage : PlayerBase
     {
         base.Start();
         m_hitPoint = kInitHP;
+        m_skillTimer = kSkillInterval;
+        m_attackTimer = kAttackInterval;
     }
 
     // Update is called once per frame
