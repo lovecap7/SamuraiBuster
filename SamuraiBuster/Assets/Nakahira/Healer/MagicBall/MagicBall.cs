@@ -20,7 +20,6 @@ public class MagicBall : MonoBehaviour
         m_rigidBody = GetComponent<Rigidbody>();
         // ˆê’¼ü‚É”ò‚Ô ‚»‚ê‚¾‚¯
         m_rigidBody.velocity = transform.rotation * kInitVel;
-        GetComponent<ParticleSystem>().Play();
         transform.localScale = Vector3.zero;
     }
 
