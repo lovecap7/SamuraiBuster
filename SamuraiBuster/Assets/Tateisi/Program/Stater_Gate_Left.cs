@@ -4,23 +4,13 @@ using UnityEngine;
 
 public class Stater_Gate_Left : MonoBehaviour
 {
-    private bool GameStater;
-    private void Start()
-    {
-        GameStater = false;
-    }
     void Update()
     {
         Transform transform = this.transform;
         Vector3 vector = transform.eulerAngles;
 
-        if (Input.GetKeyDown(KeyCode.Z))
-        {
-            GameStater = true;
-            Debug.Log("ゲームクリア(Zキー)が押されました。");
-        }
-        // クリアー時の処理
-        if (GameStater)
+        // スタート時の処理
+        if (GameManager.Instance.IsGameStarted)
         {
             if (vector.y >= 10.0f)
             {
