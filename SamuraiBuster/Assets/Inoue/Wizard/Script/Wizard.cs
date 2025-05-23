@@ -293,8 +293,13 @@ public class Wizard : EnemyBase
         //バックステップのクールタイム
         m_backCoolTime -= Time.deltaTime;
         if(m_backCoolTime <= 0.0f) m_backCoolTime = 0.0f;
+        //死亡していたら
+        if (m_isDead)
+        {
+            ChangeState(StateType.Dead);
+        }
         //追いかけるターdゲットがいないなら待機状態にする
-        if (!m_isHitSearch)
+        else if (!m_isHitSearch)
         {
             ChangeState(StateType.Idle);
         }
@@ -304,6 +309,7 @@ public class Wizard : EnemyBase
 
     private void OnTriggerEnter(Collider other)
     {
+        if (m_isDead) return;//死亡していたら何もしない
         //攻撃されたとき
         if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")
         {

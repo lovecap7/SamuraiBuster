@@ -48,6 +48,11 @@ abstract public class EnemyBase : MonoBehaviour
     //回転速度
     [SerializeField] protected float kRotateSpeed = 30.0f;
 
+    //死亡フラグ
+    [SerializeField] protected bool m_isDead = false;
+    //死亡アニメーションが終わったらtrue
+    protected bool m_isFinishDeadAnim = false;//死亡アニメーションが終了したらtrue
+
     // Start is called before the first frame update
     virtual protected void Start()
     {
@@ -75,6 +80,8 @@ abstract public class EnemyBase : MonoBehaviour
         SerchTarget();
         //攻撃クールタイム
         AttackCoolTime();
+        //死亡状態
+        DebugDead();
     }
     virtual protected void ModelDir()//モデルの向き
     {
@@ -101,8 +108,18 @@ abstract public class EnemyBase : MonoBehaviour
     {
         m_isFinishHitAnim = true;
     }
+    virtual public void OnDead()
+    {
+       Destroy(this.gameObject);
+    }
 
-
+    virtual protected void DebugDead()
+    {
+        if(Input.GetKeyDown(KeyCode.X))
+        {
+            m_isDead = true;
+        }
+    }
     abstract protected void AttackCoolTime();//攻撃クールタイム
     abstract protected void SerchTarget();//距離とターゲットのベクトルを計算
     abstract protected void ChangeState(StateType state);//距離とターゲットのベクトルを計算
