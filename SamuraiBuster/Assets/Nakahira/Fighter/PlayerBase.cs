@@ -108,6 +108,12 @@ abstract public class PlayerBase : MonoBehaviour
         m_canAttack = false;
     }
 
+    // Trigger‚ª–ß‚ç‚È‚¢‚Ì‚Å©•ª‚Å–ß‚·
+    public void ResetAttackTrigger()
+    {
+        m_anim.ResetTrigger("Attack");
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         // “G‚©‚ç‚ÌUŒ‚‚È‚ç
