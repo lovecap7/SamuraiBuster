@@ -211,6 +211,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6e4fb3502d0e74d845aaf76a343576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  moveDistance: 300
+  moveSpeed: 10
+  leftLimit: 0
+  rightLimit: 900
+  leftWarpP: -600
+  rightWarpP: 600
 --- !u!1 &385719113
 GameObject:
   m_ObjectHideFlags: 0
@@ -368,7 +374,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 763643037}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
   m_Name: 

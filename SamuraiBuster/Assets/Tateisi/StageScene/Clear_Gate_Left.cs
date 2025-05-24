@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Clear_Gate_Left : MonoBehaviour
 {
-
     void Update()
     {
         Transform transform = this.transform;
