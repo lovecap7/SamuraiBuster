@@ -6,6 +6,7 @@ abstract public class PlayerBase : MonoBehaviour
     const float kRotateSpeed = 0.2f;
     const float kMoveThreshold = 0.001f;
     const int kInvincibleFrame = 60;
+    const int kHealValue = 1;
 
     protected InputHolder m_inputHolder;
     protected Animator m_anim;
@@ -19,6 +20,9 @@ abstract public class PlayerBase : MonoBehaviour
 
     protected bool m_canMove = true;
     protected bool m_canAttack = true;
+
+    [SerializeField]
+    GameObject m_healEffect;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -129,6 +133,34 @@ abstract public class PlayerBase : MonoBehaviour
             // 無敵判定は基底でやってもいいでしょ
             m_isInvincibleFrame = kInvincibleFrame;
 
+            return;
+        }
+
+        if (other.CompareTag("HealCircle"))
+        {
+            // 回復してるよエフェクトを出す
+            m_healEffect.SetActive(true);
+        }
+    }
+
+    // 回復のサークル用
+    public void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("HealCircle"))
+        {
+            // 毎フレーム回復したれ
+            m_characterStatus.hitPoint += kHealValue;
+            Debug.Log("すごい！回復してる！");
+            return;
+        }
+    }
+
+    public void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("HealCircle"))
+        {
+            // エフェクト消す
+            m_healEffect.SetActive(false);
             return;
         }
     }

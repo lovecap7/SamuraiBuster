@@ -5,12 +5,17 @@ public class Tank : PlayerBase
 {
     [SerializeField] GameObject m_axe;
     CapsuleCollider m_axeCollider;
+    [SerializeField]
+    GameObject m_buffEffect;
+    AttackPower m_attackPower;
 
     const int kSkillInterval = 420;
     const int kInitHP = 200;
     const float kDamageCutRate = 0.5f;
     const int kAttackInterval = 90;
     const int kSkillDuration = 360;
+    const int kAttackPower = 250;
+    const int kAttackPowerRandomRange = 50;
 
     // 最初はスキルもたまっている
     int m_skillTimer = kSkillInterval;
@@ -24,6 +29,7 @@ public class Tank : PlayerBase
         base.Start();
 
         m_axeCollider = m_axe.GetComponent<CapsuleCollider>();
+        m_attackPower = m_axe.GetComponent<AttackPower>();
         m_axeCollider.enabled = false;
         m_characterStatus.hitPoint = kInitHP;
     }
@@ -33,15 +39,19 @@ public class Tank : PlayerBase
     {
         base.Update();
 
+        // エフェクトがプレイヤーの向きに連動して気持ち悪いので直す
+        m_buffEffect.transform.rotation = Quaternion.identity;
+
         // タイマー進めて値も制限
         ++m_skillTimer;
-        if (m_skillTimer > kSkillInterval) m_skillTimer = kSkillInterval;
         // intだしこれでいいよね
         if (m_skillTimer == kSkillDuration)
         {
             m_anim.SetBool("Guard", false);
+            m_buffEffect.SetActive(false);
             m_isSkilling = false;
         }
+        if (m_skillTimer > kSkillInterval) m_skillTimer = kSkillInterval;
         ++m_attackTimer;
         if (m_attackTimer > kAttackInterval) m_attackTimer = kAttackInterval;
     }
@@ -50,8 +60,11 @@ public class Tank : PlayerBase
     {
         if (m_attackTimer < kAttackInterval) return;
 
-        // 刀を振る
+        // 斧を振る
         m_anim.SetTrigger("Attack");
+
+        // 今回の攻撃力を決める
+        m_attackPower.damage = kAttackPower + (int)Random.Range(kAttackPowerRandomRange * -0.5f, kAttackPowerRandomRange * 0.5f);
 
         // タイマーリセット
         m_attackTimer = 0;
@@ -64,6 +77,9 @@ public class Tank : PlayerBase
 
         m_anim.SetTrigger("Skilling");
         m_anim.SetBool("Guard", true);
+
+        // バフエフェクトを有効化
+        m_buffEffect.SetActive(true);
 
         m_isSkilling = true;
 

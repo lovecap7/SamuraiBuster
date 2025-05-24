@@ -8,6 +8,7 @@ public class Fighter : PlayerBase
     AttackPower m_attackPower;
 
     const int kDodgeInterval = 60;
+    const int kDodgeInvincibleFrame = 30;
     const int kInitHP = 150;
     // çUåÇ1Å`3íiñ⁄ÇÃçUåÇóÕ
     const int kAttackPower1 = 200;
@@ -63,6 +64,9 @@ public class Fighter : PlayerBase
         }
 
         m_rigid.AddForce(transform.rotation * kDodgeForce, ForceMode.Impulse);
+
+        // ñ≥ìG
+        m_isInvincibleFrame = kDodgeInvincibleFrame;
 
         m_dodgeTimer = 0; 
     }
