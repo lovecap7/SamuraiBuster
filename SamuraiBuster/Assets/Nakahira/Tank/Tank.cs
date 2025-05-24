@@ -25,7 +25,7 @@ public class Tank : PlayerBase
 
         m_axeCollider = m_axe.GetComponent<CapsuleCollider>();
         m_axeCollider.enabled = false;
-        m_hitPoint = kInitHP;
+        m_characterStatus.hitPoint = kInitHP;
     }
 
     // Update is called once per frame
@@ -74,14 +74,14 @@ public class Tank : PlayerBase
     {
         // HPが減る
         // スキルを使っているかどうかで被ダメが変わる
-        m_hitPoint -= (int)(damage * (m_isSkilling ? kDamageCutRate : 1.0f));
+        m_characterStatus.hitPoint -= (int)(damage * (m_isSkilling ? kDamageCutRate : 1.0f));
 
         // ダメージモーション
         // スキル効果中はガードモーションが流れる
         m_anim.SetTrigger("Damage");
 
         // ここが三途の川
-        if (m_hitPoint > 0) return;
+        if (m_characterStatus.hitPoint > 0) return;
 
         // やっぱ死亡モーション
         m_anim.SetTrigger("Death");

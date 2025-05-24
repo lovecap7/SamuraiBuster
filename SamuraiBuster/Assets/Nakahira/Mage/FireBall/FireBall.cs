@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Reflection;
 
 public class FireBall : MonoBehaviour
 {
@@ -13,6 +14,9 @@ public class FireBall : MonoBehaviour
     const int kLifeTime = 600;
     Vector3 kAppearSpeed = new(1.0f/ kAppearFrame, 1.0f / kAppearFrame, 1.0f / kAppearFrame);
     const int kAppearFrame = 60;
+    const int kAttackPower = 200;
+    const int kAttackPowerRandomRange = 100;
+    AttackPower m_attackPower;
 
     // Start is called before the first frame update
     void Start()
@@ -22,6 +26,8 @@ public class FireBall : MonoBehaviour
         m_rigidBody.velocity = transform.rotation * kInitVel;
         GetComponent<ParticleSystem>().Play();
         transform.localScale = Vector3.zero;
+        m_attackPower = GetComponent<AttackPower>();
+        m_attackPower.damage = kAttackPower + (int)Random.Range(kAttackPowerRandomRange * -0.5f, kAttackPowerRandomRange * 0.5f);
     }
 
     // Update is called once per frame

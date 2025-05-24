@@ -10,10 +10,10 @@ abstract public class PlayerBase : MonoBehaviour
     protected InputHolder m_inputHolder;
     protected Animator m_anim;
     protected Rigidbody m_rigid;
+    // UŒ‚—Í‚ÆHP‚Í‚±‚±‚É“ü‚Á‚Ä‚¢‚ÄAŠO‚ÉŒ©‚¹‚ç‚ê‚é
+    protected CharacterStatus m_characterStatus;
     protected Vector2 m_inputAxis = new();
     protected int m_isInvincibleFrame = 0;
-    // ”h¶æ‚Å‰Šú’l‚ğ“ü‚ê‚Ä‚­‚ê
-    protected int m_hitPoint = 0;
     // €‚ñ‚¾‚ç“§–¾‚É‚È‚Á‚ÄŠÏí‚µ‚©‚Å‚«‚È‚¢
     protected bool m_isGhostMode = false;
 
@@ -26,6 +26,7 @@ abstract public class PlayerBase : MonoBehaviour
         m_rigid = GetComponent<Rigidbody>();
         m_inputHolder = GetComponent<InputHolder>();
         m_anim = GetComponent<Animator>();
+        m_characterStatus = GetComponent<CharacterStatus>();
 
         Application.targetFrameRate = 60;
     }
@@ -38,12 +39,12 @@ abstract public class PlayerBase : MonoBehaviour
 
         Move();
 
-        if (m_inputHolder.IsTriggerAttack && m_canAttack)
+        if (m_inputHolder.IsAttacking && m_canAttack)
         {
             Attack();
         }
 
-        if (m_inputHolder.IsTriggerSkill)
+        if (m_inputHolder.IsSkilling)
         {
             Skill();
         }

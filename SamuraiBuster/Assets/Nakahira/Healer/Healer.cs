@@ -14,15 +14,13 @@ public class Healer : PlayerBase
     // 最初はスキルもたまっている
     int m_skillTimer = kSkillInterval;
     int m_attackTimer = kAttackInterval;
-    // スキルの効果が続いているかどうか
-    bool m_isSkilling = false;
 
     // Start is called before the first frame update
     protected override void Start()
     {
         base.Start();
 
-        m_hitPoint = kInitHP;
+        m_characterStatus.hitPoint = kInitHP;
     }
 
     // Update is called once per frame
@@ -33,12 +31,6 @@ public class Healer : PlayerBase
         // タイマー進めて値も制限
         ++m_skillTimer;
         if (m_skillTimer > kSkillInterval) m_skillTimer = kSkillInterval;
-        // intだしこれでいいよね
-        if (m_skillTimer == kSkillDuration)
-        {
-            m_anim.SetBool("Guard", false);
-            m_isSkilling = false;
-        }
         ++m_attackTimer;
         if (m_attackTimer > kAttackInterval) m_attackTimer = kAttackInterval;
     }
@@ -56,13 +48,10 @@ public class Healer : PlayerBase
 
     public override void Skill()
     {
-        // 雄たけびを上げてヘイトを集める
+        // サークルを出して
         if (m_skillTimer < kSkillInterval) return;
 
-        m_anim.SetTrigger("Skilling");
-        m_anim.SetBool("Guard", true);
-
-        m_isSkilling = true;
+        m_anim.SetTrigger("Skill");
 
         m_skillTimer = 0;
     }
@@ -70,15 +59,13 @@ public class Healer : PlayerBase
     public override void OnDamage(int damage)
     {
         // HPが減る
-        // スキルを使っているかどうかで被ダメが変わる
-        m_hitPoint -= (int)(damage * (m_isSkilling ? kDamageCutRate : 1.0f));
+        m_characterStatus.hitPoint -= damage;
 
         // ダメージモーション
-        // スキル効果中はガードモーションが流れる
         m_anim.SetTrigger("Damage");
 
         // ここが三途の川
-        if (m_hitPoint > 0) return;
+        if (m_characterStatus.hitPoint > 0) return;
 
         // やっぱ死亡モーション
         m_anim.SetTrigger("Death");
@@ -87,6 +74,6 @@ public class Healer : PlayerBase
     public void Shoot()
     {
         // 弾を撃つ
-        var magicBall =  Instantiate(m_magicBall, m_wand.transform.position, transform.rotation);
+        Instantiate(m_magicBall, m_wand.transform.position, transform.rotation);
     }
 }
