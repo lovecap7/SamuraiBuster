@@ -38,31 +38,27 @@ public class WaveController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Z))
+        if(Input.GetKeyDown(KeyCode.A))
         {
-            //Wave1開始
-            if(!m_isWave1)
-            {
-                //フェード
-                m_transitionFade.OnFadeStart();
-                m_isWave1 = true;
-            }
-            else if(!m_isWave2)
-            {
-                //フェード
-                m_transitionFade.OnFadeStart();
-                m_isWave2 = true;
-            }
-            else if (!m_isWave3)
-            {
-                //フェード
-                m_transitionFade.OnFadeStart();
-                m_isWave3 = true;
-            }
+            //フェード
+            m_transitionFade.OnFadeStart();
+            m_isWave1 = true;
+        }
+        if (Input.GetKeyDown(KeyCode.S))
+        {
+            //フェード
+            m_transitionFade.OnFadeStart();
+            m_isWave2 = true;
+        }
+        if (Input.GetKeyDown(KeyCode.D))
+        {
+            //フェード
+            m_transitionFade.OnFadeStart();
+            m_isWave3 = true;
         }
 
-        //wave1中
-        if(m_isWave1 && m_transitionFade.IsPitchBlack())
+            //wave1中
+            if (m_isWave1 && m_transitionFade.IsPitchBlack())
         {
             Debug.Log("Wave1開始");
             //Wave1をアクティブにする

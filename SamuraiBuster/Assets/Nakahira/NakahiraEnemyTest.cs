@@ -17,10 +17,10 @@ public class NakahiraEnemyTest : MonoBehaviour
 
     private void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("PlayerMeleeAttack"))
+        if (other.CompareTag("PlayerMeleeAttack") || other.CompareTag("PlayerRangeAttack"))
         {
             Debug.Log("当たった！");
-            Destroy(gameObject);
+            Debug.Log($"属性:{other.tag},ダメージ:{other.GetComponent<AttackPower>().damage}");
         }
     }
 }
