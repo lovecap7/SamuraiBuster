@@ -17,6 +17,9 @@ public class WaveController : MonoBehaviour
     private Wave m_wave3s;
     [SerializeField] private bool m_isWave3 = false;//wave3中
 
+    //フェード
+    [SerializeField] private TransitionFade m_transitionFade;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -40,20 +43,26 @@ public class WaveController : MonoBehaviour
             //Wave1開始
             if(!m_isWave1)
             {
+                //フェード
+                m_transitionFade.OnFadeStart();
                 m_isWave1 = true;
             }
             else if(!m_isWave2)
             {
+                //フェード
+                m_transitionFade.OnFadeStart();
                 m_isWave2 = true;
             }
             else if (!m_isWave3)
             {
+                //フェード
+                m_transitionFade.OnFadeStart();
                 m_isWave3 = true;
             }
         }
 
         //wave1中
-        if(m_isWave1)
+        if(m_isWave1 && m_transitionFade.IsPitchBlack())
         {
             Debug.Log("Wave1開始");
             //Wave1をアクティブにする
@@ -66,7 +75,7 @@ public class WaveController : MonoBehaviour
             }
         }
         //wave2中
-        if (m_isWave2)
+        if (m_isWave2 && m_transitionFade.IsPitchBlack())
         {
             Debug.Log("Wave2開始");
             //Wave2をアクティブにする
@@ -79,7 +88,7 @@ public class WaveController : MonoBehaviour
             }
         }
         //wave3中
-        if (m_isWave3)
+        if (m_isWave3 && m_transitionFade.IsPitchBlack())
         {
             Debug.Log("Wave3開始");
             //Wave3をアクティブにする

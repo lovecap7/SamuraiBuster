@@ -23,8 +23,8 @@ public class Warrior : EnemyBase
     {
         base.Start();
         //体力とダメージ
-        m_characterStatus.hitPoint = kHP;
-        m_characterStatus.damage = kDamage;
+       // m_characterStatus.hitPoint = kHP;
+       // m_characterStatus.damage = kDamage;
         //待機状態
         m_nowState = StateType.Idle;
         m_nextState = m_nowState;

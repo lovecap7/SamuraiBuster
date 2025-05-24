@@ -63,7 +63,7 @@ abstract public class EnemyBase : MonoBehaviour
 
         m_animator = GetComponent<Animator>();
 
-        m_characterStatus = GetComponent<CharacterStatus>();
+        //m_characterStatus = GetComponent<CharacterStatus>();
 
         m_attackCoolTime = kAttackCoolTime;
 
