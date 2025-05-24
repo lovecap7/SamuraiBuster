@@ -16,6 +16,7 @@ TagManager:
   - PlayerRangeAttack
   - EnemyMeleeAttack
   - EnemyRangeAttack
+  - HealCircle
   layers:
   - Default
   - TransparentFX

@@ -4,16 +4,19 @@ public class Healer : PlayerBase
 {
     [SerializeField] GameObject m_magicBall;
     [SerializeField] GameObject m_wand;
+    [SerializeField] GameObject m_healCirclePreviewPrefab;
+    [SerializeField] GameObject m_healCirclePrefab;
+    GameObject m_healCirclePreviewInstance;
 
-    const int kSkillInterval = 420;
+    const int kSkillInterval = 480;
     const int kInitHP = 50;
-    const float kDamageCutRate = 0.5f;
     const int kAttackInterval = 90;
-    const int kSkillDuration = 360;
+    Vector3 kPopCircleDistance = new(0,0,10);
 
     // 最初はスキルもたまっている
     int m_skillTimer = kSkillInterval;
     int m_attackTimer = kAttackInterval;
+    Vector3 m_circlePos = new();
 
     // Start is called before the first frame update
     protected override void Start()
@@ -33,13 +36,26 @@ public class Healer : PlayerBase
         if (m_skillTimer > kSkillInterval) m_skillTimer = kSkillInterval;
         ++m_attackTimer;
         if (m_attackTimer > kAttackInterval) m_attackTimer = kAttackInterval;
+
+        // 入力をアニメーション側に反映
+        if (!m_inputHolder.IsSkilling)
+        {
+            m_anim.SetBool("Skill", false);
+        }
+
+        // もしサークルが存在していたら
+        if (m_healCirclePreviewInstance != null)
+        {
+            // 入力でサークルが動くように
+            m_healCirclePreviewInstance.transform.position += new Vector3(m_inputAxis.x, 0.0f ,m_inputAxis.y);
+        }
     }
 
     public override void Attack()
     {
         if (m_attackTimer < kAttackInterval) return;
 
-        // 刀を振る
+        // 弾を出す
         m_anim.SetTrigger("Attack");
 
         // タイマーリセット
@@ -53,7 +69,7 @@ public class Healer : PlayerBase
 
         m_anim.SetTrigger("Skill");
 
-        m_skillTimer = 0;
+        // この時点ではタイマーリセットはしない
     }
 
     public override void OnDamage(int damage)
@@ -75,5 +91,28 @@ public class Healer : PlayerBase
     {
         // 弾を撃つ
         Instantiate(m_magicBall, m_wand.transform.position, transform.rotation);
+    }
+
+    public void CreateHealCirclePreview()
+    {
+        m_healCirclePreviewInstance = Instantiate(m_healCirclePreviewPrefab, transform.position + transform.rotation * kPopCircleDistance, Quaternion.identity);
+    }
+
+    public void DeleteHealCirclePreview()
+    {
+        if (m_healCirclePreviewInstance == null) return;
+
+        // この時のプレビューの位置を覚えておく
+        m_circlePos = m_healCirclePreviewInstance.transform.position;
+
+        Destroy(m_healCirclePreviewInstance);
+    }
+
+    public void CreateHealCircle()
+    {
+        Instantiate(m_healCirclePrefab, m_circlePos, Quaternion.identity);
+
+        // タイマーリセット
+        m_skillTimer = 0;
     }
 }

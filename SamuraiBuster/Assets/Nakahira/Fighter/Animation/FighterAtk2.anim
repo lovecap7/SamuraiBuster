@@ -16949,15 +16949,15 @@ AnimationClip:
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6166667
-    functionName: DisableKatanaCol
+  - time: 0.55
+    functionName: ResetAttackTrigger
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
     intParameter: 0
     messageOptions: 0
-  - time: 0.6666667
-    functionName: ResetAttackTrigger
+  - time: 0.6166667
+    functionName: DisableKatanaCol
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0

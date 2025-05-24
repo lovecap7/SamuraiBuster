@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Mage : PlayerBase
 {
-    [SerializeField] GameObject m_stuff;
     [SerializeField] GameObject m_fireBall;
     [SerializeField] GameObject m_handFrame;
 

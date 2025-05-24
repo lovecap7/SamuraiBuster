@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using DG.Tweening;
+using System.Reflection;
 
 public class MagicBall : MonoBehaviour
 {
@@ -13,14 +14,20 @@ public class MagicBall : MonoBehaviour
     const int kLifeTime = 600;
     Vector3 kAppearSpeed = new(1.0f/ kAppearFrame, 1.0f / kAppearFrame, 1.0f / kAppearFrame);
     const int kAppearFrame = 60;
+    AttackPower m_attackPower;
+    const int kAttackPower = 150;
+    const int kAttackPowerRandomRange = 100;
 
     // Start is called before the first frame update
     void Start()
     {
         m_rigidBody = GetComponent<Rigidbody>();
+        m_attackPower = GetComponent<AttackPower>();
+        m_attackPower.damage = kAttackPower + (int)Random.Range(kAttackPowerRandomRange * -0.5f, kAttackPowerRandomRange * 0.5f);
         // àÍíºê¸Ç…îÚÇ‘ ÇªÇÍÇæÇØ
         m_rigidBody.velocity = transform.rotation * kInitVel;
         transform.localScale = Vector3.zero;
+        GetComponent<ParticleSystem>().Play();
     }
 
     // Update is called once per frame
