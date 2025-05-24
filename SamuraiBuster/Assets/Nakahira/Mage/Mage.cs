@@ -7,9 +7,8 @@ public class Mage : PlayerBase
     [SerializeField] GameObject m_fireBall;
     [SerializeField] GameObject m_handFrame;
 
-    int m_attackInterval = 0;
     const int kAttackInterval = 120;
-    const int kSkillInterval = 60;
+    const int kSkillInterval = 600;
     const int kInitHP = 50;
 
     Quaternion kFireRotation = Quaternion.AngleAxis(20, Vector3.up);
@@ -21,7 +20,7 @@ public class Mage : PlayerBase
     protected override void Start()
     {
         base.Start();
-        m_hitPoint = kInitHP;
+        m_characterStatus.hitPoint = kInitHP;
         m_skillTimer = kSkillInterval;
         m_attackTimer = kAttackInterval;
     }
@@ -37,7 +36,12 @@ public class Mage : PlayerBase
         ++m_attackTimer;
         if (m_attackTimer > kAttackInterval) m_attackTimer = kAttackInterval;
 
-        Debug.Log($"今の攻撃クールタイム:{m_attackInterval - m_attackTimer},回避クールタイム{kSkillInterval - m_skillTimer}");
+        // もしスキルボタンが押されていなかったら
+        if (!m_inputHolder.IsSkilling)
+        {
+            // アニメーションにも反映
+            m_anim.SetBool("Skilling", false);
+        }
     }
 
     public override void Attack()
@@ -54,22 +58,24 @@ public class Mage : PlayerBase
 
     public override void Skill()
     {
-        // ドッジロール
+        // サークルを出して隕石を落とす
         if (m_skillTimer < kSkillInterval) return;
 
         m_anim.SetTrigger("Skilling");
+
+        m_skillTimer = 0;
     }
 
     public override void OnDamage(int damage)
     {
         // HPが減る
-        m_hitPoint -= damage;
+        m_characterStatus.hitPoint -= damage;
 
         // ダメージモーション
         m_anim.SetTrigger("Damage");
 
         // ここが三途の川
-        if (m_hitPoint > 0) return;
+        if (m_characterStatus.hitPoint > 0) return;
 
         // やっぱ死亡モーション
         m_anim.SetTrigger("Death");
@@ -85,5 +91,10 @@ public class Mage : PlayerBase
         fire1.transform.SetPositionAndRotation(m_handFrame.transform.position, transform.rotation);
         fire2.transform.SetPositionAndRotation(m_handFrame.transform.position, kFireRotation * transform.rotation);
         fire3.transform.SetPositionAndRotation(m_handFrame.transform.position, Quaternion.Inverse(kFireRotation) * transform.rotation);
+    }
+
+    public void SpellCast()
+    {
+
     }
 }

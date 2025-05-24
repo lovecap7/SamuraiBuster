@@ -5,16 +5,19 @@ public class Fighter : PlayerBase
 {
     [SerializeField] GameObject m_katana;
     CapsuleCollider m_katanaCollider;
-    CharacterStatus m_chara;
+    AttackPower m_attackPower;
 
-    int m_attackInterval = 0;
     const int kDodgeInterval = 60;
     const int kInitHP = 150;
+    // 攻撃1～3段目の攻撃力
+    const int kAttackPower1 = 200;
+    const int kAttackPower2 = 300;
+    const int kAttackPower3 = 500;
+    const int kAttackRandomRange = 100;
 
     Vector3 kDodgeForce = new(0,0,10.0f);
 
     int m_dodgeTimer = 0;
-    int m_attackTimer = 0;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -22,10 +25,9 @@ public class Fighter : PlayerBase
         base.Start();
 
         m_katanaCollider = m_katana.GetComponent<CapsuleCollider>();
+        m_attackPower = m_katana.GetComponent<AttackPower>();
         m_katanaCollider.enabled = false;
-        m_hitPoint = kInitHP;
-        m_chara = GetComponent<CharacterStatus>();
-        m_chara.hitPoint = kInitHP;
+        m_characterStatus.hitPoint = kInitHP;
     }
 
     // Update is called once per frame
@@ -36,9 +38,6 @@ public class Fighter : PlayerBase
         // タイマー進めて値も制限
         ++m_dodgeTimer;
         if (m_dodgeTimer > kDodgeInterval) m_dodgeTimer = kDodgeInterval;
-        ++m_attackTimer;
-
-        Debug.Log($"今の攻撃クールタイム:{m_attackInterval - m_attackTimer},回避クールタイム{kDodgeInterval - m_dodgeTimer}");
     }
 
     public override void Attack()
@@ -46,8 +45,8 @@ public class Fighter : PlayerBase
         // 刀を振る
         m_anim.SetTrigger("Attack");
 
-        // タイマーリセット
-        m_attackTimer = 0;
+        // ファイターの攻撃間隔はアニメーションだけでいい感じなのでこちらでは用意しない
+        // ガンガン殴れ！
     }
 
     public override void Skill()
@@ -71,13 +70,13 @@ public class Fighter : PlayerBase
     public override void OnDamage(int damage)
     {
         // HPが減る
-        m_hitPoint -= damage;
+        m_characterStatus.hitPoint -= damage;
 
         // ダメージモーション
         m_anim.SetTrigger("Damage");
 
         // ここが三途の川
-        if (m_hitPoint > 0) return;
+        if (m_characterStatus.hitPoint > 0) return;
 
         // やっぱ死亡モーション
         m_anim.SetTrigger("Death");
@@ -91,5 +90,20 @@ public class Fighter : PlayerBase
     public void DisableKatanaCol()
     {
         m_katanaCollider.enabled = false;
+    }
+
+    public void Attack1()
+    {
+        m_attackPower.damage = kAttackPower1 + (int)Random.Range(kAttackRandomRange * -0.5f, kAttackRandomRange * 0.5f);
+    }
+
+    public void Attack2()
+    {
+        m_attackPower.damage = kAttackPower2 + (int)Random.Range(kAttackRandomRange * -0.5f, kAttackRandomRange * 0.5f);
+    }
+
+    public void Attack3()
+    {
+        m_attackPower.damage = kAttackPower3 + (int)Random.Range(kAttackRandomRange * -0.5f, kAttackRandomRange * 0.5f);
     }
 }
