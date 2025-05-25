@@ -5,13 +5,21 @@ public class Mage : PlayerBase
 {
     [SerializeField] GameObject m_fireBall;
     [SerializeField] GameObject m_handFrame;
+    [SerializeField]
+    GameObject m_previewCirclePrefab;
+    [SerializeField]
+    GameObject m_meterPrefab;
 
     const int kAttackInterval = 120;
     const int kSkillInterval = 600;
     const int kInitHP = 50;
 
     Quaternion kFireRotation = Quaternion.AngleAxis(20, Vector3.up);
+    Vector3 kInitCircleDistance = new(0,0,10);
+    Vector3 kMeterSpawnPos = new(0, 30, 0);
 
+    GameObject m_previewCircleInstance;
+    Vector3 m_circlePos;
     int m_skillTimer = 0;
     int m_attackTimer = 0;
 
@@ -40,6 +48,13 @@ public class Mage : PlayerBase
         {
             // アニメーションにも反映
             m_anim.SetBool("Skilling", false);
+        }
+
+        // もしサークルが存在していたら
+        if (m_previewCircleInstance != null)
+        {
+            // 入力でサークルが動くように
+            m_previewCircleInstance.transform.position += new Vector3(m_inputAxis.x, 0.0f, m_inputAxis.y);
         }
     }
 
@@ -92,8 +107,23 @@ public class Mage : PlayerBase
         fire3.transform.SetPositionAndRotation(m_handFrame.transform.position, Quaternion.Inverse(kFireRotation) * transform.rotation);
     }
 
+    public void CreateCircle()
+    {
+        m_previewCircleInstance = Instantiate(m_previewCirclePrefab, transform.position + transform.rotation * kInitCircleDistance, Quaternion.identity);
+    }
+
+    public void DeleteCircle()
+    {
+        // サークルの場所を記憶
+        m_circlePos = m_previewCircleInstance.transform.position;
+        Destroy(m_previewCircleInstance);
+    }
+
     public void SpellCast()
     {
-
+        // サークルの位置にランダムな方向から隕石が落ちてくる
+        var meter = Instantiate(m_meterPrefab, m_circlePos + Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up) * kMeterSpawnPos, Quaternion.identity);
+        // 目的地を示してあげる
+        meter.GetComponent<Meter>().m_targetPos = m_circlePos;
     }
 }

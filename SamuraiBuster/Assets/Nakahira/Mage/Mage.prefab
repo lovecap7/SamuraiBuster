@@ -1979,9 +1979,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_healEffect: {fileID: 7704641776149959684}
-  m_stuff: {fileID: 4529660299938544788}
   m_fireBall: {fileID: 811818213795830180, guid: a08eb4ed0adfc5d438e601c038b82fc5, type: 3}
   m_handFrame: {fileID: 7329343154481663674}
+  m_previewCirclePrefab: {fileID: 8378648546881499446, guid: c6c3f8c0501d0f543b39d662cf6c2fa0, type: 3}
+  m_meterPrefab: {fileID: 8829451551789304542, guid: c7dcd7c1907774048a154292a0fa4880, type: 3}
 --- !u!114 &3244970300504431892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2706,10 +2707,5 @@ PrefabInstance:
 --- !u!4 &3861632891548526126 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 5455847205066979054, guid: d80b541c8f02db24891cd3ee94bdee30, type: 3}
-  m_PrefabInstance: {fileID: 9088359189602226368}
-  m_PrefabAsset: {fileID: 0}
---- !u!1 &4529660299938544788 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4682829424186584148, guid: d80b541c8f02db24891cd3ee94bdee30, type: 3}
   m_PrefabInstance: {fileID: 9088359189602226368}
   m_PrefabAsset: {fileID: 0}

@@ -17,6 +17,7 @@ TagManager:
   - EnemyMeleeAttack
   - EnemyRangeAttack
   - HealCircle
+  - Ground
   layers:
   - Default
   - TransparentFX

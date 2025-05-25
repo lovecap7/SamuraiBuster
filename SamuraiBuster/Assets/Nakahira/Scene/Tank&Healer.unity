@@ -135,6 +135,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank
       objectReference: {fileID: 0}
+    - target: {fileID: 6364168805674056223, guid: 69972a39eccd55b44ae7fcf0213ceeb5, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6518760538731332912, guid: 69972a39eccd55b44ae7fcf0213ceeb5, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0.50880647
@@ -252,7 +256,7 @@ GameObject:
   - component: {fileID: 838822982}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -382,6 +386,10 @@ PrefabInstance:
     - target: {fileID: 6364168805674056223, guid: a2795f98e1b449b46a41a423fad21a9c, type: 3}
       propertyPath: m_Name
       value: Fighter
+      objectReference: {fileID: 0}
+    - target: {fileID: 6364168805674056223, guid: a2795f98e1b449b46a41a423fad21a9c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6518760538731332912, guid: a2795f98e1b449b46a41a423fad21a9c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -907,7 +915,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6364168805674056223, guid: aec1026c307393b4d8419d1d4335dc97, type: 3}
       propertyPath: m_IsActive
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6518760538731332912, guid: aec1026c307393b4d8419d1d4335dc97, type: 3}
       propertyPath: m_LocalPosition.x
