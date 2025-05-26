@@ -56,6 +56,16 @@ public class Tank : PlayerBase
         if (m_attackTimer > kAttackInterval) m_attackTimer = kAttackInterval;
     }
 
+    public override float GetHitPointRatio()
+    {
+        return (float)m_characterStatus.hitPoint / (float)kInitHP;
+    }
+
+    public override float GetSkillChargeRatio()
+    {
+        return (float)m_skillTimer / (float)kSkillInterval;
+    }
+
     public override void Attack()
     {
         if (m_attackTimer < kAttackInterval) return;

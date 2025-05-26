@@ -59,6 +59,15 @@ public class Mage : PlayerBase
         }
     }
 
+    public override float GetHitPointRatio()
+    {
+        return (float)m_characterStatus.hitPoint / (float)kInitHP;
+    }
+    public override float GetSkillChargeRatio()
+    {
+        return (float)m_skillTimer / (float)kSkillInterval;
+    }
+
     public override void Attack()
     {
         // タイマーがクールタイムに達していないと何もしない

@@ -7,7 +7,7 @@ public class Fighter : PlayerBase
     CapsuleCollider m_katanaCollider;
     AttackPower m_attackPower;
 
-    const int kDodgeInterval = 60;
+    const int kSkillInterval = 60;
     const int kDodgeInvincibleFrame = 30;
     const int kInitHP = 150;
     // 攻撃1～3段目の攻撃力
@@ -18,7 +18,7 @@ public class Fighter : PlayerBase
 
     Vector3 kDodgeForce = new(0,0,10.0f);
 
-    int m_dodgeTimer = 0;
+    int m_skillTimer = 0;
 
     // Start is called before the first frame update
     protected override void Start()
@@ -37,8 +37,18 @@ public class Fighter : PlayerBase
         base.Update();
 
         // タイマー進めて値も制限
-        ++m_dodgeTimer;
-        if (m_dodgeTimer > kDodgeInterval) m_dodgeTimer = kDodgeInterval;
+        ++m_skillTimer;
+        if (m_skillTimer > kSkillInterval) m_skillTimer = kSkillInterval;
+    }
+
+    public override float GetHitPointRatio()
+    {
+        return (float)m_characterStatus.hitPoint / (float)kInitHP;
+    }
+
+    public override float GetSkillChargeRatio()
+    {
+        return (float)m_skillTimer / (float)kSkillInterval;
     }
 
     public override void Attack()
@@ -53,7 +63,7 @@ public class Fighter : PlayerBase
     public override void Skill()
     {
         // ドッジロール
-        if (m_dodgeTimer < kDodgeInterval) return;
+        if (m_skillTimer < kSkillInterval) return;
 
         m_anim.SetTrigger("Skilling");
 
@@ -69,7 +79,7 @@ public class Fighter : PlayerBase
         // 無敵
         m_isInvincibleFrame = kDodgeInvincibleFrame;
 
-        m_dodgeTimer = 0; 
+        m_skillTimer = 0; 
     }
 
     public override void OnDamage(int damage)

@@ -94,6 +94,8 @@ abstract public class PlayerBase : MonoBehaviour
         }
     }
 
+    abstract public float GetHitPointRatio();
+    abstract public float GetSkillChargeRatio();
     // ƒ[ƒ‹‚É‚æ‚Á‚ÄÀ‘•‚ğ•Ï‚¦‚é
     abstract public void Attack();
     abstract public void Skill();
