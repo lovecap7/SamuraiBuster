@@ -7,7 +7,7 @@ public class TransitionFade : MonoBehaviour
 {
     [SerializeField] private bool m_fadeStart = false; 
     [SerializeField] private GameObject m_fadeImage;
-    [SerializeField] private float kFadeSpeed = 10.0f;
+    private float kFadeSpeed = 15.0f;
     //‰ŠúˆÊ’u
     private Vector3 kFirstPos = Vector3.zero;
     // Start is called before the first frame update

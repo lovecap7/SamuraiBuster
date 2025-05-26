@@ -64,7 +64,7 @@ public class WaveController : MonoBehaviour
         }
 
             //wave1中
-            if (m_isWave1 && m_transitionFade.IsPitchBlack())
+        if (m_isWave1 && m_transitionFade.IsPitchBlack())
         {
             Debug.Log("Wave1開始");
             //Wave1をアクティブにする

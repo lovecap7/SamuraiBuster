@@ -56,6 +56,9 @@ abstract public class EnemyBase : MonoBehaviour
     //体力とダメージの処理に使うクラス
     protected CharacterStatus m_characterStatus;
 
+    //fade中は動かないでほしい
+    private TransitionFade m_transitionFade;
+
     // Start is called before the first frame update
     virtual protected void Start()
     {
@@ -78,6 +81,8 @@ abstract public class EnemyBase : MonoBehaviour
 
         //一番近い敵をターゲットに
         SerchTarget();
+
+        m_transitionFade = GameObject.Find("Transition").GetComponent<TransitionFade>();
     }
 
     // Update is called once per frame
@@ -89,6 +94,7 @@ abstract public class EnemyBase : MonoBehaviour
         AttackCoolTime();
         //死亡状態
         CheckDead();
+        if(m_transitionFade.IsPitchBlack)
     }
     virtual protected void ModelDir()//モデルの向き
     {
