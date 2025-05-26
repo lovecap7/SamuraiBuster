@@ -136,7 +136,7 @@ abstract public class PlayerBase : MonoBehaviour
 
             // ダメージを受けておく
             // これはそれぞれのロール
-            OnDamage(/*other.GetComponent<EnemyBase>()*/1);
+            OnDamage(other.GetComponent<AttackPower>().damage);
 
             // 無敵判定は基底でやってもいいでしょ
             m_isInvincibleFrame = kInvincibleFrame;
