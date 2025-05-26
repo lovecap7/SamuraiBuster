@@ -17,12 +17,14 @@ abstract public class PlayerBase : MonoBehaviour
     protected int m_isInvincibleFrame = 0;
     // €‚ñ‚¾‚ç“§–¾‚É‚È‚Á‚ÄŠÏí‚µ‚©‚Å‚«‚È‚¢
     protected bool m_isGhostMode = false;
+    protected Quaternion m_cameraQ;
 
     protected bool m_canMove = true;
     protected bool m_canAttack = true;
 
     [SerializeField]
     GameObject m_healEffect;
+    GameObject m_camera;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -31,8 +33,7 @@ abstract public class PlayerBase : MonoBehaviour
         m_inputHolder = GetComponent<InputHolder>();
         m_anim = GetComponent<Animator>();
         m_characterStatus = GetComponent<CharacterStatus>();
-
-        Application.targetFrameRate = 60;
+        m_camera = GameObject.Find("Main Camera");
     }
 
     // Update is called once per frame
@@ -65,7 +66,12 @@ abstract public class PlayerBase : MonoBehaviour
     private void Move()
     {
         // ‰Á‘¬
-        Vector3 addForce = kMoveSpeed * Time.deltaTime * new Vector3(m_inputAxis.x, 0, m_inputAxis.y);
+        // ƒJƒƒ‰‚ÌŒü‚«‚É‡‚í‚¹‚é
+        m_cameraQ = m_camera.transform.rotation;
+        m_cameraQ.x = 0;
+        m_cameraQ.z = 0;
+        m_cameraQ.Normalize();
+        Vector3 addForce = m_cameraQ * (kMoveSpeed * Time.deltaTime * new Vector3(m_inputAxis.x, 0, m_inputAxis.y));
 
         if (!m_canMove) return;
 

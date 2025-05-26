@@ -55,7 +55,7 @@ public class Mage : PlayerBase
         if (m_previewCircleInstance != null)
         {
             // ì¸óÕÇ≈ÉTÅ[ÉNÉãÇ™ìÆÇ≠ÇÊÇ§Ç…
-            m_previewCircleInstance.transform.position += new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f, m_inputAxis.y * kCircleMoveSpeed);
+            m_previewCircleInstance.transform.position += m_cameraQ * new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f, m_inputAxis.y * kCircleMoveSpeed);
         }
     }
 

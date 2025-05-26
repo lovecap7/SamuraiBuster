@@ -68,7 +68,7 @@ public class PointerController : MonoBehaviour
 
     void Start()
     {
-        targetPosition = transform.position;
+        targetPosition = transform.localPosition;
     }
     void Update()
     {
@@ -117,11 +117,11 @@ public class PointerController : MonoBehaviour
         if (!isMoving) return;
 
         // Lerp‚ÅƒXƒ€[ƒY‚ÉˆÚ“®
-        transform.position = Vector3.Lerp(transform.position, targetPosition, Time.deltaTime * moveSpeed);
+        transform.localPosition = Vector3.Lerp(transform.localPosition, targetPosition, Time.deltaTime * moveSpeed);
         // ˆÚ“®Š®—¹”»’è
-        if (Vector3.Distance(transform.position, targetPosition) < 0.1f)
+        if (Vector3.Distance(transform.localPosition, targetPosition) < 0.1f)
         {
-            transform.position = targetPosition;
+            transform.localPosition = targetPosition;
             isMoving = false;
         }
     }

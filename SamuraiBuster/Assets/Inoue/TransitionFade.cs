@@ -13,7 +13,7 @@ public class TransitionFade : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        kFirstPos = m_fadeImage.transform.position;
+        kFirstPos = m_fadeImage.transform.localPosition;
     }
 
     // Update is called once per frame
@@ -23,9 +23,9 @@ public class TransitionFade : MonoBehaviour
         if(m_fadeStart)
         {
             m_fadeImage.transform.Translate(new Vector3(kFadeSpeed, 0.0f, 0.0f));
-            if (m_fadeImage.transform.position.x < -1600.0f)
+            if (m_fadeImage.transform.localPosition.x < -kFirstPos.x)
             {
-                m_fadeImage.transform.position = kFirstPos;
+                m_fadeImage.transform.localPosition = kFirstPos;
                 m_fadeStart = false;
             }
         }

@@ -9,7 +9,7 @@ public class Healer : PlayerBase
     GameObject m_healCirclePreviewInstance;
 
     const int kSkillInterval = 480;
-    const int kInitHP = 50;
+    const int kInitHP = 75;
     const int kAttackInterval = 90;
     const float kCircleMoveSpeed = 0.5f;
     Vector3 kPopCircleDistance = new(0,0,10);
@@ -48,7 +48,7 @@ public class Healer : PlayerBase
         if (m_healCirclePreviewInstance != null)
         {
             // ì¸óÕÇ≈ÉTÅ[ÉNÉãÇ™ìÆÇ≠ÇÊÇ§Ç…
-            m_healCirclePreviewInstance.transform.position += new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f ,m_inputAxis.y * kCircleMoveSpeed);
+            m_healCirclePreviewInstance.transform.position += m_cameraQ * new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f ,m_inputAxis.y * kCircleMoveSpeed);
         }
     }
 
