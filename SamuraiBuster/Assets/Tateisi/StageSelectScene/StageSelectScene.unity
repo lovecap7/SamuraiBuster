@@ -213,8 +213,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveDistance: 300
   moveSpeed: 10
-  leftLimit: 0
-  rightLimit: 900
+  leftLimit: 300
+  rightLimit: 1200
   leftWarpP: -600
   rightWarpP: 600
 --- !u!1 &385719113
