@@ -2,15 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Boss : EnemyBase
 {
     //体力
-    private int kHP = 20000;
+    private const int kHP = 4000;
     //ダメージ
-    private int kMeleeDamage = 50;
-    private int kMagicDamage = 30;
-    private int kTackleDamage = 100;
+    private const int kMeleeDamage = 120;
+    private const int kMagicDamage = 80;
+    private const int kTackleDamage = 150;
     private AttackPower m_meleePower;
     private AttackPower m_tacklePower;
     //攻撃判定
@@ -23,13 +24,13 @@ public class Boss : EnemyBase
     //弾
     [SerializeField] private GameObject m_magicShotPrefab;
     //弾の速度
-    private float kShotSpeed = 5.0f;
+    private const float kShotSpeed = 5.0f;
 
     //硬直フレーム
-    private float kFreezeFrame = 3.0f;
+    private const float kFreezeFrame = 3.0f;
     private float m_freezeTime;
     //ダメージを受けたときに少し止まる
-    private float kStopFrame = 0.2f;
+    private const float kStopFrame = 0.2f;
     private float m_stopFrame;
 
     //メレーアタック
@@ -55,7 +56,10 @@ public class Boss : EnemyBase
         base.Start();
         //体力
         m_characterStatus.hitPoint = kHP * m_targetList.Length;
-      
+        //体力バーに設定
+        Slider hpBar = transform.Find("Canvas_Hp/Hpbar").gameObject.GetComponent<Slider>();
+        hpBar.maxValue = m_characterStatus.hitPoint;
+
         //攻撃判定
         m_rightHandCollider = m_rightHand.GetComponent<CapsuleCollider>();
         m_rightHandCollider.enabled = false;
@@ -447,6 +451,8 @@ public class Boss : EnemyBase
         }
         //状態に合わせた処理
         UpdateState();
+
+        Debug.Log($"BossのHP{m_characterStatus.hitPoint}");
     }
 
     private void OnTriggerEnter(Collider other)
@@ -460,15 +466,15 @@ public class Boss : EnemyBase
             //体力が0以下なら死亡
             if (m_characterStatus.hitPoint <= 0)
             {
+                m_animator.speed = 1.0f;
                 m_isDead = true;
                 m_characterStatus.hitPoint = 0; // 体力を0にする
                 return;
             }
-            else
-            {
-                m_animator.speed = 0.0f;
-                m_stopFrame = kStopFrame; // 硬直フレームを設定
-            }
+            //ダメージを受けたら硬直
+            m_rb.velocity = Vector3.zero;
+            m_animator.speed = 0.0f;
+            m_stopFrame = kStopFrame; // 硬直フレームを設定
         }
     }
 }

@@ -37,7 +37,7 @@ abstract public class EnemyBase : MonoBehaviour
     protected bool m_isHitSearch = false;
 
     //次の攻撃までにかかる時間
-    protected float kAttackCoolTime = 3.0f;
+    protected const float kAttackCoolTime = 3.0f;
     protected float m_attackCoolTime;
 
     //アニメーション
@@ -46,7 +46,7 @@ abstract public class EnemyBase : MonoBehaviour
     protected bool m_isFinishHitAnim = false;//ヒットアニメーションが終了したらtrue
 
     //回転速度
-    protected float kRotateSpeed = 30.0f;
+    protected const float kRotateSpeed = 30.0f;
 
     //死亡フラグ
     [SerializeField] protected bool m_isDead = false;
@@ -118,6 +118,10 @@ abstract public class EnemyBase : MonoBehaviour
     virtual public void OnDead()
     {
        Destroy(this.gameObject);
+    }
+    virtual public int GetHp()
+    {
+        return m_characterStatus.hitPoint;
     }
 
     virtual protected void CheckDead()

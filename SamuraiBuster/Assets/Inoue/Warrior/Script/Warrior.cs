@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using static UnityEngine.GraphicsBuffer;
 
 public class Warrior : EnemyBase
@@ -8,7 +9,7 @@ public class Warrior : EnemyBase
     //体力
     private int kHP = 1000;
     //ダメージ
-    private int kDamage = 100;
+    private int kDamage = 150;
     private AttackPower m_attackPower;
     //攻撃判定
     [SerializeField] private GameObject m_sword;
@@ -26,6 +27,9 @@ public class Warrior : EnemyBase
         base.Start();
         //体力とダメージ
         m_characterStatus.hitPoint = kHP * m_targetList.Length;
+        //体力バーに設定
+        Slider hpBar = transform.Find("Canvas_Hp/Hpbar").gameObject.GetComponent<Slider>();
+        hpBar.maxValue = m_characterStatus.hitPoint;
         m_attackPower = m_sword.GetComponent<AttackPower>();
         m_attackPower.damage = 0;
         //待機状態
@@ -271,6 +275,7 @@ public class Warrior : EnemyBase
             knokcBack.y = 0.0f; // 縦方向は考慮しない
             knokcBack.Normalize(); // 正規化
             m_rb.AddForce(knokcBack * kKnockBackForce, ForceMode.Impulse);
+           
             //ヒットアニメーション中にまた殴られたら最初から
             if (m_nowState == StateType.Hit)
             {

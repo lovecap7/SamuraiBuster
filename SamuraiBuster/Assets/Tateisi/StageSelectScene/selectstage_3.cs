@@ -1,18 +1,108 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class selectstage_3 : MonoBehaviour
 {
-    // Start is called before the first frame update
+    // シングルトンインスタンス
+    public static selectstage_3 Instance { get; private set; }
+
+    // ゲーム状態
+    public bool Stage3 { get; private set; }
+
+    private void Awake()
+    {
+        // シングルトンインスタンスの設定
+        if (Instance != null && Instance != this)
+        {
+            Destroy(gameObject);
+            return;
+        }
+        Instance = this;
+        //DontDestroyOnLoad(gameObject); // シーン遷移してもオブジェクトを破棄しない
+    }
+    // 拡大・縮小の速度
+    [SerializeField] private float scaleSpeed;
+    // 最小スケール
+    [SerializeField] private float minScale;
+    // 最大スケール
+    [SerializeField] private float maxScale;
+    // ステージ選択状態
+    private bool stage3Selected;
+
     void Start()
     {
-        
+        Stage3 = false;
+        stage3Selected = false;
     }
-
-    // Update is called once per frame
     void Update()
     {
-        
+        if (PointerController.Instance.IsSelect_3)
+        {
+            stage3Selected = true;
+        }
+        else
+        {
+            stage3Selected = false;
+        }
+        Scale();
+    }
+
+    /// <summary>
+    /// 右に移動するための入力処理
+    /// </summary>
+    /// <param name="context"></param>
+    public void Stage3OK(InputAction.CallbackContext context)
+    {
+        //ボタンを押したとき
+        if (stage3Selected)
+        {
+            Stage3 = true;
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("RollSelectScene");
+        }
+    }
+
+    /// <summary>
+    /// 右に移動するための入力処理
+    /// </summary>
+    /// <param name="context"></param>
+    public void Stage3Back(InputAction.CallbackContext context)
+    {
+        //ボタンを押したとき
+        if (stage3Selected && context.canceled)
+        {
+            Stage3 = false;
+        }
+    }
+
+    /// <summary>
+    /// オブジェクトのスケールを拡大・縮小するメソッド
+    /// </summary>
+    private void Scale()
+    {
+        // 現在のスケールを取得
+        Vector3 currentScale = transform.localScale;
+
+        // 拡大・縮小の方向を判定
+        if (PointerController.Instance.IsSelect_3)
+        {
+            currentScale += Vector3.one * scaleSpeed * Time.deltaTime;
+            if (currentScale.x >= maxScale)
+            {
+                currentScale = Vector3.one * maxScale;
+            }
+        }
+        else
+        {
+            currentScale -= Vector3.one * scaleSpeed * Time.deltaTime;
+            if (currentScale.x <= minScale)
+            {
+                currentScale = Vector3.one * minScale;
+            }
+        }
+
+        // スケールを適用
+        transform.localScale = currentScale;
     }
 }

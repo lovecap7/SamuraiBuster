@@ -1,41 +1,46 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Wizard : EnemyBase
 {
     //左手から魔法を出す
     [SerializeField] private GameObject m_leftHand;
     //体力
-    private int kHP = 1000;
+    private const int kHP = 1000;
     //ダメージ
-    private int kDamage = 100;
+    private const int kDamage = 100;
     // Start is called before the first frame update
     //弾
     [SerializeField] private GameObject m_magicShotPrefab;
     //弾の速度
-    private float kShotSpeed = 5.0f;
+    private const float kShotSpeed = 5.0f;
     //近づく速度
-    private float kChaseSpeed = 30.0f;
+    private const float kChaseSpeed = 30.0f;
     //敵が離れすぎていると近づく
-    private float kChaseDis = 3.0f;
+    private const float kChaseDis = 3.0f;
     //離れる速度
-    private float kBackSpeed = 0.1f;
+    private const float kBackSpeed = 0.1f;
     //近すぎると離れる
-    private float kBackDis = 1.2f;
+    private const float kBackDis = 1.2f;
     //バックステップのクールタイム
-    private float kBackCoolTime = 5.0f;
+    private const float kBackCoolTime = 5.0f;
     private float m_backCoolTime = 0;
     //バックステップのアニメーションが終わったかどうか
     private bool m_isFinishAnimBack = false;
     //のけぞる
-    private float kKnockBackForce = 1.1f;
+    private const float kKnockBackForce = 1.1f;
 
     override protected void Start()
     {
         base.Start();
-        //体力とダメージ
+        //体力
         m_characterStatus.hitPoint = kHP * m_targetList.Length;
+        //体力バーに設定
+        Slider hpBar = transform.Find("Canvas_Hp/Hpbar").gameObject.GetComponent<Slider>();
+        hpBar.maxValue = m_characterStatus.hitPoint;
+
         //待機状態
         m_nowState = StateType.Idle;
         m_nextState = m_nowState;
@@ -337,6 +342,7 @@ public class Wizard : EnemyBase
             knokcBack.y = 0.0f; // 縦方向は考慮しない
             knokcBack.Normalize(); // 正規化
             m_rb.AddForce(knokcBack * kKnockBackForce, ForceMode.Impulse);
+          
             //ヒットアニメーション中にまた殴られたら最初から
             if (m_nowState == StateType.Hit)
             {
