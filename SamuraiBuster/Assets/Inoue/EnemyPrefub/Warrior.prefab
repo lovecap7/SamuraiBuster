@@ -945,7 +945,6 @@ GameObject:
   - component: {fileID: 3059929457096999680}
   - component: {fileID: 5711214646356674224}
   - component: {fileID: 4220185213494252806}
-  - component: {fileID: 4992944538583966213}
   - component: {fileID: 1713024850293527197}
   m_Layer: 0
   m_Name: Warrior
@@ -963,7 +962,7 @@ Transform:
   m_GameObject: {fileID: 2393785634172868314}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -7.962799, y: 7.6441593, z: 5.228434}
+  m_LocalPosition: {x: -8.429903, y: 7.6441584, z: 8.394981}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1056,18 +1055,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isDead: 0
   m_sword: {fileID: 6658694412027999201}
---- !u!114 &4992944538583966213
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2393785634172868314}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8230a20ee6252441bffd6f7330590d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1713024850293527197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2420,6 +2407,7 @@ GameObject:
   - component: {fileID: 2511020144875274629}
   - component: {fileID: 1992653908224976213}
   - component: {fileID: 7875193894094066458}
+  - component: {fileID: 3859706656854275678}
   m_Layer: 0
   m_Name: EnemyMeleeAttack
   m_TagString: EnemyMeleeAttack
@@ -2515,6 +2503,18 @@ CapsuleCollider:
   m_Height: 1.5
   m_Direction: 1
   m_Center: {x: -0.0010924938, y: 1, z: 0.00000014441983}
+--- !u!114 &3859706656854275678
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6658694412027999201}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8230a20ee6252441bffd6f7330590d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &6991338361553015733
 GameObject:
   m_ObjectHideFlags: 0

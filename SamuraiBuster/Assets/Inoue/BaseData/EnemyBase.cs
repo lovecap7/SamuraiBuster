@@ -55,7 +55,6 @@ abstract public class EnemyBase : MonoBehaviour
 
     //体力とダメージの処理に使うクラス
     protected CharacterStatus m_characterStatus;
-    protected AttackPower m_attackPower;
 
     // Start is called before the first frame update
     virtual protected void Start()
@@ -65,8 +64,7 @@ abstract public class EnemyBase : MonoBehaviour
         m_animator = GetComponent<Animator>();
 
         m_characterStatus = GetComponent<CharacterStatus>();
-        m_attackPower = GetComponent<AttackPower>();
-
+    
         m_attackCoolTime = kAttackCoolTime;
 
         //プレイヤーをまとめたオブジェクトを探す

@@ -11,6 +11,8 @@ public class Boss : EnemyBase
     private int kMeleeDamage = 50;
     private int kMagicDamage = 30;
     private int kTackleDamage = 100;
+    private AttackPower m_meleePower;
+    private AttackPower m_tacklePower;
     //攻撃判定
     [SerializeField] private GameObject m_rightHand;
     private CapsuleCollider m_rightHandCollider;
@@ -51,14 +53,20 @@ public class Boss : EnemyBase
     override protected void Start()
     {
         base.Start();
-        //体力とダメージ
+        //体力
         m_characterStatus.hitPoint = kHP * m_targetList.Length;
-        m_attackPower.damage = 0;
+      
         //攻撃判定
         m_rightHandCollider = m_rightHand.GetComponent<CapsuleCollider>();
         m_rightHandCollider.enabled = false;
+        m_meleePower = m_rightHand.GetComponent<AttackPower>();
+        m_meleePower.damage = 0;
+
         m_tackleCollider = m_tackle.GetComponent<SphereCollider>();
         m_tackleCollider.enabled = false;
+        m_tacklePower = m_tackle.GetComponent<AttackPower>();
+        m_tacklePower.damage = 0;
+
         //硬直フレーム
         m_freezeTime = kFreezeFrame;
         //タックルフレーム
@@ -108,25 +116,25 @@ public class Boss : EnemyBase
     {
         m_rightHandCollider.enabled = true;
         //ダメージを設定
-        m_attackPower.damage = kMeleeDamage;
+        m_meleePower.damage = kMeleeDamage;
     }
     public void OffActivemMeleeAttack()
     {
         m_rightHandCollider.enabled = false;
         //ダメージをリセット
-        m_attackPower.damage = 0;
+        m_meleePower.damage = 0;
     }
     public void OnActivemTackleAttack()
     {
         m_tackleCollider.enabled = true;
         //ダメージを設定
-        m_attackPower.damage = kTackleDamage;
+        m_tacklePower.damage = kTackleDamage;
     }
     public void OffActivemTackleAttack()
     {
         m_tackleCollider.enabled = false;
         //ダメージをリセット
-        m_attackPower.damage = 0;
+        m_tacklePower.damage = 0;
     }
     public void OnChargeCmp()//タックルのチャージが完了したら
     {

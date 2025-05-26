@@ -172,6 +172,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2655657076387144369}
   - component: {fileID: 5465885058796790702}
+  - component: {fileID: 8501700234736846889}
   m_Layer: 0
   m_Name: mixamorig:RightForeArm_Attack
   m_TagString: EnemyMeleeAttack
@@ -218,6 +219,18 @@ CapsuleCollider:
   m_Height: 1
   m_Direction: 1
   m_Center: {x: 0, y: 0.5, z: 0}
+--- !u!114 &8501700234736846889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 983388058252961941}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8230a20ee6252441bffd6f7330590d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1097725418309230863
 GameObject:
   m_ObjectHideFlags: 0
@@ -1517,6 +1530,7 @@ GameObject:
   - component: {fileID: 1852720102858565135}
   - component: {fileID: 1328426912427908459}
   - component: {fileID: 4121794765856566263}
+  - component: {fileID: 1610168014543734839}
   m_Layer: 0
   m_Name: Warrok_Attack
   m_TagString: EnemyMeleeAttack
@@ -1694,6 +1708,18 @@ SphereCollider:
   serializedVersion: 3
   m_Radius: 1
   m_Center: {x: 0.000000092416286, y: 1.1575687, z: 0.5}
+--- !u!114 &1610168014543734839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5245185712997069736}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8230a20ee6252441bffd6f7330590d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &5381490505398866313
 GameObject:
   m_ObjectHideFlags: 0
@@ -2627,7 +2653,6 @@ GameObject:
   - component: {fileID: 5816620279227969183}
   - component: {fileID: 8198279845005752749}
   - component: {fileID: 4335664576572099962}
-  - component: {fileID: 5185163905518988507}
   - component: {fileID: 8363401757861592755}
   m_Layer: 0
   m_Name: Boss1
@@ -2741,18 +2766,6 @@ MonoBehaviour:
   m_tackle: {fileID: 5245185712997069736}
   m_leftHand: {fileID: 1242235086989960717}
   m_magicShotPrefab: {fileID: 5306759777461869583, guid: 34b8a3109d3d1f04e908f8c8e0d9295e, type: 3}
---- !u!114 &5185163905518988507
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8359515580853114451}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8230a20ee6252441bffd6f7330590d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &8363401757861592755
 MonoBehaviour:
   m_ObjectHideFlags: 0

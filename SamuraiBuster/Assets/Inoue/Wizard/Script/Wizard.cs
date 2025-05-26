@@ -36,7 +36,6 @@ public class Wizard : EnemyBase
         base.Start();
         //体力とダメージ
         m_characterStatus.hitPoint = kHP * m_targetList.Length;
-        m_attackPower.damage = 0;
         //待機状態
         m_nowState = StateType.Idle;
         m_nextState = m_nowState;

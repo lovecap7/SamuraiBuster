@@ -234,6 +234,7 @@ GameObject:
   - component: {fileID: 8002419929536543919}
   - component: {fileID: 6315367627648753164}
   - component: {fileID: 3847850841288569011}
+  - component: {fileID: 8618295755739931856}
   m_Layer: 0
   m_Name: StaffLich
   m_TagString: Untagged
@@ -306,6 +307,18 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!114 &8618295755739931856
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 456370622937935650}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8230a20ee6252441bffd6f7330590d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &606117571936670347
 GameObject:
   m_ObjectHideFlags: 0
@@ -1979,7 +1992,6 @@ GameObject:
   - component: {fileID: 3238682746519702687}
   - component: {fileID: 2012331124911153899}
   - component: {fileID: 3666716808900797429}
-  - component: {fileID: 4936155752890273792}
   - component: {fileID: 4295579420890651124}
   m_Layer: 0
   m_Name: Wizard
@@ -1997,7 +2009,7 @@ Transform:
   m_GameObject: {fileID: 5177332713486424399}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 0.99991244, z: -0, w: 0.013233751}
-  m_LocalPosition: {x: -6.342799, y: 7.7270727, z: 3.7884343}
+  m_LocalPosition: {x: -5.95, y: 7.6441584, z: 10.64}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -2091,18 +2103,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &4936155752890273792
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5177332713486424399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f8230a20ee6252441bffd6f7330590d4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &4295579420890651124
 MonoBehaviour:
   m_ObjectHideFlags: 0

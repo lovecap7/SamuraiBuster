@@ -9,7 +9,7 @@ public class Warrior : EnemyBase
     private int kHP = 1000;
     //ダメージ
     private int kDamage = 100;
-
+    private AttackPower m_attackPower;
     //攻撃判定
     [SerializeField] private GameObject m_sword;
     private CapsuleCollider m_swordCollider;
@@ -26,6 +26,7 @@ public class Warrior : EnemyBase
         base.Start();
         //体力とダメージ
         m_characterStatus.hitPoint = kHP * m_targetList.Length;
+        m_attackPower = m_sword.GetComponent<AttackPower>();
         m_attackPower.damage = 0;
         //待機状態
         m_nowState = StateType.Idle;
