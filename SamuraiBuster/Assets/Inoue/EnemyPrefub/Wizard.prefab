@@ -2266,7 +2266,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isDead: 0
   m_leftHand: {fileID: 5731927127100812574}
-  m_magicShotPrefab: {fileID: 5306759777461869583, guid: 34b8a3109d3d1f04e908f8c8e0d9295e, type: 3}
+  m_magicShotPrefab: {fileID: 1136617717214172550, guid: 7a9d9bcb29e65bd41aaf957ae3f7505b, type: 3}
 --- !u!54 &2012331124911153899
 Rigidbody:
   m_ObjectHideFlags: 0

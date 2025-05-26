@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Boss : EnemyBase
 {
     //‘Ì—Í
-    private const int kHP = 20000;
+    private const int kHP = 4000;
     //ƒ_ƒ[ƒW
     private const int kMeleeDamage = 120;
     private const int kMagicDamage = 80;
@@ -451,6 +451,8 @@ public class Boss : EnemyBase
         }
         //ó‘Ô‚É‡‚í‚¹‚½ˆ—
         UpdateState();
+
+        Debug.Log($"Boss‚ÌHP{m_characterStatus.hitPoint}");
     }
 
     private void OnTriggerEnter(Collider other)
