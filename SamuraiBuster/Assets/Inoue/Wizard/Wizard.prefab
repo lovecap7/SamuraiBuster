@@ -272,9 +272,9 @@ MonoBehaviour:
   m_leftHand: {fileID: 3146519399604805887}
   m_magicShotPrefab: {fileID: 5306759777461869583, guid: 34b8a3109d3d1f04e908f8c8e0d9295e, type: 3}
   kShotSpeed: 5
-  kChaseSpeed: 500
+  kChaseSpeed: 40
   kChaseDis: 3
-  kBackSpeed: 1000
+  kBackSpeed: 50
   kBackDis: 1.2
   kBackCoolTime: 5
 --- !u!1 &1073345121470736362

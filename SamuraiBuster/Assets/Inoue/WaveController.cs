@@ -5,17 +5,17 @@ using UnityEngine;
 public class WaveController : MonoBehaviour
 {
     //Wave1
-    [SerializeField] private GameObject m_wave1;
+    private GameObject m_wave1;
     private Wave m_wave1s ;
-    [SerializeField] private bool m_isWave1 = false;//wave1中
+    private bool m_isWave1 = false;//wave1中
     //Wave2
-    [SerializeField] private GameObject m_wave2;
+    private GameObject m_wave2;
     private Wave m_wave2s;
-    [SerializeField] private bool m_isWave2 = false;//wave2中
+    private bool m_isWave2 = false;//wave2中
     //Wave3
-    [SerializeField] private GameObject m_wave3;
+    private GameObject m_wave3;
     private Wave m_wave3s;
-    [SerializeField] private bool m_isWave3 = false;//wave3中
+    private bool m_isWave3 = false;//wave3中
 
     //フェード
     [SerializeField] private TransitionFade m_transitionFade;
@@ -23,8 +23,14 @@ public class WaveController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        //Wave1のオブジェクトを取得
+        m_wave1 = GameObject.Find("Wave1");
         m_wave1s = m_wave1.GetComponent<Wave>();
+        //Wave2のオブジェクトを取得
+        m_wave2 = GameObject.Find("Wave2");
         m_wave2s = m_wave2.GetComponent<Wave>();
+        //Wave3のオブジェクトを取得
+        m_wave3 = GameObject.Find("Wave3");
         m_wave3s = m_wave3.GetComponent<Wave>();
       
         //Wave1を非アクティブにする

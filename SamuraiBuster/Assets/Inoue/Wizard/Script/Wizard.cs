@@ -6,28 +6,37 @@ public class Wizard : EnemyBase
 {
     //左手から魔法を出す
     [SerializeField] private GameObject m_leftHand;
+    //体力
+    private int kHP = 1000;
+    //ダメージ
+    private int kDamage = 100;
     // Start is called before the first frame update
     //弾
     [SerializeField] private GameObject m_magicShotPrefab;
     //弾の速度
-    [SerializeField] private float kShotSpeed = 5.0f;
+    private float kShotSpeed = 5.0f;
     //近づく速度
-    [SerializeField] private float kChaseSpeed = 500.0f;
+    private float kChaseSpeed = 30.0f;
     //敵が離れすぎていると近づく
-    [SerializeField] private float kChaseDis = 3.0f;
+    private float kChaseDis = 3.0f;
     //離れる速度
-    [SerializeField] private float kBackSpeed = 1000.0f;
+    private float kBackSpeed = 0.1f;
     //近すぎると離れる
-    [SerializeField] private float kBackDis = 1.2f;
+    private float kBackDis = 1.2f;
     //バックステップのクールタイム
-    [SerializeField] private float kBackCoolTime = 5.0f;
+    private float kBackCoolTime = 5.0f;
     private float m_backCoolTime = 0;
     //バックステップのアニメーションが終わったかどうか
     private bool m_isFinishAnimBack = false;
+    //のけぞる
+    private float kKnockBackForce = 1.1f;
 
     override protected void Start()
     {
         base.Start();
+        //体力とダメージ
+        m_characterStatus.hitPoint = kHP * m_targetList.Length;
+        m_attackPower.damage = 0;
         //待機状態
         m_nowState = StateType.Idle;
         m_nextState = m_nowState;
@@ -48,7 +57,7 @@ public class Wizard : EnemyBase
         {
             m_targetDir.Normalize();
         }
-        rb.AddForce(m_targetDir * -kBackSpeed, ForceMode.Force);
+        m_rb.AddForce(m_targetDir * -kBackSpeed, ForceMode.Force);
     }
 
     override protected void SerchTarget()//ターゲットの距離と方向を探索
@@ -100,6 +109,8 @@ public class Wizard : EnemyBase
         }
         //弾の移動
         shotRb.AddForce(m_targetDir * kShotSpeed, ForceMode.Impulse);
+        //ダメージを設定する
+        magicShot.GetComponent<AttackPower>().damage = kDamage;
     }
     private void UpdateIdle()//待機
     {
@@ -141,7 +152,7 @@ public class Wizard : EnemyBase
             m_targetDir.Normalize();//正規化
         }
         Vector3 moveVec = m_targetDir * Time.deltaTime * kChaseSpeed;
-        rb.AddForce(moveVec, ForceMode.Force);
+        m_rb.AddForce(moveVec, ForceMode.Force);
         //モデルの向き更新
         base.ModelDir();
     }
@@ -313,8 +324,22 @@ public class Wizard : EnemyBase
         //攻撃されたとき
         if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")
         {
+            //体力を減らす
+            m_characterStatus.hitPoint -= other.GetComponent<AttackPower>().damage;
+            //体力が0以下なら死亡
+            if (m_characterStatus.hitPoint <= 0)
+            {
+                m_isDead = true;
+                m_characterStatus.hitPoint = 0; // 体力を0にする
+                return;
+            }
+            //のけぞる
+            Vector3 knokcBack = this.transform.position - other.transform.position;
+            knokcBack.y = 0.0f; // 縦方向は考慮しない
+            knokcBack.Normalize(); // 正規化
+            m_rb.AddForce(knokcBack * kKnockBackForce, ForceMode.Impulse);
             //ヒットアニメーション中にまた殴られたら最初から
-            if(m_nowState == StateType.Hit)
+            if (m_nowState == StateType.Hit)
             {
                 //最初から再生
                 m_animator.Play("Wizard_Hit", 0, 0);

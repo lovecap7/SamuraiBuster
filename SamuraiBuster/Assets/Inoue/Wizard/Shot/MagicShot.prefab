@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 5576332494546510361}
   - component: {fileID: -7201782628553295535}
   - component: {fileID: -4718931243216034745}
+  - component: {fileID: 7655326849216966576}
   m_Layer: 0
   m_Name: MagicShot
   m_TagString: EnemyRangeAttack
@@ -30,7 +31,7 @@ Transform:
   m_GameObject: {fileID: 5306759777461869583}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0.91196895, y: 0.7759311, z: -1.5355887}
+  m_LocalPosition: {x: -1.6661291, y: 0.13999987, z: 2.5033803}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_ConstrainProportionsScale: 1
   m_Children: []
@@ -147,3 +148,15 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!114 &7655326849216966576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5306759777461869583}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8230a20ee6252441bffd6f7330590d4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

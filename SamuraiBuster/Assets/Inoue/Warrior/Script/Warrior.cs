@@ -6,25 +6,27 @@ using static UnityEngine.GraphicsBuffer;
 public class Warrior : EnemyBase
 {
     //体力
-    [SerializeField] private int kHP = 1000;
+    private int kHP = 1000;
     //ダメージ
-    [SerializeField] private int kDamage = 100;
+    private int kDamage = 100;
 
     //攻撃判定
     [SerializeField] private GameObject m_sword;
     private CapsuleCollider m_swordCollider;
 
     //追いかける速度
-    [SerializeField] private float kChaseSpeed = 10.0f;
-    [SerializeField] private float kChaseDis = 1.4f;
+    private float kChaseSpeed = 50.0f;
+    private float kChaseDis = 1.4f;
+    //のけぞる
+    private float kKnockBackForce = 1.1f;
 
     // Start is called before the first frame update
     override protected void Start()
     {
         base.Start();
         //体力とダメージ
-       // m_characterStatus.hitPoint = kHP;
-       // m_characterStatus.damage = kDamage;
+        m_characterStatus.hitPoint = kHP * m_targetList.Length;
+        m_attackPower.damage = 0;
         //待機状態
         m_nowState = StateType.Idle;
         m_nextState = m_nowState;
@@ -105,7 +107,7 @@ public class Warrior : EnemyBase
             m_targetDir.Normalize();//正規化
         }
         Vector3 moveVec = m_targetDir * Time.deltaTime * kChaseSpeed;
-        rb.AddForce(moveVec,ForceMode.Force);
+        m_rb.AddForce(moveVec,ForceMode.Force);
         //モデルの向き更新
         base.ModelDir();
     }
@@ -124,6 +126,8 @@ public class Warrior : EnemyBase
 
     private void UpdateHit()//やられ
     {
+        //モデルを回転しない
+        transform.rotation = Quaternion.identity;
         Debug.Log("WarriorはHit状態\n");
         if(m_isFinishHitAnim)
         {
@@ -220,10 +224,12 @@ public class Warrior : EnemyBase
     public void OnActiveAttack()
     {
         m_swordCollider.enabled = true;
+        m_attackPower.damage = kDamage; // 攻撃力を設定
     }
     public void OffActiveAttack()
     {
         m_swordCollider.enabled = false;
+        m_attackPower.damage = 0; // 攻撃力をリセット
     }
 
     // Update is called once per frame
@@ -250,6 +256,20 @@ public class Warrior : EnemyBase
         //攻撃されたとき
         if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")
         {
+            //体力を減らす
+            m_characterStatus.hitPoint -= other.GetComponent<AttackPower>().damage;
+            //体力が0以下なら死亡
+            if (m_characterStatus.hitPoint <= 0)
+            {
+                m_isDead = true;
+                m_characterStatus.hitPoint = 0; // 体力を0にする
+                return;
+            }
+            //のけぞる
+            Vector3 knokcBack = this.transform.position - other.transform.position;
+            knokcBack.y = 0.0f; // 縦方向は考慮しない
+            knokcBack.Normalize(); // 正規化
+            m_rb.AddForce(knokcBack * kKnockBackForce, ForceMode.Impulse);
             //ヒットアニメーション中にまた殴られたら最初から
             if (m_nowState == StateType.Hit)
             {

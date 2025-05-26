@@ -18,7 +18,7 @@ public enum StateType//状態
 abstract public class EnemyBase : MonoBehaviour
 {
     //プレイヤーをまとめたオブジェクト
-    [SerializeField] protected GameObject m_players;
+    protected GameObject m_players;
     //ターゲット候補
     protected GameObject[] m_targetList;
     //ターゲット
@@ -32,12 +32,12 @@ abstract public class EnemyBase : MonoBehaviour
     protected StateType m_nowState;
     protected StateType m_nextState;
     //リジッドボディ
-    protected Rigidbody rb;
+    protected Rigidbody m_rb;
     //サーチに成功したか
     protected bool m_isHitSearch = false;
 
     //次の攻撃までにかかる時間
-    [SerializeField] protected float kAttackCoolTime = 3.0f;
+    protected float kAttackCoolTime = 3.0f;
     protected float m_attackCoolTime;
 
     //アニメーション
@@ -46,7 +46,7 @@ abstract public class EnemyBase : MonoBehaviour
     protected bool m_isFinishHitAnim = false;//ヒットアニメーションが終了したらtrue
 
     //回転速度
-    [SerializeField] protected float kRotateSpeed = 30.0f;
+    protected float kRotateSpeed = 30.0f;
 
     //死亡フラグ
     [SerializeField] protected bool m_isDead = false;
@@ -55,18 +55,22 @@ abstract public class EnemyBase : MonoBehaviour
 
     //体力とダメージの処理に使うクラス
     protected CharacterStatus m_characterStatus;
+    protected AttackPower m_attackPower;
 
     // Start is called before the first frame update
     virtual protected void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        m_rb = GetComponent<Rigidbody>();
 
         m_animator = GetComponent<Animator>();
 
-        //m_characterStatus = GetComponent<CharacterStatus>();
+        m_characterStatus = GetComponent<CharacterStatus>();
+        m_attackPower = GetComponent<AttackPower>();
 
         m_attackCoolTime = kAttackCoolTime;
 
+        //プレイヤーをまとめたオブジェクトを探す
+        m_players = GameObject.Find("Players");
         // 子オブジェクト達を入れる配列の初期化
         m_targetList = new GameObject[m_players.transform.childCount];
         for (int i = 0;i < m_targetList.Length;++i)
@@ -86,7 +90,7 @@ abstract public class EnemyBase : MonoBehaviour
         //攻撃クールタイム
         AttackCoolTime();
         //死亡状態
-        DebugDead();
+        CheckDead();
     }
     virtual protected void ModelDir()//モデルの向き
     {
@@ -118,9 +122,14 @@ abstract public class EnemyBase : MonoBehaviour
        Destroy(this.gameObject);
     }
 
-    virtual protected void DebugDead()
+    virtual protected void CheckDead()
     {
-        if(Input.GetKeyDown(KeyCode.X))
+        //体力が0以下なら死亡
+        if (m_characterStatus.hitPoint <= 0)
+        {
+            m_isDead = true;
+        }
+        if (Input.GetKeyDown(KeyCode.X))
         {
             m_isDead = true;
         }

@@ -1,9 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using DG.Tweening;
 using UnityEngine;
 
 public class Boss : EnemyBase
 {
+    //体力
+    private int kHP = 20000;
+    //ダメージ
+    private int kMeleeDamage = 50;
+    private int kMagicDamage = 30;
+    private int kTackleDamage = 100;
     //攻撃判定
     [SerializeField] private GameObject m_rightHand;
     private CapsuleCollider m_rightHandCollider;
@@ -14,11 +21,14 @@ public class Boss : EnemyBase
     //弾
     [SerializeField] private GameObject m_magicShotPrefab;
     //弾の速度
-    [SerializeField] private float kShotSpeed = 5.0f;
+    private float kShotSpeed = 5.0f;
 
     //硬直フレーム
-    [SerializeField] private float kFreezeFrame = 3.0f;
+    private float kFreezeFrame = 3.0f;
     private float m_freezeTime;
+    //ダメージを受けたときに少し止まる
+    private float kStopFrame = 0.2f;
+    private float m_stopFrame;
 
     //メレーアタック
     private bool m_isMeleeAttack = false;
@@ -32,15 +42,18 @@ public class Boss : EnemyBase
     //タックルチャージ完了
     private bool m_isChargeCmp = false;
     //タックルの持続時間
-    [SerializeField] private float kTackleFrame = 10.0f;
+    private float kTackleFrame = 20.0f;
     private float m_tackleTime;
     //タックルのスピード
-    [SerializeField] private float kTackleSpeed = 100.0f;
+    private float kTackleSpeed = 100.0f;
 
     // Start is called before the first frame update
     override protected void Start()
     {
         base.Start();
+        //体力とダメージ
+        m_characterStatus.hitPoint = kHP * m_targetList.Length;
+        m_attackPower.damage = 0;
         //攻撃判定
         m_rightHandCollider = m_rightHand.GetComponent<CapsuleCollider>();
         m_rightHandCollider.enabled = false;
@@ -50,6 +63,8 @@ public class Boss : EnemyBase
         m_freezeTime = kFreezeFrame;
         //タックルフレーム
         m_tackleTime = kTackleFrame;
+        //ダメージを受けた際の硬直
+        m_stopFrame = 0.0f;
     }
 
     override protected void SerchTarget()//ターゲットの距離と方向を探索
@@ -92,18 +107,26 @@ public class Boss : EnemyBase
     public void OnActivemMeleeAttack()
     {
         m_rightHandCollider.enabled = true;
+        //ダメージを設定
+        m_attackPower.damage = kMeleeDamage;
     }
     public void OffActivemMeleeAttack()
     {
         m_rightHandCollider.enabled = false;
+        //ダメージをリセット
+        m_attackPower.damage = 0;
     }
     public void OnActivemTackleAttack()
     {
         m_tackleCollider.enabled = true;
+        //ダメージを設定
+        m_attackPower.damage = kTackleDamage;
     }
     public void OffActivemTackleAttack()
     {
         m_tackleCollider.enabled = false;
+        //ダメージをリセット
+        m_attackPower.damage = 0;
     }
     public void OnChargeCmp()//タックルのチャージが完了したら
     {
@@ -122,6 +145,8 @@ public class Boss : EnemyBase
         }
         //弾の移動
         shotRb.AddForce(m_targetDir * kShotSpeed, ForceMode.Impulse);
+        //ダメージを設定
+        magicShot.GetComponent<AttackPower>().damage = kMagicDamage;
     }
     private void UpdateIdle()
     {
@@ -180,6 +205,8 @@ public class Boss : EnemyBase
     private void UpdateFreeze()
     {
         Debug.Log("BossはFreeze状態\n");
+        //モデルを回転しない
+        transform.rotation = Quaternion.identity;
         m_freezeTime -= Time.deltaTime;
         if(m_freezeTime <= 0.0f)
         {
@@ -191,10 +218,14 @@ public class Boss : EnemyBase
     private void UpdateDead()
     {
         Debug.Log("BossはDead状態\n");
+        //モデルを回転しない
+        transform.rotation = Quaternion.identity;
     }
 
     private void UpdateMeleeA()
     {
+        //モデルを回転しない
+        transform.rotation = Quaternion.identity;
         //アニメーションが終了したら
         if (m_isFinishAttackAnim)
         {
@@ -223,7 +254,7 @@ public class Boss : EnemyBase
             }
             //突進
             Vector3 moveVec = m_targetDir * kTackleSpeed * Time.deltaTime ;
-            rb.AddForce(moveVec, ForceMode.Acceleration);
+            m_rb.AddForce(moveVec, ForceMode.Acceleration);
             //タックルの持続が終わったら
             if (m_tackleTime <= 0.0f)
             {
@@ -394,6 +425,13 @@ public class Boss : EnemyBase
             ChangeState(StateType.Dead);
             return;
         }
+        //硬直しているなら
+        m_stopFrame -= Time.deltaTime;
+        if (m_stopFrame <= 0.0f)
+        {
+            m_stopFrame = 0.0f;//リセット
+            m_animator.speed = 1.0f;
+        }
         //追いかけるターdゲットがいないなら待機状態にする
         if (!m_isHitSearch)
         {
@@ -409,7 +447,20 @@ public class Boss : EnemyBase
         //攻撃されたとき
         if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")
         {
-         
+            //体力を減らす
+            m_characterStatus.hitPoint -= other.GetComponent<AttackPower>().damage;
+            //体力が0以下なら死亡
+            if (m_characterStatus.hitPoint <= 0)
+            {
+                m_isDead = true;
+                m_characterStatus.hitPoint = 0; // 体力を0にする
+                return;
+            }
+            else
+            {
+                m_animator.speed = 0.0f;
+                m_stopFrame = kStopFrame; // 硬直フレームを設定
+            }
         }
     }
 }
