@@ -23,7 +23,7 @@ public class TransitionFade : MonoBehaviour
         if(m_fadeStart)
         {
             m_fadeImage.transform.Translate(new Vector3(kFadeSpeed, 0.0f, 0.0f));
-            if (m_fadeImage.transform.localPosition.x < -kFirstPos.x)
+            if (m_fadeImage.transform.localPosition.x < -kFirstPos.x * 3.0f)
             {
                 m_fadeImage.transform.localPosition = kFirstPos;
                 m_fadeStart = false;
