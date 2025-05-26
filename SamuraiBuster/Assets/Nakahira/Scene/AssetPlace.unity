@@ -769,6 +769,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fighter
       objectReference: {fileID: 0}
+    - target: {fileID: 6364168805674056223, guid: a2795f98e1b449b46a41a423fad21a9c, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6518760538731332912, guid: a2795f98e1b449b46a41a423fad21a9c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0

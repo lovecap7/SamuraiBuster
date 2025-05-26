@@ -11,6 +11,7 @@ public class Healer : PlayerBase
     const int kSkillInterval = 480;
     const int kInitHP = 50;
     const int kAttackInterval = 90;
+    const float kCircleMoveSpeed = 0.5f;
     Vector3 kPopCircleDistance = new(0,0,10);
 
     // 最初はスキルもたまっている
@@ -47,7 +48,7 @@ public class Healer : PlayerBase
         if (m_healCirclePreviewInstance != null)
         {
             // 入力でサークルが動くように
-            m_healCirclePreviewInstance.transform.position += new Vector3(m_inputAxis.x, 0.0f ,m_inputAxis.y);
+            m_healCirclePreviewInstance.transform.position += new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f ,m_inputAxis.y * kCircleMoveSpeed);
         }
     }
 

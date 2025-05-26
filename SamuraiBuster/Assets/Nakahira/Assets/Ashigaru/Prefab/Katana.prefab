@@ -10,47 +10,63 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -8679921383154817045, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 0.041
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.109
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 0
+      value: 0.028
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.5907424
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0
+      value: 0.41574574
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.39494166
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: 0.5676267
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
+      value: 2.455
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 69.961
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 89.432
+      objectReference: {fileID: 0}
+    - target: {fileID: -7511558181221131132, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: 24156fda114138944baa083849bf709d, type: 2}
+    - target: {fileID: -5754084199372789682, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
+      propertyPath: m_Mesh
+      value: 
+      objectReference: {fileID: 1781805468462327908, guid: acd76795deeadd846a39bed2115bcc9b, type: 3}
+    - target: {fileID: -5187323386102471407, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
       propertyPath: m_Name
       value: Katana
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 7881f43b7a212a041823522f1e4ade99, type: 3}
+      propertyPath: m_TagString
+      value: PlayerMeleeAttack
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

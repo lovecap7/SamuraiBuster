@@ -13,6 +13,7 @@ public class Mage : PlayerBase
     const int kAttackInterval = 120;
     const int kSkillInterval = 600;
     const int kInitHP = 50;
+    const float kCircleMoveSpeed = 0.5f;
 
     Quaternion kFireRotation = Quaternion.AngleAxis(20, Vector3.up);
     Vector3 kInitCircleDistance = new(0,0,10);
@@ -54,7 +55,7 @@ public class Mage : PlayerBase
         if (m_previewCircleInstance != null)
         {
             // 入力でサークルが動くように
-            m_previewCircleInstance.transform.position += new Vector3(m_inputAxis.x, 0.0f, m_inputAxis.y);
+            m_previewCircleInstance.transform.position += new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f, m_inputAxis.y * kCircleMoveSpeed);
         }
     }
 
@@ -76,8 +77,6 @@ public class Mage : PlayerBase
         if (m_skillTimer < kSkillInterval) return;
 
         m_anim.SetTrigger("Skilling");
-
-        m_skillTimer = 0;
     }
 
     public override void OnDamage(int damage)
@@ -114,6 +113,8 @@ public class Mage : PlayerBase
 
     public void DeleteCircle()
     {
+        if (m_previewCircleInstance == null) return;
+
         // サークルの場所を記憶
         m_circlePos = m_previewCircleInstance.transform.position;
         Destroy(m_previewCircleInstance);
@@ -125,5 +126,7 @@ public class Mage : PlayerBase
         var meter = Instantiate(m_meterPrefab, m_circlePos + Quaternion.AngleAxis(Random.Range(0, 360), Vector3.up) * kMeterSpawnPos, Quaternion.identity);
         // 目的地を示してあげる
         meter.GetComponent<Meter>().m_targetPos = m_circlePos;
+        // リセット
+        m_skillTimer = 0;
     }
 }
