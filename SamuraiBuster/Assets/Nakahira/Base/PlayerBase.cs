@@ -25,7 +25,6 @@ abstract public class PlayerBase : MonoBehaviour
     [SerializeField]
     GameObject m_healEffect;
     GameObject m_camera;
-    Material m_material;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -35,7 +34,6 @@ abstract public class PlayerBase : MonoBehaviour
         m_anim = GetComponent<Animator>();
         m_characterStatus = GetComponent<CharacterStatus>();
         m_camera = GameObject.Find("Main Camera");
-        m_material = GetComponent<Material>();
     }
 
     // Update is called once per frame
@@ -136,7 +134,8 @@ abstract public class PlayerBase : MonoBehaviour
 
             // ダメージを受けておく
             // これはそれぞれのロール
-            OnDamage(other.GetComponent<AttackPower>().damage);
+            int damage = other.GetComponent<AttackPower>().damage;
+            OnDamage(damage);
 
             // 無敵判定は基底でやってもいいでしょ
             m_isInvincibleFrame = kInvincibleFrame;

@@ -58,9 +58,10 @@ public class Fighter : PlayerBase
         m_anim.SetTrigger("Skilling");
 
         // 今の入力方向にプレイヤーを向ける
+        // これもカメラの向きに移動することを忘れない
         if (m_inputAxis.sqrMagnitude >= 0.1f)
         {
-            transform.rotation = Quaternion.LookRotation(new (m_inputAxis.x, 0, m_inputAxis.y));
+            transform.rotation = Quaternion.LookRotation(m_cameraQ * new Vector3(m_inputAxis.x, 0, m_inputAxis.y));
         }
 
         m_rigid.AddForce(transform.rotation * kDodgeForce, ForceMode.Impulse);
