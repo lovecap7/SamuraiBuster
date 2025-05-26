@@ -25,6 +25,7 @@ abstract public class PlayerBase : MonoBehaviour
     [SerializeField]
     GameObject m_healEffect;
     GameObject m_camera;
+    Material m_material;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -34,6 +35,7 @@ abstract public class PlayerBase : MonoBehaviour
         m_anim = GetComponent<Animator>();
         m_characterStatus = GetComponent<CharacterStatus>();
         m_camera = GameObject.Find("Main Camera");
+        m_material = GetComponent<Material>();
     }
 
     // Update is called once per frame

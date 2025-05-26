@@ -577,7 +577,7 @@ GameObject:
   - component: {fileID: 1589378036}
   m_Layer: 0
   m_Name: Plane
-  m_TagString: Untagged
+  m_TagString: Ground
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -769,10 +769,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Fighter
       objectReference: {fileID: 0}
-    - target: {fileID: 6364168805674056223, guid: a2795f98e1b449b46a41a423fad21a9c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6518760538731332912, guid: a2795f98e1b449b46a41a423fad21a9c, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -869,6 +865,10 @@ PrefabInstance:
     - target: {fileID: 7229285615740170888, guid: 099e1b616d65aa04f814f6ed03f1bd48, type: 3}
       propertyPath: m_Name
       value: Mage
+      objectReference: {fileID: 0}
+    - target: {fileID: 7229285615740170888, guid: 099e1b616d65aa04f814f6ed03f1bd48, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
