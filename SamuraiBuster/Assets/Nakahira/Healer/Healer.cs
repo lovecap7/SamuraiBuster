@@ -1,3 +1,4 @@
+using PlayerCommon;
 using UnityEngine;
 
 public class Healer : PlayerBase
@@ -96,6 +97,11 @@ public class Healer : PlayerBase
 
         // ‚â‚Á‚Ï€–Sƒ‚[ƒVƒ‡ƒ“
         m_anim.SetTrigger("Death");
+    }
+
+    public override PlayerRole GetRole()
+    {
+        return PlayerRole.kHealer;
     }
 
     public void Shoot()

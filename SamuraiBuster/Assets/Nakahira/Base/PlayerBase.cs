@@ -1,4 +1,5 @@
 using UnityEngine;
+using PlayerCommon;
 
 abstract public class PlayerBase : MonoBehaviour
 {
@@ -100,6 +101,7 @@ abstract public class PlayerBase : MonoBehaviour
     abstract public void Attack();
     abstract public void Skill();
     abstract public void OnDamage(int damage);
+    abstract public PlayerRole GetRole();
 
     public void EnableMove()
     {

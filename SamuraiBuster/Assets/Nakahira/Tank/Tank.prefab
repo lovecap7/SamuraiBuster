@@ -2712,7 +2712,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a7b4d7c7f61c6324daabfd9dde062ad0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_hitEffect: {fileID: 3243607887963792255, guid: 49fbf0f1f92352b43a04d10d7cc7c76a, type: 3}
+  m_hitEffect: {fileID: 3243607887963792255, guid: a7ace25ff5a03ee43a85af6bde611e74, type: 3}
 --- !u!4 &2257962274273741470 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 439a532aec13bc04e85ea9ffb8759869, type: 3}

@@ -1,5 +1,6 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using PlayerCommon;
 
 public class Tank : PlayerBase
 {
@@ -22,6 +23,11 @@ public class Tank : PlayerBase
     int m_attackTimer = kAttackInterval;
     // スキルの効果が続いているかどうか
     bool m_isSkilling = false;
+
+    public bool IsSkilling()
+    {
+        return m_isSkilling;
+    }
 
     // Start is called before the first frame update
     protected override void Start()
@@ -111,6 +117,11 @@ public class Tank : PlayerBase
 
         // やっぱ死亡モーション
         m_anim.SetTrigger("Death");
+    }
+
+    public override PlayerRole GetRole()
+    {
+        return PlayerRole.kTank;
     }
 
     public void EnableAxeCol()
