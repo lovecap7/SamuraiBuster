@@ -46,7 +46,7 @@ abstract public class EnemyBase : MonoBehaviour
     protected bool m_isFinishHitAnim = false;//ヒットアニメーションが終了したらtrue
 
     //回転速度
-    protected const float kRotateSpeed = 30.0f;
+    protected const float kRotateSpeed = 10.0f;
 
     //死亡フラグ
     [SerializeField] protected bool m_isDead = false;
@@ -141,10 +141,10 @@ abstract public class EnemyBase : MonoBehaviour
         {
             m_isDead = true;
         }
-        if (Input.GetKeyDown(KeyCode.X))
-        {
-            m_isDead = true;
-        }
+        //if (Input.GetKeyDown(KeyCode.X))
+        //{
+        //    m_isDead = true;
+        //}
     }
     abstract protected void AttackCoolTime();//攻撃クールタイム
     abstract protected void SerchTarget();//距離とターゲットのベクトルを計算

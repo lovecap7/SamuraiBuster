@@ -52,7 +52,7 @@ public class Boss : EnemyBase
     private float kTackleFrame = 40.0f;
     private float m_tackleTime;
     //タックルのスピード
-    private float kTackleSpeed = 150.0f;
+    private float kTackleSpeed = 1500.0f;
 
     // Start is called before the first frame update
     override protected void Start()
@@ -307,7 +307,7 @@ public class Boss : EnemyBase
                 m_targetDir.Normalize();//正規化
             }
             //突進
-            Vector3 moveVec = m_targetDir * kTackleSpeed * Time.deltaTime ;
+            Vector3 moveVec = transform.rotation * Vector3.forward * kTackleSpeed * Time.deltaTime ;
             m_rb.AddForce(moveVec, ForceMode.Force);
             //タックルの持続が終わったら
             if (m_tackleTime <= 0.0f)
