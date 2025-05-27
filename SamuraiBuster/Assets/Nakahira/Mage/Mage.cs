@@ -1,3 +1,4 @@
+using PlayerCommon;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -101,6 +102,11 @@ public class Mage : PlayerBase
 
         // ‚â‚Á‚Ï€–Sƒ‚[ƒVƒ‡ƒ“
         m_anim.SetTrigger("Death");
+    }
+
+    public override PlayerRole GetRole()
+    {
+        return PlayerRole.kMage;
     }
 
     public void Fire()

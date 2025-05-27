@@ -1,3 +1,4 @@
+using PlayerCommon;
 using Unity.VisualScripting;
 using UnityEngine;
 
@@ -95,6 +96,11 @@ public class Fighter : PlayerBase
 
         // ‚â‚Á‚Ï€–Sƒ‚[ƒVƒ‡ƒ“
         m_anim.SetTrigger("Death");
+    }
+
+    public override PlayerRole GetRole()
+    {
+        return PlayerRole.kFighter;
     }
 
     public void EnableKatanaCol()

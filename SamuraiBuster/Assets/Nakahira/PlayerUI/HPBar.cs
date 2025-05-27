@@ -17,6 +17,11 @@ public class HPBar : MonoBehaviour
     readonly Color32 kCaution = new(240,240, 50,255);
     readonly Color32 kDanger  = new(200, 50, 30,255);
 
+    public void SetPlayer(ref PlayerBase player)
+    {
+        m_player = player;
+    }
+
     // Start is called before the first frame update
     void Start()
     {

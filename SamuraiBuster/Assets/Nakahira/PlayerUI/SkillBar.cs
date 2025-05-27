@@ -15,6 +15,11 @@ public class SkillBar : MonoBehaviour
     readonly Color32 kInitColor = new(255, 255, 255, 255);
     readonly Color32 kMaxColor  = new(  0, 183, 255, 255);
 
+    public void SetPlayer(ref PlayerBase player)
+    {
+        m_player = player;
+    }
+
     // Start is called before the first frame update
     void Start()
     {
