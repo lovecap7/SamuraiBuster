@@ -4857,7 +4857,7 @@ GameObject:
   - component: {fileID: -5588696864182321015}
   m_Layer: 0
   m_Name: FireBall
-  m_TagString: Untagged
+  m_TagString: EnemyRangeAttack
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -9797,7 +9797,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 833259976ac9dc0438384819544a4868, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_liveTime: 10
+  m_liveTime: 3
+  m_hitEffect: {fileID: 358637981425055526, guid: 12417f736cf34b64ba6e926e2f83a55f, type: 3}
 --- !u!54 &-5284628646833238301
 Rigidbody:
   m_ObjectHideFlags: 0

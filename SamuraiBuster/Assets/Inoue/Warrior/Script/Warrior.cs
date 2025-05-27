@@ -26,7 +26,10 @@ public class Warrior : EnemyBase
     {
         base.Start();
         //体力とダメージ
-        m_characterStatus.hitPoint = kHP * m_targetList.Length;
+        //人数が多い場合少し体力が増える
+        int addHp = 0;
+        if (m_targetList.Length > 2) addHp = 500;
+        m_characterStatus.hitPoint = kHP + addHp;
         //体力バーに設定
         Slider hpBar = transform.Find("Canvas_Hp/Hpbar").gameObject.GetComponent<Slider>();
         hpBar.maxValue = m_characterStatus.hitPoint;
@@ -98,7 +101,6 @@ public class Warrior : EnemyBase
         {
             ChangeState(StateType.Chase);
             return;
-
         }
     }
 

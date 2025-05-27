@@ -22,6 +22,11 @@ public class EnemyHpbar : MonoBehaviour
     void Update()
     {
         transform.rotation = m_camera.transform.rotation; ; //カメラのほうを向く
+        if (m_status.hitPoint <= 0)
+        {
+           //非表示
+           gameObject.SetActive(false);
+        }
         m_slider.value = m_status.hitPoint; //体力を更新
     }
 }
