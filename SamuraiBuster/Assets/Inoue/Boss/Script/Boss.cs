@@ -23,6 +23,10 @@ public class Boss : EnemyBase
     [SerializeField] private GameObject m_leftHand;
     //弾
     [SerializeField] private GameObject m_magicShotPrefab;
+    //チャージエフェクト
+    [SerializeField] private GameObject m_chargeEff;
+    //タックル中のエフェクト
+    [SerializeField] private GameObject m_tackleEff;
     //弾の速度
     private const float kShotSpeed = 5.0f;
 
@@ -45,10 +49,10 @@ public class Boss : EnemyBase
     //タックルチャージ完了
     private bool m_isChargeCmp = false;
     //タックルの持続時間
-    private float kTackleFrame = 20.0f;
+    private float kTackleFrame = 40.0f;
     private float m_tackleTime;
     //タックルのスピード
-    private float kTackleSpeed = 100.0f;
+    private float kTackleSpeed = 150.0f;
 
     // Start is called before the first frame update
     override protected void Start()
@@ -79,6 +83,9 @@ public class Boss : EnemyBase
         m_tackleTime = kTackleFrame;
         //ダメージを受けた際の硬直
         m_stopFrame = 0.0f;
+
+        m_chargeEff.SetActive(false);//チャージエフェクトは非表示
+        m_tackleEff.SetActive(false);//タックルエフェクトは非表示
     }
 
     override protected void SerchTarget()//ターゲットの距離と方向を探索
@@ -92,6 +99,19 @@ public class Boss : EnemyBase
         {
             //中身がないなら飛ばす
             if (m_targetList[i] == null) continue;
+
+            //タンクの場合
+            if (m_targetList[i].tag == "Tank")
+            {
+                //タンクは優先的にターゲットにする
+                m_target = m_targetList[i];
+                m_targetDir = m_target.transform.position - myPos;
+                m_targetDir.y = 0.0f;//縦方向は考慮しない
+                m_targetDis = m_targetDir.magnitude;//距離を保存
+                m_isHitSearch = true;
+                return;//タンクが見つかったので終了
+            }
+
             //相手に向かうベクトル
             Vector3 vec = m_targetList[i].transform.position - myPos;
             vec.y = 0.0f;//縦方向は考慮しない
@@ -256,9 +276,11 @@ public class Boss : EnemyBase
     {
         //モデルの向き更新
         base.ModelDir();
+        m_chargeEff.SetActive(true);//チャージエフェクトを表示
         //チャージが完了したら
         if (m_isChargeCmp)
         {
+            m_tackleEff.SetActive(true);//タックルエフェクトを表示
             m_tackleTime -= Time.deltaTime;
             //移動
             if (m_targetDir.magnitude > 0.0f)
@@ -267,7 +289,7 @@ public class Boss : EnemyBase
             }
             //突進
             Vector3 moveVec = m_targetDir * kTackleSpeed * Time.deltaTime ;
-            m_rb.AddForce(moveVec, ForceMode.Acceleration);
+            m_rb.AddForce(moveVec, ForceMode.Force);
             //タックルの持続が終わったら
             if (m_tackleTime <= 0.0f)
             {
@@ -379,6 +401,8 @@ public class Boss : EnemyBase
                 m_animator.SetBool("TackleA", false);
                 m_animator.SetBool("Freeze", true);
                 m_animator.SetBool("Dead", false);
+                m_chargeEff.SetActive(false);
+                m_tackleEff.SetActive(false);
                 break;
             //死亡
             case StateType.Dead:
@@ -386,6 +410,8 @@ public class Boss : EnemyBase
                 m_animator.SetBool("TackleA", false);
                 m_animator.SetBool("Freeze", true);
                 m_animator.SetBool("Dead", true);
+                m_chargeEff.SetActive(false);
+                m_tackleEff.SetActive(false);
                 break;
         }
         m_nextState = state;
