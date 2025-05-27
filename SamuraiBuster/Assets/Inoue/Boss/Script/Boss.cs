@@ -165,6 +165,11 @@ public class Boss : EnemyBase
         Debug.Log("BossはIdle状態\n");
         //モデルの向き更新
         base.ModelDir();
+        //フェード中は何もしない
+        if (m_transitionFade.IsFadeNow())
+        {
+            return;
+        }
         //攻撃
         if (m_attackCoolTime <= 0.0f)
         {

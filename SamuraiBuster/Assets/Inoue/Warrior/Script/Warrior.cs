@@ -80,6 +80,13 @@ public class Warrior : EnemyBase
     private void UpdateIdle()//待機
     {
         Debug.Log("WarriorはIdle状態\n");
+        //モデルの向き更新
+        base.ModelDir();
+        //フェード中は何もしない
+        if (m_transitionFade.IsFadeNow())
+        {
+            return;
+        }
         //攻撃
         if (m_attackCoolTime <= 0.0f)
         {
@@ -93,8 +100,6 @@ public class Warrior : EnemyBase
             return;
 
         }
-        //モデルの向き更新
-        base.ModelDir();
     }
 
     private void UpdateChase()//追いかける

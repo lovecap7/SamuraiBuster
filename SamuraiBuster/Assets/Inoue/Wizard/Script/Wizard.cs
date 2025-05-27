@@ -122,6 +122,12 @@ public class Wizard : EnemyBase
         //モデルの向き更新
         base.ModelDir();
 
+        //フェード中は何もしない
+        if (m_transitionFade.IsFadeNow())
+        {
+            return;
+        }
+
         //近すぎるなら離れる
         if (m_targetDis <= kBackDis && m_backCoolTime <= 0.0f)
         {
