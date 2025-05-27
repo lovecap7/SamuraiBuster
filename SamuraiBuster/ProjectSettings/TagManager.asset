@@ -18,6 +18,7 @@ TagManager:
   - EnemyRangeAttack
   - HealCircle
   - Ground
+  - Wall
   layers:
   - Default
   - TransparentFX
