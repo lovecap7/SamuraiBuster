@@ -100,21 +100,40 @@ public class Boss : EnemyBase
             //中身がないなら飛ばす
             if (m_targetList[i] == null) continue;
 
-            //タンクの場合
-            if (m_targetList[i].tag == "Tank")
-            {
-                //タンクは優先的にターゲットにする
-                m_target = m_targetList[i];
-                m_targetDir = m_target.transform.position - myPos;
-                m_targetDir.y = 0.0f;//縦方向は考慮しない
-                m_targetDis = m_targetDir.magnitude;//距離を保存
-                m_isHitSearch = true;
-                return;//タンクが見つかったので終了
-            }
-
             //相手に向かうベクトル
             Vector3 vec = m_targetList[i].transform.position - myPos;
             vec.y = 0.0f;//縦方向は考慮しない
+
+            //タンクの場合
+            if (m_targetList[i].tag == "Tank")
+            {
+                //タンクがスキルを発動しているなら
+                if (m_targetList[i].GetComponent<Tank>().IsSkilling())
+                {
+                    //すでにほかのタンクがターゲットになっているなら近いほうを優先する
+                    if (m_isHitSearch)
+                    {
+                        //最短距離なら
+                        if (shortDistance > vec.magnitude)
+                        {
+                            //現在の最短にする
+                            shortDistance = vec.magnitude;
+                            //ターゲットへのベクトル
+                            m_targetDir = vec;
+                            //ターゲットにする
+                            m_target = m_targetList[i];
+                            m_isHitSearch = true;
+                            continue;
+                        }
+                    }
+                    //ターゲットへのベクトル
+                    m_targetDir = vec;
+                    //ターゲットにする
+                    m_target = m_targetList[i];
+                    m_isHitSearch = true;
+                    continue;
+                }
+            }
             //最短距離なら
             if (shortDistance > vec.magnitude)
             {
