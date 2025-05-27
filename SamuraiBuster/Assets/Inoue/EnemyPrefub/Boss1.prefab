@@ -3081,7 +3081,7 @@ MonoBehaviour:
   m_rightHand: {fileID: 983388058252961941}
   m_tackle: {fileID: 5245185712997069736}
   m_leftHand: {fileID: 1242235086989960717}
-  m_magicShotPrefab: {fileID: 5306759777461869583, guid: 34b8a3109d3d1f04e908f8c8e0d9295e, type: 3}
+  m_magicShotPrefab: {fileID: 7943957556032773505, guid: ed153131ee71eed41a5bf02b210c556e, type: 3}
 --- !u!114 &8363401757861592755
 MonoBehaviour:
   m_ObjectHideFlags: 0

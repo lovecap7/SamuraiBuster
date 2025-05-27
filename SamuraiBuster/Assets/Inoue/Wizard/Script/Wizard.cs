@@ -36,7 +36,10 @@ public class Wizard : EnemyBase
     {
         base.Start();
         //‘Ì—Í
-        m_characterStatus.hitPoint = kHP * m_targetList.Length;
+        //l”‚ª‘½‚¢ê‡­‚µ‘Ì—Í‚ª‘‚¦‚é
+        int addHp = 0;
+        if (m_targetList.Length > 2) addHp = 500;
+        m_characterStatus.hitPoint = kHP + addHp;
         //‘Ì—Íƒo[‚Éİ’è
         Slider hpBar = transform.Find("Canvas_Hp/Hpbar").gameObject.GetComponent<Slider>();
         hpBar.maxValue = m_characterStatus.hitPoint;

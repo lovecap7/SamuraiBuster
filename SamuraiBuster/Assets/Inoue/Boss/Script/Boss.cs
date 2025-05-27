@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Boss : EnemyBase
 {
     //体力
-    private const int kHP = 4000;
+    private const int kHP = 8500;
     //ダメージ
     private const int kMeleeDamage = 120;
     private const int kMagicDamage = 80;
@@ -54,8 +54,10 @@ public class Boss : EnemyBase
     override protected void Start()
     {
         base.Start();
-        //体力
-        m_characterStatus.hitPoint = kHP * m_targetList.Length;
+        //人数が多い場合少し体力が増える
+        int addHp = 0;
+        if (m_targetList.Length > 2) addHp = 6000;
+        m_characterStatus.hitPoint = kHP + addHp;
         //体力バーに設定
         Slider hpBar = transform.Find("Canvas_Hp/Hpbar").gameObject.GetComponent<Slider>();
         hpBar.maxValue = m_characterStatus.hitPoint;
@@ -222,8 +224,6 @@ public class Boss : EnemyBase
     private void UpdateFreeze()
     {
         Debug.Log("BossはFreeze状態\n");
-        //モデルを回転しない
-        transform.rotation = Quaternion.identity;
         m_freezeTime -= Time.deltaTime;
         if(m_freezeTime <= 0.0f)
         {
@@ -235,14 +235,10 @@ public class Boss : EnemyBase
     private void UpdateDead()
     {
         Debug.Log("BossはDead状態\n");
-        //モデルを回転しない
-        transform.rotation = Quaternion.identity;
     }
 
     private void UpdateMeleeA()
     {
-        //モデルを回転しない
-        transform.rotation = Quaternion.identity;
         //アニメーションが終了したら
         if (m_isFinishAttackAnim)
         {

@@ -4,7 +4,8 @@ using UnityEngine;
 
 public class MagicShot : MonoBehaviour
 {
-    [SerializeField] private float m_liveTime = 10.0f;
+    [SerializeField] private float m_liveTime = 3.0f;
+    [SerializeField] private GameObject m_hitEffect;
    
     // Start is called before the first frame update
     void Start()
@@ -30,6 +31,10 @@ public class MagicShot : MonoBehaviour
             other.tag == "Healer"   ||
             other.tag == "Assassin")
         {
+            //ヒットエフェクトを生成
+            GameObject hitEffect = Instantiate(m_hitEffect, transform.position, Quaternion.identity);
+            Destroy(hitEffect, 3.0f);
+
             Destroy(this.gameObject);
         }
     }
