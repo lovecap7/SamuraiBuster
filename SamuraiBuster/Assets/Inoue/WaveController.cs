@@ -39,62 +39,61 @@ public class WaveController : MonoBehaviour
         m_wave2.SetActive(false);
         //Wave3を非アクティブにする
         m_wave3.SetActive(false);
+        //フェード
+        m_transitionFade.OnFadeStart();
+        m_isWave1 = true;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.A))
-        {
-            //フェード
-            m_transitionFade.OnFadeStart();
-            m_isWave1 = true;
-        }
-        if (Input.GetKeyDown(KeyCode.S))
-        {
-            //フェード
-            m_transitionFade.OnFadeStart();
-            m_isWave2 = true;
-        }
-        if (Input.GetKeyDown(KeyCode.D))
-        {
-            //フェード
-            m_transitionFade.OnFadeStart();
-            m_isWave3 = true;
-        }
-
             //wave1中
-        if (m_isWave1 && m_transitionFade.IsPitchBlack())
+        if (m_isWave1)
         {
             Debug.Log("Wave1開始");
-            //Wave1をアクティブにする
-            m_wave1.SetActive(true);
+            if (m_transitionFade.IsPitchBlack())
+            {
+                //Wave1をアクティブにする
+                m_wave1.SetActive(true);
+            }
             //Wave1が終わったなら
             if (m_wave1s.GetIsWaveEnd())
             {
                 Debug.Log("Wave1終了");
                 m_isWave1 = false;
+                //フェード
+                m_transitionFade.OnFadeStart();
+                m_isWave2 = true;
             }
         }
         //wave2中
-        if (m_isWave2 && m_transitionFade.IsPitchBlack())
+        if (m_isWave2)
         {
             Debug.Log("Wave2開始");
-            //Wave2をアクティブにする
-            m_wave2.SetActive(true);
+            if (m_transitionFade.IsPitchBlack())
+            {
+                //Wave2をアクティブにする
+                m_wave2.SetActive(true);
+            }
             //Wave2が終わったなら
             if (m_wave2s.GetIsWaveEnd())
             {
                 Debug.Log("Wave2終了");
                 m_isWave2 = false;
+                //フェード
+                m_transitionFade.OnFadeStart();
+                m_isWave3 = true;
             }
         }
         //wave3中
-        if (m_isWave3 && m_transitionFade.IsPitchBlack())
+        if (m_isWave3)
         {
             Debug.Log("Wave3開始");
-            //Wave3をアクティブにする
-            m_wave3.SetActive(true);
+            if (m_transitionFade.IsPitchBlack())
+            {
+                //Wave3をアクティブにする
+                m_wave3.SetActive(true);
+            }
             //Wave3が終わったなら
             if (m_wave3s.GetIsWaveEnd())
             {
