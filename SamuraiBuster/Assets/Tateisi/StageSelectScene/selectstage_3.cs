@@ -56,7 +56,7 @@ public class selectstage_3 : MonoBehaviour
     public void Stage3OK(InputAction.CallbackContext context)
     {
         //ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«
-        if (stage3Selected)
+        if (stage3Selected && context.canceled)
         {
             Stage3 = true;
             //UnityEngine.SceneManagement.SceneManager.LoadScene("RollSelectScene");

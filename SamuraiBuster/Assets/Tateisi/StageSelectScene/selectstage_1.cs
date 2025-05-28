@@ -59,7 +59,7 @@ public class selectstage_1 : MonoBehaviour
     public void Stage1OK(InputAction.CallbackContext context)
     {
         //ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«
-        if (stage1Selected)
+        if (stage1Selected && context.canceled)
         {
             Stage1 = true;
             //UnityEngine.SceneManagement.SceneManager.LoadScene("RollSelectScene");
