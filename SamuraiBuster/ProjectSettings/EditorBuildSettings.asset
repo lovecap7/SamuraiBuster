@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/Tateisi/RollSelectScene/RollSelectScene.unity
     guid: 908febc4a6aba214783bf6b4dfd99f27
   - enabled: 1
-    path: Assets/Tateisi/StageScene/StageScene.unity
+    path: Assets/Inoue/StageScene/StageScene.unity
     guid: 179c5f10bcf498545b45e76408c2f388
   - enabled: 1
     path: Assets/Tateisi/GameOverScene/GameOverScene.unity
