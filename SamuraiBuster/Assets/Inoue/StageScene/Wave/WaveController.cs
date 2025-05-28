@@ -25,6 +25,7 @@ public class WaveController : MonoBehaviour
 
     //フェード
     [SerializeField] private TransitionFade m_transitionFade;
+    [SerializeField] private WhiteFade m_whiteFade;
 
     // Start is called before the first frame update
     void Start()
@@ -151,6 +152,8 @@ public class WaveController : MonoBehaviour
                     //プレイヤーの行動を不能にする
                     m_players.transform.GetChild(i).GetComponent<PlayerBase>().DisableMove();//行動不能
                 }
+                //画面を白くしていく
+                m_whiteFade.OnWhiteFade();
             }
 
         }

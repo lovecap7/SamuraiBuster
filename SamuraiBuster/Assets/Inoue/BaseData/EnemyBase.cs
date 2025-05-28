@@ -59,6 +59,10 @@ abstract public class EnemyBase : MonoBehaviour
     //fade中は動かないでほしい
     protected TransitionFade m_transitionFade;
 
+    //倒した時のスコア
+    private GameObject m_score;
+    protected int m_scorePoint = 0;
+
     // Start is called before the first frame update
     virtual protected void Start()
     {
@@ -83,6 +87,7 @@ abstract public class EnemyBase : MonoBehaviour
         SerchTarget();
 
         m_transitionFade = GameObject.Find("TransitionFade").GetComponent<TransitionFade>();
+        m_score = GameObject.Find("Canvas/ScoreObject/Score");
     }
 
     // Update is called once per frame
@@ -127,6 +132,8 @@ abstract public class EnemyBase : MonoBehaviour
     }
     virtual public void OnDead()
     {
+        //スコアを加算する
+       m_score.GetComponent<Score>().AddScore(m_scorePoint);
        Destroy(this.gameObject);
     }
     virtual public int GetHp()

@@ -31,7 +31,8 @@ public class Wizard : EnemyBase
     private bool m_isFinishAnimBack = false;
     //のけぞる
     private const float kKnockBackForce = 1.1f;
-
+    //スコア
+    private const int kScorePoint = 1500;
     override protected void Start()
     {
         base.Start();
@@ -47,6 +48,8 @@ public class Wizard : EnemyBase
         //待機状態
         m_nowState = StateType.Idle;
         m_nextState = m_nowState;
+        //スコア
+        m_scorePoint = kScorePoint;
     }
 
     public void OnFinishAnimBack()//アニメーションが呼び出す
@@ -194,7 +197,8 @@ public class Wizard : EnemyBase
         {
             m_targetDir.Normalize();//正規化
         }
-        Vector3 moveVec = m_targetDir * Time.deltaTime * kChaseSpeed;
+        //突進
+        Vector3 moveVec = transform.rotation * Vector3.forward * kChaseSpeed * Time.deltaTime;
         m_rb.AddForce(moveVec, ForceMode.Force);
         //モデルの向き更新
         base.ModelDir();

@@ -21,6 +21,9 @@ public class Warrior : EnemyBase
     //のけぞる
     private float kKnockBackForce = 1.1f;
 
+    //スコア
+    private const int kScorePoint = 1000;
+
     // Start is called before the first frame update
     override protected void Start()
     {
@@ -41,6 +44,9 @@ public class Warrior : EnemyBase
         //攻撃判定
         m_swordCollider = m_sword.GetComponent<CapsuleCollider>();
         m_swordCollider.enabled = false;
+
+        //スコア
+        m_scorePoint = kScorePoint;
     }
     override protected void SerchTarget()//ターゲットの距離と方向を探索
     {
@@ -148,8 +154,9 @@ public class Warrior : EnemyBase
         {
             m_targetDir.Normalize();//正規化
         }
-        Vector3 moveVec = m_targetDir * Time.deltaTime * kChaseSpeed;
-        m_rb.AddForce(moveVec,ForceMode.Force);
+        //突進
+        Vector3 moveVec = transform.rotation * Vector3.forward * kChaseSpeed * Time.deltaTime;
+        m_rb.AddForce(moveVec, ForceMode.Force);
         //モデルの向き更新
         base.ModelDir();
     }

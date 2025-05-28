@@ -53,6 +53,8 @@ public class Boss : EnemyBase
     private float m_tackleTime;
     //タックルのスピード
     private float kTackleSpeed = 1500.0f;
+    //スコア
+    private const int kScorePoint = 15000;
 
     // Start is called before the first frame update
     override protected void Start()
@@ -86,6 +88,9 @@ public class Boss : EnemyBase
 
         m_chargeEff.SetActive(false);//チャージエフェクトは非表示
         m_tackleEff.SetActive(false);//タックルエフェクトは非表示
+
+        //スコア
+        m_scorePoint = kScorePoint;
     }
 
     override protected void SerchTarget()//ターゲットの距離と方向を探索

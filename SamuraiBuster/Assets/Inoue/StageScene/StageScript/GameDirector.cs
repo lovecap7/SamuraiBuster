@@ -32,12 +32,12 @@ public class GameDirector : MonoBehaviour
     public float ClearLeftResetMoveOffsetY { get; private set; }
     public float ClearRightMoveOffsetY { get; private set; }
     public float ClearRightResetMoveOffsetY { get; private set; }
+    public int DeathScore { get; private set; }
 
 
 
     // Inspector用
     [SerializeField] private int DamageScore;
-    [SerializeField] private int DesScore;
     [SerializeField] private int TimeMin;
     [SerializeField] private float TimeSec;
 
@@ -73,7 +73,7 @@ public class GameDirector : MonoBehaviour
         IsOpenRightDoor = false;
 //        IsGameReset = false;
         Damage = DamageScore;
-        Des = DesScore;
+        Des = DeathScore;
         Min = TimeMin;
         Sec = TimeSec;
         StaterMoveSpeed = staterMoveSpeed;
@@ -92,28 +92,28 @@ public class GameDirector : MonoBehaviour
     {
 
         //ゲームスタート
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            IsOpenLeftDoor = false;//扉が閉じる
-            Debug.Log("ゲームスタート(F1キー)が押されました。");
-        }
-        else if (Input.GetKeyDown(KeyCode.F2))
-        {
-            IsOpenLeftDoor = true;// 扉が開く
-            Debug.Log("ゲームスタートリセット(F2)が押されました。");
-        }
+        //if (Input.GetKeyDown(KeyCode.F1))
+        //{
+        //    IsOpenLeftDoor = false;//扉が閉じる
+        //    Debug.Log("ゲームスタート(F1キー)が押されました。");
+        //}
+        //else if (Input.GetKeyDown(KeyCode.F2))
+        //{
+        //    IsOpenLeftDoor = true;// 扉が開く
+        //    Debug.Log("ゲームスタートリセット(F2)が押されました。");
+        //}
 
-        // ゲームクリア
-        if (Input.GetKeyDown(KeyCode.F3))
-        {
-            IsOpenRightDoor = true;//右扉が開く
-            Debug.Log("ゲームクリア(F3)が押されました。");
-        }
-        else if (Input.GetKeyDown(KeyCode.F4))
-        {
-            IsOpenRightDoor = false;//右扉がとじる
-            Debug.Log("ゲームクリアリセット(F4)が押されました。");
-        }
+        //// ゲームクリア
+        //if (Input.GetKeyDown(KeyCode.F3))
+        //{
+        //    IsOpenRightDoor = true;//右扉が開く
+        //    Debug.Log("ゲームクリア(F3)が押されました。");
+        //}
+        //else if (Input.GetKeyDown(KeyCode.F4))
+        //{
+        //    IsOpenRightDoor = false;//右扉がとじる
+        //    Debug.Log("ゲームクリアリセット(F4)が押されました。");
+        //}
 
         //// ゲームリセット
         //if (Input.GetKeyDown(KeyCode.R))

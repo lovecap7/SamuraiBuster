@@ -6,20 +6,37 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     // 合計スコア
-    private float TotalScore;
+    private int m_totalScore = 0;
+    //表示するスコア
+    private float m_viewScore = 0;
 
     // 前回Update時の秒数
-    private float oldSecTime;
+    private float m_oldSecTime;
     // スコア表示用UIテキスト
     [SerializeField]
-    private Text ScoreText;
+    private Text m_ScoreText;
     private void Start()
     {
-        ScoreText = GetComponent<Text>();
+        m_ScoreText = GetComponent<Text>();
     }
 
     void Update()
     {
-        ScoreText.text = TotalScore.ToString("0");
+        //だんだん近づける
+        if(m_viewScore < m_totalScore)
+        {
+            m_viewScore = m_viewScore * (1.0f - 0.2f) + m_totalScore * 0.2f; 
+        }
+        else if(m_viewScore >= m_totalScore)
+        {
+            m_viewScore = m_totalScore;
+        }
+
+        m_ScoreText.text = m_viewScore.ToString("0");
+    }
+
+    public void AddScore(int score)
+    {
+        m_totalScore += score;
     }
 }
