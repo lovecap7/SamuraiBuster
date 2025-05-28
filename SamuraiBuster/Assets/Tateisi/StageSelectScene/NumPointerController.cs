@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-enum PlayerNum
+enum PlayerNumsas
 {
     PlayerNum1,
     PlayerNum2,
@@ -48,10 +48,10 @@ public class NumPointerController : MonoBehaviour
 
 
 
-    [SerializeField] private PlayerNum playerNum;
+    [SerializeField] private PlayerNumsas playerNum;
     private void Awake()
     {
-        playerNum = PlayerNum.PlayerNum1;
+        playerNum = PlayerNumsas.PlayerNum1;
 
         // シングルトンインスタンスの設定
         if (Instance != null && Instance != this)
@@ -78,19 +78,19 @@ public class NumPointerController : MonoBehaviour
         IsPlayerNum_2 = false;
         IsPlayerNum_3 = false;
         IsPlayerNum_4 = false;
-        if (playerNum == PlayerNum.PlayerNum1)
+        if (playerNum == PlayerNumsas.PlayerNum1)
         {
             IsPlayerNum_1 = true;
         }
-        if (playerNum == PlayerNum.PlayerNum2)
+        if (playerNum == PlayerNumsas.PlayerNum2)
         {
             IsPlayerNum_2 = true;
         }
-        if (playerNum == PlayerNum.PlayerNum3)
+        if (playerNum == PlayerNumsas.PlayerNum3)
         {
             IsPlayerNum_3 = true;
         }
-        if (playerNum == PlayerNum.PlayerNum4)
+        if (playerNum == PlayerNumsas.PlayerNum4)
         {
             IsPlayerNum_4 = true;
         }
@@ -136,19 +136,19 @@ public class NumPointerController : MonoBehaviour
     /// </summary>
     private void SelectStateProceed()
     {
-        if (playerNum == PlayerNum.PlayerNum1)
+        if (playerNum == PlayerNumsas.PlayerNum1)
         {
-            playerNum = PlayerNum.PlayerNum2;
+            playerNum = PlayerNumsas.PlayerNum2;
             return;
         }
-        if (playerNum == PlayerNum.PlayerNum2)
+        if (playerNum == PlayerNumsas.PlayerNum2)
         {
-            playerNum = PlayerNum.PlayerNum3;
+            playerNum = PlayerNumsas.PlayerNum3;
             return;
         }
-        if (playerNum == PlayerNum.PlayerNum3)
+        if (playerNum == PlayerNumsas.PlayerNum3)
         {
-            playerNum = PlayerNum.PlayerNum4;
+            playerNum = PlayerNumsas.PlayerNum4;
             return;
         }
     }
@@ -158,19 +158,19 @@ public class NumPointerController : MonoBehaviour
     private void SelectStateBack()
     {
 
-        if (playerNum == PlayerNum.PlayerNum4)
+        if (playerNum == PlayerNumsas.PlayerNum4)
         {
-            playerNum = PlayerNum.PlayerNum3;
+            playerNum = PlayerNumsas.PlayerNum3;
             return;
         }
-        if (playerNum == PlayerNum.PlayerNum3)
+        if (playerNum == PlayerNumsas.PlayerNum3)
         {
-            playerNum = PlayerNum.PlayerNum2;
+            playerNum = PlayerNumsas.PlayerNum2;
             return;
         }
-        if (playerNum == PlayerNum.PlayerNum2)
+        if (playerNum == PlayerNumsas.PlayerNum2)
         {
-            playerNum = PlayerNum.PlayerNum1;
+            playerNum = PlayerNumsas.PlayerNum1;
             return;
         }
     }
