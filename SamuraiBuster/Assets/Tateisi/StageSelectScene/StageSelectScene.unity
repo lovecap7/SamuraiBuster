@@ -220,6 +220,7 @@ MonoBehaviour:
   InputLeft: 0
   InputRight: 0
   isMoving: 0
+  stageNum: 0
 --- !u!1 &116800723
 GameObject:
   m_ObjectHideFlags: 0
@@ -477,7 +478,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 85075936}
         m_TargetAssemblyTypeName: PointerController, Assembly-CSharp
-        m_MethodName: LeftMove
+        m_MethodName: LeftStageNum
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -505,7 +506,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 85075936}
         m_TargetAssemblyTypeName: PointerController, Assembly-CSharp
-        m_MethodName: RightMove
+        m_MethodName: RightStageNum
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -945,7 +946,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &850472533
 Transform:
   m_ObjectHideFlags: 0
@@ -1658,7 +1659,7 @@ MonoBehaviour:
   InputLeft: 0
   InputRight: 0
   isMoving: 1
-  playerNum: 0
+  rolePlayerNum: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
