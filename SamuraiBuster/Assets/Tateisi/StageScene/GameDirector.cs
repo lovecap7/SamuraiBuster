@@ -52,6 +52,7 @@ public class GameDirector : MonoBehaviour
     [SerializeField] private float clearRightmoveOffsetY;       // ゲームクリアー時の回転移動オフセットY座標
     [SerializeField] private float clearRightResetmoveOffsetY;   // ゲーム開始時の回転移動オフセットY座標（リセット用）
 
+
     private void Awake()
     {
         // シングルトンインスタンスの設定
@@ -68,7 +69,7 @@ public class GameDirector : MonoBehaviour
     void Start()
     {
         // 初期化
-        IsGameStarted = false;
+        IsGameStarted = true;
         IsGameCleared = false;
 //        IsGameReset = false;
         Damage = DamageScore;
@@ -93,13 +94,13 @@ public class GameDirector : MonoBehaviour
         // ゲームスタート
         if (Input.GetKeyDown(KeyCode.F1))
         {
-            IsGameStarted = true;
+            IsGameStarted = false;
             Debug.Log("ゲームスタート(F1キー)が押されました。");
         }
         else if (Input.GetKeyDown(KeyCode.F2))
         {
-            IsGameStarted = false;
-            Debug.Log("ゲームスタートリセット(F1)が押されました。");
+            IsGameStarted = true;
+            Debug.Log("ゲームスタートリセット(F2)が押されました。");
         }
 
         // ゲームクリア
