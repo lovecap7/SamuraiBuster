@@ -12,6 +12,8 @@ public class selectstage_1 : MonoBehaviour
     // ƒQ[ƒ€ó‘Ô
     public bool Stage1 { get; private set; }
 
+    private bool scalingUp = true;
+
     private void Awake()
     {
         // ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌÝ’è
@@ -90,10 +92,24 @@ public class selectstage_1 : MonoBehaviour
         // Šg‘åEk¬‚Ì•ûŒü‚ð”»’è
         if (PointerController.Instance.IsSelect_1)
         {
-            currentScale += Vector3.one * scaleSpeed * Time.deltaTime;
-            if (currentScale.x >= maxScale)
+            // Šg‘åEk¬‚Ì•ûŒü‚ð”»’è
+            if (scalingUp)
             {
-                currentScale = Vector3.one * maxScale;
+                currentScale += Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale.x >= maxScale)
+                {
+                    currentScale = Vector3.one * maxScale;
+                    scalingUp = false;
+                }
+            }
+            else
+            {
+                currentScale -= Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale.x <= minScale)
+                {
+                    currentScale = Vector3.one * minScale;
+                    scalingUp = true;
+                }
             }
         }
         else

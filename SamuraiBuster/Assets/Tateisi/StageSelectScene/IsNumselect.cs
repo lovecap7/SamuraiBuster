@@ -15,6 +15,8 @@ public class IsNumselect : MonoBehaviour
     public bool NumPlayer3 { get; private set; }
     public bool NumPlayer4 { get; private set; }
 
+    private bool scalingUp = true;
+
     private void Awake()
     {
         // ƒVƒ“ƒOƒ‹ƒgƒ“ƒCƒ“ƒXƒ^ƒ“ƒX‚ÌÝ’è
@@ -161,28 +163,42 @@ public class IsNumselect : MonoBehaviour
     private void IsPlayer_1()
     {
         // Œ»Ý‚ÌƒXƒP[ƒ‹‚ðŽæ“¾
-        Vector3 currentScale = PlayerNum1.transform.localScale;
+        Vector3 currentScale1 = PlayerNum1.transform.localScale;
 
         // Šg‘åEk¬‚Ì•ûŒü‚ð”»’è
         if (NumPointerController.Instance.IsPlayerNum_1)
         {
-            currentScale += Vector3.one * scaleSpeed * Time.deltaTime;
-            if (currentScale.x >= maxScale)
+            // Šg‘åEk¬‚Ì•ûŒü‚ð”»’è
+            if (scalingUp)
             {
-                currentScale = Vector3.one * maxScale;
+                currentScale1 += Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale1.x >= maxScale)
+                {
+                    currentScale1 = Vector3.one * maxScale;
+                    scalingUp = false;
+                }
+            }
+            else
+            {
+                currentScale1 -= Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale1.x <= minScale)
+                {
+                    currentScale1 = Vector3.one * minScale;
+                    scalingUp = true;
+                }
             }
         }
         else
         {
-            currentScale -= Vector3.one * scaleSpeed * Time.deltaTime;
-            if (currentScale.x <= minScale)
+            currentScale1 -= Vector3.one * scaleSpeed * Time.deltaTime;
+            if (currentScale1.x <= minScale)
             {
-                currentScale = Vector3.one * minScale;
+                currentScale1 = Vector3.one * minScale;
             }
         }
 
         // ƒXƒP[ƒ‹‚ð“K—p
-        PlayerNum1.transform.localScale = currentScale;
+        PlayerNum1.transform.localScale = currentScale1;
     }
 
     private void IsPlayer_2()
@@ -193,10 +209,24 @@ public class IsNumselect : MonoBehaviour
         // Šg‘åEk¬‚Ì•ûŒü‚ð”»’è
         if (NumPointerController.Instance.IsPlayerNum_2)
         {
-            currentScale2 += Vector3.one * scaleSpeed * Time.deltaTime;
-            if (currentScale2.x >= maxScale)
+            // Šg‘åEk¬‚Ì•ûŒü‚ð”»’è
+            if (scalingUp)
             {
-                currentScale2 = Vector3.one * maxScale;
+                currentScale2 += Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale2.x >= maxScale)
+                {
+                    currentScale2 = Vector3.one * maxScale;
+                    scalingUp = false;
+                }
+            }
+            else
+            {
+                currentScale2 -= Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale2.x <= minScale)
+                {
+                    currentScale2 = Vector3.one * minScale;
+                    scalingUp = true;
+                }
             }
         }
         else
@@ -219,10 +249,24 @@ public class IsNumselect : MonoBehaviour
         // Šg‘åEk¬‚Ì•ûŒü‚ð”»’è
         if (NumPointerController.Instance.IsPlayerNum_3)
         {
-            currentScale3 += Vector3.one * scaleSpeed * Time.deltaTime;
-            if (currentScale3.x >= maxScale)
+            // Šg‘åEk¬‚Ì•ûŒü‚ð”»’è
+            if (scalingUp)
             {
-                currentScale3 = Vector3.one * maxScale;
+                currentScale3 += Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale3.x >= maxScale)
+                {
+                    currentScale3 = Vector3.one * maxScale;
+                    scalingUp = false;
+                }
+            }
+            else
+            {
+                currentScale3 -= Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale3.x <= minScale)
+                {
+                    currentScale3 = Vector3.one * minScale;
+                    scalingUp = true;
+                }
             }
         }
         else
@@ -244,10 +288,24 @@ public class IsNumselect : MonoBehaviour
         // Šg‘åEk¬‚Ì•ûŒü‚ð”»’è
         if (NumPointerController.Instance.IsPlayerNum_4)
         {
-            currentScale4 += Vector3.one * scaleSpeed * Time.deltaTime;
-            if (currentScale4.x >= maxScale)
+            // Šg‘åEk¬‚Ì•ûŒü‚ð”»’è
+            if (scalingUp)
             {
-                currentScale4 = Vector3.one * maxScale;
+                currentScale4 += Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale4.x >= maxScale)
+                {
+                    currentScale4 = Vector3.one * maxScale;
+                    scalingUp = false;
+                }
+            }
+            else
+            {
+                currentScale4 -= Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale4.x <= minScale)
+                {
+                    currentScale4 = Vector3.one * minScale;
+                    scalingUp = true;
+                }
             }
         }
         else
