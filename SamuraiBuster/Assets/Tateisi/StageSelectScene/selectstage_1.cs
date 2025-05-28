@@ -64,7 +64,6 @@ public class selectstage_1 : MonoBehaviour
         if (stage1Selected && context.canceled)
         {
             Stage1 = true;
-            //UnityEngine.SceneManagement.SceneManager.LoadScene("RollSelectScene");
         }
     }
 
@@ -92,8 +91,8 @@ public class selectstage_1 : MonoBehaviour
         // 拡大・縮小の方向を判定
         if (PointerController.Instance.IsSelect_1)
         {
-            // 拡大・縮小の方向を判定
-            if (scalingUp)
+                // 拡大・縮小の方向を判定
+                if (scalingUp)
             {
                 currentScale += Vector3.one * scaleSpeed * Time.deltaTime;
                 if (currentScale.x >= maxScale)
@@ -120,7 +119,6 @@ public class selectstage_1 : MonoBehaviour
                 currentScale = Vector3.one * minScale;
             }
         }
-
         // スケールを適用
         transform.localScale = currentScale;
     }
