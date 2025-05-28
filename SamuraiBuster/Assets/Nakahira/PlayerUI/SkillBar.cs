@@ -11,8 +11,8 @@ public class SkillBar : MonoBehaviour
     bool m_isMax = false;
 
     // 0からMaxまでだんだん彩度が上がっていく感じ
-    readonly Color32 kInitColor = new(255, 255, 255, 255);
-    readonly Color32 kMaxColor  = new(  0, 183, 255, 255);
+    readonly Color kInitColor = new(1.0f, 1.0f, 1.0f, 1.0f);
+    readonly Color kMaxColor  = new(  0, 0.7f, 1.0f, 1.0f);
 
     public void SetPlayer(in PlayerBase player)
     {
@@ -35,10 +35,10 @@ public class SkillBar : MonoBehaviour
         m_fill.fillAmount = ratio;
 
         // 色変え
-        // 線形補完はおろか掛け算すらめんどくさい
-        Color tempColor = new((kInitColor.r * rRatio + kMaxColor.r * ratio),
-            (kInitColor.g * rRatio + kMaxColor.g * ratio),
-            (kInitColor.b * rRatio + kMaxColor.b * ratio), 255);
+        // 線形補完
+        Color tempColor = new(kInitColor.r * rRatio + kMaxColor.r * ratio,
+            kInitColor.g * rRatio + kMaxColor.g * ratio,
+            kInitColor.b * rRatio + kMaxColor.b * ratio, 255);
 
         if (ratio < 0.1f)
         {
