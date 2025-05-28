@@ -7,8 +7,10 @@ abstract public class PlayerBase : MonoBehaviour
     const float kRotateSpeed = 0.2f;
     const float kMoveThreshold = 0.001f;
     const int kInvincibleFrame = 60;
-    const int kHealValue = 1;
+    const int kHealValue = 2;
 
+    // 継承側で設定して
+    protected abstract int MaxHP { get; }
     protected InputHolder m_inputHolder;
     protected Animator m_anim;
     protected Rigidbody m_rigid;
@@ -16,8 +18,8 @@ abstract public class PlayerBase : MonoBehaviour
     protected CharacterStatus m_characterStatus;
     protected Vector2 m_inputAxis = new();
     protected int m_isInvincibleFrame = 0;
-    // 死んだら透明になって観戦しかできない
-    protected bool m_isGhostMode = false;
+    // 死んだら透明になる
+    protected bool m_isDeath = false;
     protected Quaternion m_cameraQ;
 
     protected bool m_canMove = true;
@@ -40,6 +42,13 @@ abstract public class PlayerBase : MonoBehaviour
     // Update is called once per frame
     protected virtual void Update()
     {
+        if (m_isDeath)
+        {
+            DeathUpdate();
+
+            return;
+        }
+
         // 入力を受け取る
         GetInput();
 
@@ -95,6 +104,11 @@ abstract public class PlayerBase : MonoBehaviour
         }
     }
 
+    void DeathUpdate()
+    {
+
+    }
+
     abstract public float GetHitPointRatio();
     abstract public float GetSkillChargeRatio();
     // ロールによって実装を変える
@@ -129,6 +143,12 @@ abstract public class PlayerBase : MonoBehaviour
         m_anim.ResetTrigger("Attack");
     }
 
+    // いかなる状態でもIdle状態に戻ります。
+    public void ResetAnimation()
+    {
+        m_anim.SetTrigger("Reset");
+    }
+
     public void OnTriggerEnter(Collider other)
     {
         // 敵からの攻撃なら
@@ -151,6 +171,7 @@ abstract public class PlayerBase : MonoBehaviour
         {
             // 回復してるよエフェクトを出す
             m_healEffect.SetActive(true);
+            return;
         }
     }
 
@@ -161,7 +182,23 @@ abstract public class PlayerBase : MonoBehaviour
         {
             // 毎フレーム回復したれ
             m_characterStatus.hitPoint += kHealValue;
-            Debug.Log("すごい！回復してる！");
+            if (m_characterStatus.hitPoint > MaxHP) m_characterStatus.hitPoint = MaxHP;
+            return;
+        }
+
+        if (other.CompareTag("EnemyMeleeAttack") || other.CompareTag("EnemyRangeAttack"))
+        {
+            if (m_isInvincibleFrame > 0) return;
+            if (m_isDeath) return;
+
+            // ダメージを受けておく
+            // これはそれぞれのロール
+            int damage = other.GetComponent<AttackPower>().damage;
+            OnDamage(damage);
+
+            // 無敵判定は基底でやってもいいでしょ
+            m_isInvincibleFrame = kInvincibleFrame;
+
             return;
         }
     }

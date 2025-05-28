@@ -7,15 +7,14 @@ public class SkillBar : MonoBehaviour
     [SerializeField]
     PlayerBase m_player;
 
-    Slider m_slider;
     Image m_fill;
     bool m_isMax = false;
 
     // 0Ç©ÇÁMaxÇ‹Ç≈ÇæÇÒÇæÇÒç ìxÇ™è„Ç™Ç¡ÇƒÇ¢Ç≠ä¥Ç∂
-    readonly Color32 kInitColor = new(255, 255, 255, 255);
-    readonly Color32 kMaxColor  = new(  0, 183, 255, 255);
+    readonly Color kInitColor = new(1.0f, 1.0f, 1.0f, 1.0f);
+    readonly Color kMaxColor  = new(  0, 0.7f, 1.0f, 1.0f);
 
-    public void SetPlayer(ref PlayerBase player)
+    public void SetPlayer(in PlayerBase player)
     {
         m_player = player;
     }
@@ -23,8 +22,7 @@ public class SkillBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_slider = GetComponent<Slider>();
-        m_fill = transform.GetChild(1).transform.GetChild(0).GetComponent<Image>();
+        m_fill = transform.GetChild(0).GetComponent<Image>();
     }
 
     private void Update()
@@ -34,13 +32,13 @@ public class SkillBar : MonoBehaviour
         float rRatio = 1.0f - ratio;
 
         // îΩâf
-        m_slider.value = ratio;
+        m_fill.fillAmount = ratio;
 
         // êFïœÇ¶
-        // ê¸å`ï‚äÆÇÕÇ®ÇÎÇ©ä|ÇØéZÇ∑ÇÁÇﬂÇÒÇ«Ç≠Ç≥Ç¢
-        Color32 tempColor = new((byte)(kInitColor.r * rRatio + kMaxColor.r * ratio),
-            (byte)(kInitColor.g * rRatio + kMaxColor.g * ratio),
-            (byte)(kInitColor.b * rRatio + kMaxColor.b * ratio), 255);
+        // ê¸å`ï‚äÆ
+        Color tempColor = new(kInitColor.r * rRatio + kMaxColor.r * ratio,
+            kInitColor.g * rRatio + kMaxColor.g * ratio,
+            kInitColor.b * rRatio + kMaxColor.b * ratio, 255);
 
         if (ratio < 0.1f)
         {

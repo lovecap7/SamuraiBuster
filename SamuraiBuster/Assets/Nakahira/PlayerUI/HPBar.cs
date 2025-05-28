@@ -7,17 +7,18 @@ public class HPBar : MonoBehaviour
     [SerializeField]
     PlayerBase m_player;
 
-    Slider m_slider;
     Image m_fill;
+    Tweener m_shake;
+    GameObject m_parent;
 
     const float kCautionRatio = 0.5f;
     const float kDangerRatio  = 0.2f;
 
-    readonly Color32 kNomal   = new(100,200,100,255);
-    readonly Color32 kCaution = new(240,240, 50,255);
-    readonly Color32 kDanger  = new(200, 50, 30,255);
+    readonly Color kNomal   = new( 0.2f,  0.6f, 0.2f, 1.0f);
+    readonly Color kCaution = new(0.95f, 0.95f, 0.2f, 1.0f);
+    readonly Color kDanger  = new( 0.8f,  0.2f, 0.1f, 1.0f);
 
-    public void SetPlayer(ref PlayerBase player)
+    public void SetPlayer(in PlayerBase player)
     {
         m_player = player;
     }
@@ -25,8 +26,8 @@ public class HPBar : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_slider = GetComponent<Slider>();
-        m_fill = transform.GetChild(1).transform.GetChild(0).GetComponent<Image>();
+        m_fill = transform.GetChild(0).GetComponent<Image>();
+        m_parent = transform.parent.gameObject;
     }
 
     private void Update()
@@ -35,32 +36,65 @@ public class HPBar : MonoBehaviour
         float ratio = m_player.GetHitPointRatio();
 
         // ’l‚ª•Ï‰»‚µ‚Ä‚¢‚½‚ç
-        if (Mathf.Abs(ratio - m_slider.value) < 0.01f) return;
+        if (Mathf.Abs(ratio - m_fill.fillAmount) < 0.01f) return;
+
+        // ˆ—‡‚Ì“s‡‚É‚æ‚è‹L‰¯‚µ‚Ä‚¨‚­
+        bool isHeal = ratio - m_fill.fillAmount > 0;
 
         // ”½‰f
-        m_slider.value = ratio;
+        m_fill.fillAmount = ratio;
+
+        // ‰ñ•œ‚Ìê‡
+        if (isHeal)
+        {
+            HealAnim();
+        }
+        else
+        {
+            DamageAinm();
+        }
     }
 
     // ¡‚ÌHP‚ÌŠ„‡‚©‚çAHPƒQ[ƒW‚ÌF‚ð•Ï‚¦‚Ü‚·B
     // ‚Â‚¢‚Å‚É—h‚ç‚µ‚Ü‚·B
-    public void ChangeHPColor()
+    public void DamageAinm()
     {
-        float ratio = m_slider.value;
+        float ratio = m_fill.fillAmount;
+
+        m_shake?.Kill();
 
         if (ratio > kCautionRatio)
         {
             m_fill.color = kNomal;
-            transform.DOShakePosition(1.0f, 3.0f);
+            m_shake = transform.DOShakePosition(1.0f, 6.0f, 100);
         }
         else if (ratio > kDangerRatio)
         {
             m_fill.color = kCaution;
-            transform.DOShakePosition(1.0f, 8.0f);
+            m_shake = transform.DOShakePosition(1.0f, 16.0f, 100);
         }
-        else if (ratio < kDangerRatio)
+        else if (ratio <= kDangerRatio)
         {
             m_fill.color = kDanger;
-            transform.DOShakePosition(1.0f, 13.0f);
+            m_shake = transform.DOShakePosition(1.0f, 26.0f, 100);
+        }
+    }
+
+    public void HealAnim()
+    {
+        float ratio = m_fill.fillAmount;
+
+        if (ratio > kCautionRatio)
+        {
+            m_fill.color = kNomal;
+        }
+        else if (ratio > kDangerRatio)
+        {
+            m_fill.color = kCaution;
+        }
+        else if (ratio <= kDangerRatio)
+        {
+            m_fill.color = kDanger;
         }
     }
 }
