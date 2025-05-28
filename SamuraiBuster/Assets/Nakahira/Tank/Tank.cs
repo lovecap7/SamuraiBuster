@@ -118,7 +118,8 @@ public class Tank : PlayerBase
         m_characterStatus.hitPoint = 0;
 
         // ‚â‚Á‚Ï€–Sƒ‚[ƒVƒ‡ƒ“
-        m_anim.SetTrigger("Death");
+        m_anim.SetBool("Death", true);
+        m_isDeath = true;
     }
 
     public override PlayerRole GetRole()

@@ -66,6 +66,8 @@ public class Fighter : PlayerBase
         // ドッジロール
         if (m_skillTimer < kSkillInterval) return;
 
+        if (m_isDeath) return;
+
         m_anim.SetTrigger("Skilling");
 
         // 今の入力方向にプレイヤーを向ける
@@ -97,7 +99,8 @@ public class Fighter : PlayerBase
         m_characterStatus.hitPoint = 0;
 
         // やっぱ死亡モーション
-        m_anim.SetTrigger("Death");
+        m_anim.SetBool("Death", true);
+        m_isDeath = true;
     }
 
     public override PlayerRole GetRole()
