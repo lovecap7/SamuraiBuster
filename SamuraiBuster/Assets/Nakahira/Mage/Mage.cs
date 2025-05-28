@@ -103,7 +103,14 @@ public class Mage : PlayerBase
         m_characterStatus.hitPoint = 0;
 
         // やっぱ死亡モーション
-        m_anim.SetTrigger("Death");
+        m_anim.SetBool("Death", true);
+        m_isDeath = true;
+
+        // サークルが出てたら消しとく
+        if (m_previewCircleInstance != null)
+        {
+            Destroy(m_previewCircleInstance);
+        }
     }
 
     public override PlayerRole GetRole()

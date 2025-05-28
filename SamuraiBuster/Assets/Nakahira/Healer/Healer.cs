@@ -79,6 +79,8 @@ public class Healer : PlayerBase
         // サークルを出して
         if (m_skillTimer < kSkillInterval) return;
 
+        if (m_isDeath) return;
+
         m_anim.SetTrigger("Skill");
 
         // この時点ではタイマーリセットはしない
@@ -98,7 +100,14 @@ public class Healer : PlayerBase
         m_characterStatus.hitPoint = 0;
 
         // やっぱ死亡モーション
-        m_anim.SetTrigger("Death");
+        m_anim.SetBool("Death", true);
+        m_isDeath = true;
+
+        // サークルが出てたら消しとく
+        if (m_healCirclePreviewInstance != null)
+        {
+            Destroy(m_healCirclePreviewInstance);
+        }
     }
 
     public override PlayerRole GetRole()

@@ -9,13 +9,14 @@ public class HPBar : MonoBehaviour
 
     Image m_fill;
     Tweener m_shake;
+    GameObject m_parent;
 
     const float kCautionRatio = 0.5f;
     const float kDangerRatio  = 0.2f;
 
-    readonly Color32 kNomal   = new(100,200,100,255);
-    readonly Color32 kCaution = new(240,240, 50,255);
-    readonly Color32 kDanger  = new(200, 50, 30,255);
+    readonly Color kNomal   = new( 0.2f,  0.6f, 0.2f, 1.0f);
+    readonly Color kCaution = new(0.95f, 0.95f, 0.2f, 1.0f);
+    readonly Color kDanger  = new( 0.8f,  0.2f, 0.1f, 1.0f);
 
     public void SetPlayer(in PlayerBase player)
     {
@@ -26,6 +27,7 @@ public class HPBar : MonoBehaviour
     void Start()
     {
         m_fill = transform.GetChild(0).GetComponent<Image>();
+        m_parent = transform.parent.gameObject;
     }
 
     private void Update()
@@ -36,8 +38,14 @@ public class HPBar : MonoBehaviour
         // ’l‚ª•Ï‰»‚µ‚Ä‚¢‚½‚ç
         if (Mathf.Abs(ratio - m_fill.fillAmount) < 0.01f) return;
 
-        // ‰ñ•œ‚Ìê‡A
-        if (ratio - m_fill.fillAmount > 0)
+        // ˆ—‡‚Ì“s‡‚É‚æ‚è‹L‰¯‚µ‚Ä‚¨‚­
+        bool isHeal = ratio - m_fill.fillAmount > 0;
+
+        // ”½‰f
+        m_fill.fillAmount = ratio;
+
+        // ‰ñ•œ‚Ìê‡
+        if (isHeal)
         {
             HealAnim();
         }
@@ -45,9 +53,6 @@ public class HPBar : MonoBehaviour
         {
             DamageAinm();
         }
-
-        // ”½‰f
-        m_fill.fillAmount = ratio; 
     }
 
     // ¡‚ÌHP‚ÌŠ„‡‚©‚çAHPƒQ[ƒW‚ÌF‚ð•Ï‚¦‚Ü‚·B
@@ -61,17 +66,17 @@ public class HPBar : MonoBehaviour
         if (ratio > kCautionRatio)
         {
             m_fill.color = kNomal;
-            m_shake = transform.DOShakePosition(1.0f, 6.0f);
+            m_shake = transform.DOShakePosition(1.0f, 6.0f, 100);
         }
         else if (ratio > kDangerRatio)
         {
             m_fill.color = kCaution;
-            m_shake = transform.DOShakePosition(1.0f, 16.0f);
+            m_shake = transform.DOShakePosition(1.0f, 16.0f, 100);
         }
         else if (ratio <= kDangerRatio)
         {
             m_fill.color = kDanger;
-            m_shake = transform.DOShakePosition(1.0f, 26.0f);
+            m_shake = transform.DOShakePosition(1.0f, 26.0f, 100);
         }
     }
 
