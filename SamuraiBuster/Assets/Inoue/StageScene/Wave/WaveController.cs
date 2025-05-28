@@ -203,6 +203,7 @@ public class WaveController : MonoBehaviour
         {
             other.GetComponent<PlayerBase>().DisableMove();//行動不可
             other.transform.position = transform.GetChild(0).position; //プレイヤーをこの位置に移動
+            other.GetComponent<PlayerBase>().ResetAnimation();//アニメーションをリセット
             ++m_goRightNum;
             //プレイヤーの人数分右に進んだら
             if (m_goRightNum >= m_playerNum)
