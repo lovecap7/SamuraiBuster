@@ -52,6 +52,11 @@ public class WaveController : MonoBehaviour
         //フェード
         m_transitionFade.OnFadeStart();
         m_isWave1 = true;
+        //プレイヤーの行動を不能にする
+        for (int i = 0; i < m_playerNum; ++i)
+        {
+            m_players.transform.GetChild(i).GetComponent<PlayerBase>().DisableMove();//行動不能
+        }
     }
 
     // Update is called once per frame
@@ -70,23 +75,14 @@ public class WaveController : MonoBehaviour
                     CloseDoors();
                     //Wave1をアクティブにする
                     m_wave1.SetActive(true);
-                    //プレイヤーを初期位置に
-                    m_players.GetComponent<PlayersInitPos>().InitPlayersPos();
+                    PlayersInit();
                     m_isWaveInit = false; //初期化フラグをリセット
                 }
             }
             else
             {
-                //初期化がまだなら
-                if(!m_isWaveInit)
-                {
-                    m_isWaveInit = true;
-                    for (int i = 0; i < m_playerNum; ++i)
-                    {
-                        //プレイヤーの行動を可能にする
-                        m_players.transform.GetChild(i).GetComponent<PlayerBase>().EnableMove();//行動可能
-                    }
-                }
+                //初期化
+                InitWave();
             }
             //Wave1が終わったなら
             if (m_wave1s.GetIsWaveEnd())
@@ -108,23 +104,13 @@ public class WaveController : MonoBehaviour
                     CloseDoors();
                     //Wave2をアクティブにする
                     m_wave2.SetActive(true);
-                    //プレイヤーを初期位置に
-                    m_players.GetComponent<PlayersInitPos>().InitPlayersPos();
+                    PlayersInit();
                     m_isWaveInit = false; //初期化フラグをリセット
                 }
             }
             else
             {
-                //初期化がまだなら
-                if (!m_isWaveInit)
-                {
-                    m_isWaveInit = true;
-                    for (int i = 0; i < m_playerNum; ++i)
-                    {
-                        //プレイヤーの行動を可能にする
-                        m_players.transform.GetChild(i).GetComponent<PlayerBase>().EnableMove();//行動可能
-                    }
-                }
+                InitWave();
             }
             //Wave2が終わったなら
             if (m_wave2s.GetIsWaveEnd())
@@ -146,23 +132,13 @@ public class WaveController : MonoBehaviour
                     CloseDoors();
                     //Wave3をアクティブにする
                     m_wave3.SetActive(true);
-                    //プレイヤーを初期位置に
-                    m_players.GetComponent<PlayersInitPos>().InitPlayersPos();
+                    PlayersInit();
                     m_isWaveInit = false; //初期化フラグをリセット
                 }
             }
             else
             {
-                //初期化がまだなら
-                if (!m_isWaveInit)
-                {
-                    m_isWaveInit = true;
-                    for (int i = 0; i < m_playerNum; ++i)
-                    {
-                        //プレイヤーの行動を可能にする
-                        m_players.transform.GetChild(i).GetComponent<PlayerBase>().EnableMove();//行動可能
-                    }
-                }
+                InitWave();
             }
             //Wave3が終わったなら
             if (m_wave3s.GetIsWaveEnd())
@@ -177,6 +153,32 @@ public class WaveController : MonoBehaviour
                 }
             }
 
+        }
+    }
+
+    private void PlayersInit()
+    {
+        //プレイヤーを初期位置に
+        m_players.GetComponent<PlayersInitPos>().InitPlayersPos();
+        for (int i = 0; i < m_playerNum; ++i)
+        {
+            //アニメーションをリセット
+            m_players.transform.GetChild(i).GetComponent<PlayerBase>().ResetAnimation();
+        }
+    }
+
+    private void InitWave()
+    {
+        //初期化がまだなら
+        if (!m_isWaveInit)
+        {
+            m_isWaveInit = true;
+            for (int i = 0; i < m_playerNum; ++i)
+            {
+                //プレイヤーの行動を可能にする
+                m_players.transform.GetChild(i).GetComponent<PlayerBase>().EnableMove();//行動可能
+
+            }
         }
     }
 
@@ -203,7 +205,6 @@ public class WaveController : MonoBehaviour
         {
             other.GetComponent<PlayerBase>().DisableMove();//行動不可
             other.transform.position = transform.GetChild(0).position; //プレイヤーをこの位置に移動
-            other.GetComponent<PlayerBase>().ResetAnimation();//アニメーションをリセット
             ++m_goRightNum;
             //プレイヤーの人数分右に進んだら
             if (m_goRightNum >= m_playerNum)
