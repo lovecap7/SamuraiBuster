@@ -56,7 +56,7 @@ public class selectstage_2 : MonoBehaviour
     public void Stage2OK(InputAction.CallbackContext context)
     {
         //ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«
-        if (stage2Selected)
+        if (stage2Selected && context.canceled)
         {
             Stage2 = true;
         }

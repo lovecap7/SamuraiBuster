@@ -5,8 +5,94 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using static UnityEngine.InputSystem.InputAction;
 
+enum  SelectState
+{
+    StageSelect,
+    PlayerNumSelect,
+    RoleSelect,
+    TitleBack
+}
+
 public class SelectDirector : MonoBehaviour
 {
+    [SerializeField] private SelectState selectState;
+    private void Awake()
+    {
+        selectState = SelectState.StageSelect;
+    }
+
+    // 決定か戻るボタンが押されるたびに呼ばれる関数を作る
+    // その関数が呼ばれたらselectStateを進めるか戻す関数を呼ぶ
+    // 進める関数は
+    // TitleBackならStageSelect,StageSelectならPlayerNumSelect...というように進める
+    // 戻る関数はその逆
+
+    public void SelectStateOK(InputAction.CallbackContext context)
+    {
+        if(!context.performed)return;
+        Debug.Log("OK");
+        SelectStateProceed();   // ひとつ先の選択状態に進む
+    }
+
+    public void SelectStateBack(InputAction.CallbackContext context)
+    {
+        if(!context.performed) return;
+        Debug.Log("Back");
+        SelectStateBack();      // ひとつ前の選択状態に戻る 
+    }
+
+    public void TryChangeScene()
+    {
+        if(!(selectState == SelectState.RoleSelect || 
+             selectState == SelectState.TitleBack))
+        {
+            Debug.Log("Nooooo!!!!");
+            return;
+        }
+        if(selectState == SelectState.TitleBack)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScene");
+        }
+        if (selectState == SelectState.RoleSelect)
+        {
+            UnityEngine.SceneManagement.SceneManager.LoadScene("RollSelectScene");
+        }
+    }
+
+    /// <summary>
+    /// ひとつ先の選択状態に進む関数
+    /// </summary>
+    private void SelectStateProceed()
+    {
+        if(selectState == SelectState.StageSelect)
+        {
+            selectState = SelectState.PlayerNumSelect;
+            return;
+        }
+        if(selectState == SelectState.PlayerNumSelect)
+        {
+            selectState = SelectState.RoleSelect;
+            return;
+        }
+    }
+    /// <summary>
+    /// ひとつ前の選択状態に戻る関数
+    /// </summary>
+    private void SelectStateBack()
+    {
+
+        if (selectState == SelectState.PlayerNumSelect)
+        {
+            selectState = SelectState.StageSelect;
+            return;
+        }
+        if (selectState == SelectState.StageSelect)
+        {
+            selectState = SelectState.TitleBack;
+            return;
+        }
+    }
+
     /// <summary>
     /// 右に移動するための入力処理
     /// </summary>
@@ -20,8 +106,7 @@ public class SelectDirector : MonoBehaviour
         //ボタンを押したとき
         if (context.performed)
         {
-            Debug.Log("TitleBack");
-            UnityEngine.SceneManagement.SceneManager.LoadScene("TitleScene");
+            TryChangeScene();
         }
     }
 }

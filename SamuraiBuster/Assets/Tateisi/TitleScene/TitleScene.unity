@@ -556,12 +556,32 @@ MonoBehaviour:
     m_ActionName: Title/PAB[/XInputControllerWindows/buttonSouth,/XInputControllerWindows/buttonEast]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 16224a62-2505-49ec-9303-f9ce30c99958
-    m_ActionName: SelectStage/Move
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: 374f9b6c-729c-4526-a588-f0db0afd9108
     m_ActionName: RollSelectScene/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8ee4c209-7162-4a8c-aed3-ab6876334e94
+    m_ActionName: StageSelectScene/UpMove[/XInputControllerWindows/leftStick/up,/XInputControllerWindows/rightStick/up]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4fc7cb7b-a601-4608-b699-0bf8d3b32905
+    m_ActionName: StageSelectScene/LeftMove[/XInputControllerWindows/leftStick/left,/XInputControllerWindows/rightStick/left]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 4bfb0d12-c162-45c5-91e2-6d51a47c0e55
+    m_ActionName: StageSelectScene/RightMove[/XInputControllerWindows/leftStick/right,/XInputControllerWindows/rightStick/right]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6429dd28-9fe8-4d0c-a282-194cbf648eae
+    m_ActionName: StageSelectScene/DownMove[/XInputControllerWindows/leftStick/down,/XInputControllerWindows/rightStick/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 917f4c3f-56f2-4db2-9862-e5870cfaec80
+    m_ActionName: StageSelectScene/OK[/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 0c397dd5-7b9a-41de-a6c1-d27e1bb607e0
+    m_ActionName: StageSelectScene/Back[/XInputControllerWindows/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: TitleScene
@@ -762,7 +782,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f903cd227667ed140a6f227ded071dd4, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 0f76c5f54ba11c14d9024b8562b909a2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
