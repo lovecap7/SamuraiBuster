@@ -10,7 +10,7 @@ public class Fighter : PlayerBase
 
     const int kSkillInterval = 60;
     const int kDodgeInvincibleFrame = 30;
-    const int kInitHP = 150;
+    protected override int MaxHP { get => 750; }
     // UŒ‚1`3’i–Ú‚ÌUŒ‚—Í
     const int kAttackPower1 = 200;
     const int kAttackPower2 = 300;
@@ -29,7 +29,7 @@ public class Fighter : PlayerBase
         m_katanaCollider = m_katana.GetComponent<CapsuleCollider>();
         m_attackPower = m_katana.GetComponent<AttackPower>();
         m_katanaCollider.enabled = false;
-        m_characterStatus.hitPoint = kInitHP;
+        m_characterStatus.hitPoint = MaxHP;
     }
 
     // Update is called once per frame
@@ -44,7 +44,7 @@ public class Fighter : PlayerBase
 
     public override float GetHitPointRatio()
     {
-        return (float)m_characterStatus.hitPoint / (float)kInitHP;
+        return (float)m_characterStatus.hitPoint / (float)MaxHP;
     }
 
     public override float GetSkillChargeRatio()
@@ -93,6 +93,8 @@ public class Fighter : PlayerBase
 
         // ‚±‚±‚ªO“r‚Ìì
         if (m_characterStatus.hitPoint > 0) return;
+
+        m_characterStatus.hitPoint = 0;
 
         // ‚â‚Á‚Ï€–Sƒ‚[ƒVƒ‡ƒ“
         m_anim.SetTrigger("Death");

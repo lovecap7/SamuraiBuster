@@ -11,7 +11,7 @@ public class Tank : PlayerBase
     AttackPower m_attackPower;
 
     const int kSkillInterval = 420;
-    const int kInitHP = 200;
+    protected override int MaxHP { get => 1000; }
     const float kDamageCutRate = 0.5f;
     const int kAttackInterval = 90;
     const int kSkillDuration = 360;
@@ -37,7 +37,7 @@ public class Tank : PlayerBase
         m_axeCollider = m_axe.GetComponent<CapsuleCollider>();
         m_attackPower = m_axe.GetComponent<AttackPower>();
         m_axeCollider.enabled = false;
-        m_characterStatus.hitPoint = kInitHP;
+        m_characterStatus.hitPoint = MaxHP;
     }
 
     // Update is called once per frame
@@ -64,7 +64,7 @@ public class Tank : PlayerBase
 
     public override float GetHitPointRatio()
     {
-        return (float)m_characterStatus.hitPoint / (float)kInitHP;
+        return (float)m_characterStatus.hitPoint / (float)MaxHP;
     }
 
     public override float GetSkillChargeRatio()
@@ -114,6 +114,8 @@ public class Tank : PlayerBase
 
         // ‚±‚±‚ªO“r‚Ìì
         if (m_characterStatus.hitPoint > 0) return;
+
+        m_characterStatus.hitPoint = 0;
 
         // ‚â‚Á‚Ï€–Sƒ‚[ƒVƒ‡ƒ“
         m_anim.SetTrigger("Death");

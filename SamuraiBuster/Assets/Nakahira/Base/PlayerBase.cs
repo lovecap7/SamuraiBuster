@@ -9,6 +9,8 @@ abstract public class PlayerBase : MonoBehaviour
     const int kInvincibleFrame = 60;
     const int kHealValue = 1;
 
+    // 継承側で設定して
+    protected abstract int MaxHP { get; }
     protected InputHolder m_inputHolder;
     protected Animator m_anim;
     protected Rigidbody m_rigid;
@@ -161,6 +163,7 @@ abstract public class PlayerBase : MonoBehaviour
         {
             // 毎フレーム回復したれ
             m_characterStatus.hitPoint += kHealValue;
+            if (m_characterStatus.hitPoint > MaxHP) m_characterStatus.hitPoint = MaxHP;
             Debug.Log("すごい！回復してる！");
             return;
         }

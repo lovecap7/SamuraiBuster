@@ -45,8 +45,8 @@ public class PlayerUI : MonoBehaviour
             UI.transform.GetChild((int)UIIndex.Icons).GetChild((int)role).gameObject.SetActive(true);
 
             // それぞれのUIにプレイヤーを割り当てる
-            UI.transform.GetChild((int)UIIndex.HPBar).GetComponent<HPBar>().SetPlayer(ref playerBase);
-            UI.transform.GetChild((int)UIIndex.SkillBar).GetComponent<SkillBar>().SetPlayer(ref playerBase);
+            UI.transform.GetChild((int)UIIndex.HPBar).GetComponent<HPBar>().SetPlayer(in playerBase);
+            UI.transform.GetChild((int)UIIndex.SkillBar).GetComponent<SkillBar>().SetPlayer(in playerBase);
         }
     }
 }

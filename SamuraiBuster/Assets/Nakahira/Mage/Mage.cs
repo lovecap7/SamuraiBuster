@@ -13,7 +13,7 @@ public class Mage : PlayerBase
 
     const int kAttackInterval = 120;
     const int kSkillInterval = 600;
-    const int kInitHP = 50;
+    protected override int MaxHP { get => 250; }
     const float kCircleMoveSpeed = 0.5f;
 
     Quaternion kFireRotation = Quaternion.AngleAxis(20, Vector3.up);
@@ -29,7 +29,7 @@ public class Mage : PlayerBase
     protected override void Start()
     {
         base.Start();
-        m_characterStatus.hitPoint = kInitHP;
+        m_characterStatus.hitPoint = MaxHP;
         m_skillTimer = kSkillInterval;
         m_attackTimer = kAttackInterval;
     }
@@ -62,7 +62,7 @@ public class Mage : PlayerBase
 
     public override float GetHitPointRatio()
     {
-        return (float)m_characterStatus.hitPoint / (float)kInitHP;
+        return (float)m_characterStatus.hitPoint / (float)MaxHP;
     }
     public override float GetSkillChargeRatio()
     {
@@ -99,6 +99,8 @@ public class Mage : PlayerBase
 
         // ‚±‚±‚ªO“r‚Ìì
         if (m_characterStatus.hitPoint > 0) return;
+
+        m_characterStatus.hitPoint = 0;
 
         // ‚â‚Á‚Ï€–Sƒ‚[ƒVƒ‡ƒ“
         m_anim.SetTrigger("Death");

@@ -10,7 +10,7 @@ public class Healer : PlayerBase
     GameObject m_healCirclePreviewInstance;
 
     const int kSkillInterval = 480;
-    const int kInitHP = 75;
+    protected override int MaxHP { get => 375; }
     const int kAttackInterval = 90;
     const float kCircleMoveSpeed = 0.5f;
     Vector3 kPopCircleDistance = new(0,0,10);
@@ -25,7 +25,7 @@ public class Healer : PlayerBase
     {
         base.Start();
 
-        m_characterStatus.hitPoint = kInitHP;
+        m_characterStatus.hitPoint = MaxHP;
     }
 
     // Update is called once per frame
@@ -55,7 +55,7 @@ public class Healer : PlayerBase
 
     public override float GetHitPointRatio()
     {
-        return (float)m_characterStatus.hitPoint / (float)kInitHP;
+        return (float)m_characterStatus.hitPoint / (float)MaxHP;
     }
 
     public override float GetSkillChargeRatio()
@@ -94,6 +94,8 @@ public class Healer : PlayerBase
 
         // ‚±‚±‚ªO“r‚Ìì
         if (m_characterStatus.hitPoint > 0) return;
+
+        m_characterStatus.hitPoint = 0;
 
         // ‚â‚Á‚Ï€–Sƒ‚[ƒVƒ‡ƒ“
         m_anim.SetTrigger("Death");
