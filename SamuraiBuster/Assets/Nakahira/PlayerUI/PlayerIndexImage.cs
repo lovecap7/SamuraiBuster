@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // 1~4P‚Ì•\Ž¦‚Ì‚Ó‚é‚Ü‚¢
-public class PlayerNum : MonoBehaviour
+public class PlayerIndexImage : MonoBehaviour
 {
     Camera m_camera;
 
