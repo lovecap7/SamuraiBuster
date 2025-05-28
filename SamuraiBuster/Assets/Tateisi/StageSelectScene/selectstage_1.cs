@@ -12,6 +12,8 @@ public class selectstage_1 : MonoBehaviour
     // ゲーム状態
     public bool Stage1 { get; private set; }
 
+    private bool scalingUp = true;
+
     private void Awake()
     {
         // シングルトンインスタンスの設定
@@ -62,7 +64,6 @@ public class selectstage_1 : MonoBehaviour
         if (stage1Selected && context.canceled)
         {
             Stage1 = true;
-            //UnityEngine.SceneManagement.SceneManager.LoadScene("RollSelectScene");
         }
     }
 
@@ -90,10 +91,24 @@ public class selectstage_1 : MonoBehaviour
         // 拡大・縮小の方向を判定
         if (PointerController.Instance.IsSelect_1)
         {
-            currentScale += Vector3.one * scaleSpeed * Time.deltaTime;
-            if (currentScale.x >= maxScale)
+                // 拡大・縮小の方向を判定
+                if (scalingUp)
             {
-                currentScale = Vector3.one * maxScale;
+                currentScale += Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale.x >= maxScale)
+                {
+                    currentScale = Vector3.one * maxScale;
+                    scalingUp = false;
+                }
+            }
+            else
+            {
+                currentScale -= Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale.x <= minScale)
+                {
+                    currentScale = Vector3.one * minScale;
+                    scalingUp = true;
+                }
             }
         }
         else
@@ -104,7 +119,6 @@ public class selectstage_1 : MonoBehaviour
                 currentScale = Vector3.one * minScale;
             }
         }
-
         // スケールを適用
         transform.localScale = currentScale;
     }

@@ -38,7 +38,6 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.44657898, g: 0.4964133, b: 0.5748178, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -211,16 +210,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6e4fb3502d0e74d845aaf76a343576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDistance: 300
+  moveDistance: 400
   moveSpeed: 10
-  leftLimit: -300.1
-  rightLimit: 300
-  leftWarpP: -600
-  rightWarpP: 600
+  leftLimit: -400.1
+  rightLimit: 400
+  leftWarpP: -800
+  rightWarpP: 800
   targetPosition: {x: 0, y: 0, z: 0}
   InputLeft: 0
   InputRight: 0
   isMoving: 0
+  stageNum: 0
 --- !u!1 &116800723
 GameObject:
   m_ObjectHideFlags: 0
@@ -478,7 +478,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 85075936}
         m_TargetAssemblyTypeName: PointerController, Assembly-CSharp
-        m_MethodName: LeftMove
+        m_MethodName: LeftStageNum
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -506,7 +506,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 85075936}
         m_TargetAssemblyTypeName: PointerController, Assembly-CSharp
-        m_MethodName: RightMove
+        m_MethodName: RightStageNum
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -800,7 +800,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 300, y: -25}
+  m_AnchoredPosition: {x: 400, y: -25}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &810611638
@@ -1003,7 +1003,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: -25}
+  m_AnchoredPosition: {x: -400, y: -25}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &894537154
@@ -1056,7 +1056,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dce9148835f53a249855c8eb44f1e742, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleSpeed: 0.5
+  scaleSpeed: 0.3
   minScale: 1
   maxScale: 1.2
 --- !u!1 &1082264984
@@ -1596,7 +1596,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -360, y: 128.41}
+  m_AnchoredPosition: {x: -360, y: 374.1}
   m_SizeDelta: {x: 250, y: 250}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2027838366
@@ -1649,17 +1649,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c115215ba708608449d3a3ef9f4462cd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveDistance: 240
-  moveSpeed: 10
-  leftLimit: -360
-  rightLimit: 370
-  leftWarpP: -730
-  rightWarpP: 730
+  moveDistance: 0
+  moveSpeed: 0
+  leftLimit: 0
+  rightLimit: 0
+  leftWarpP: 0
+  rightWarpP: 0
   targetPosition: {x: 0, y: 0, z: 0}
   InputLeft: 0
   InputRight: 0
   isMoving: 1
-  playerNum: 0
+  rolePlayerNum: 0
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

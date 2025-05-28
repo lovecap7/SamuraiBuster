@@ -17,7 +17,7 @@ public class Mage : PlayerBase
     const float kCircleMoveSpeed = 0.5f;
 
     Quaternion kFireRotation = Quaternion.AngleAxis(20, Vector3.up);
-    Vector3 kInitCircleDistance = new(0,0,10);
+    Vector3 kInitCircleDistance = new(0,0,3);
     Vector3 kMeterSpawnPos = new(0, 30, 0);
 
     GameObject m_previewCircleInstance;

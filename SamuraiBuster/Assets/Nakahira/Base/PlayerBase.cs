@@ -1,5 +1,6 @@
 using UnityEngine;
 using PlayerCommon;
+using JetBrains.Annotations;
 
 abstract public class PlayerBase : MonoBehaviour
 {
@@ -28,6 +29,7 @@ abstract public class PlayerBase : MonoBehaviour
     [SerializeField]
     GameObject m_healEffect;
     GameObject m_camera;
+    int m_stopFrame = 0;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -37,11 +39,19 @@ abstract public class PlayerBase : MonoBehaviour
         m_anim = GetComponent<Animator>();
         m_characterStatus = GetComponent<CharacterStatus>();
         m_camera = GameObject.Find("Main Camera");
+
+        // プレイヤー番号を表示
+        // 自分が何Pなのかを把握する
+        int playerNumber = transform.GetSiblingIndex();
+        transform.Find("PlayerNumber").GetChild(playerNumber).gameObject.SetActive(true);
     }
 
     // Update is called once per frame
     protected virtual void Update()
     {
+        --m_stopFrame;
+        if (m_stopFrame > 0) return;
+
         if (m_isDeath)
         {
             DeathUpdate();
@@ -106,6 +116,8 @@ abstract public class PlayerBase : MonoBehaviour
 
     void DeathUpdate()
     {
+        // 一定量HPを回復する
+        // MAXになったら復活
 
     }
 
