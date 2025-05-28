@@ -106,6 +106,8 @@ abstract public class PlayerBase : MonoBehaviour
 
     void DeathUpdate()
     {
+        // ˆê’è—ÊHP‚ð‰ñ•œ‚·‚é
+        // MAX‚É‚È‚Á‚½‚ç•œŠˆ
 
     }
 
