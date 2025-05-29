@@ -2244,7 +2244,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_healEffect: {fileID: 7704641776149959684}
-  m_fireBall: {fileID: 811818213795830180, guid: a08eb4ed0adfc5d438e601c038b82fc5, type: 3}
+  m_fireBall: {fileID: 3463671050630572249, guid: d4492977ba750014198e6f558e79aeef, type: 3}
   m_handFrame: {fileID: 7329343154481663674}
   m_previewCirclePrefab: {fileID: 8378648546881499446, guid: c6c3f8c0501d0f543b39d662cf6c2fa0, type: 3}
   m_meterPrefab: {fileID: 8829451551789304542, guid: c7dcd7c1907774048a154292a0fa4880, type: 3}
