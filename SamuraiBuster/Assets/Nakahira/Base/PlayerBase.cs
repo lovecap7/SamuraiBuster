@@ -118,7 +118,12 @@ abstract public class PlayerBase : MonoBehaviour
     {
         // ˆê’è—ÊHP‚ð‰ñ•œ‚·‚é
         // MAX‚É‚È‚Á‚½‚ç•œŠˆ
+        m_characterStatus.hitPoint += (int)(MaxHP * 0.01f);
 
+        if (m_characterStatus.hitPoint >= MaxHP)
+        {
+
+        }
     }
 
     abstract public float GetHitPointRatio();
