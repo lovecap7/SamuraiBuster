@@ -13,7 +13,7 @@ public class Mage : PlayerBase
 
     const int kAttackInterval = 120;
     const int kSkillInterval = 600;
-    protected override int MaxHP { get => 250; }
+    protected override int MaxHP { get => 375; }
     const float kCircleMoveSpeed = 0.5f;
 
     Quaternion kFireRotation = Quaternion.AngleAxis(20, Vector3.up);
