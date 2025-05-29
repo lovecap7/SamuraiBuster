@@ -11,7 +11,7 @@ public class FireBall : MonoBehaviour
     int m_timer = 0;
     [SerializeField]
     GameObject m_hitEffect;
-    const int kLifeTime = 600;
+    const int kLifeTime = 300;
     Vector3 kAppearSpeed = new(1.0f/ kAppearFrame, 1.0f / kAppearFrame, 1.0f / kAppearFrame);
     const int kAppearFrame = 60;
     const int kAttackPower = 200;
