@@ -21,26 +21,6 @@ public class PointerController : MonoBehaviour
     public bool IsSelect_2 { get; private set; }
     public bool IsSelect_3 { get; private set; }
 
-    // 1回の移動距離
-    [SerializeField] private float moveDistance;
-    // 移動のスムーズさ（大きいほど速い）
-    [SerializeField] private float moveSpeed;
-    // 左端のX座標
-    [SerializeField] private float leftLimit;
-    // 右端のX座標
-    [SerializeField] private float rightLimit;
-    // 左端から右端へワープする際の加算値
-    [SerializeField] private float leftWarpP;
-    // 右端から左端へワープする際の加算値
-    [SerializeField] private float rightWarpP;
-
-
-    [SerializeField] private Vector3 targetPosition;     // 目標位置
-    [SerializeField] private bool InputLeft = false;  // 左入力フラグ
-    [SerializeField] private bool InputRight = false; // 右入力フラグ
-    [SerializeField] private bool isMoving = false;      // 移動中フラグ
-
-
     [SerializeField] private StageNum stageNum;
 
 
@@ -88,28 +68,16 @@ public class PointerController : MonoBehaviour
 
     public void LeftStageNum(InputAction.CallbackContext context)
     {
-        //ボタンを押したとき
-        if (context.performed)
+        if (context.canceled)
         {
-            InputLeft = true; // 右入力フラグを立てる
-        }
-        else if (context.canceled)
-        {
-            InputLeft = false;
             Debug.Log("LeftStageNum");
             SelectStateBack();   // ひとつ先の選択状態に進む
         }
     }
     public void RightStageNum(InputAction.CallbackContext context)
     {
-        //ボタンを押したとき
-        if (context.performed)
+        if (context.canceled)
         {
-            InputRight = true; // 右入力フラグを立てる
-        }
-        else if (context.canceled)
-        {
-            InputRight = false;
             Debug.Log("RightStageNum");
             SelectStateProceed();      // ひとつ前の選択状態に戻る
         }
