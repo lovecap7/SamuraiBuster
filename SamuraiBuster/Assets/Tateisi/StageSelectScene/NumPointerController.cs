@@ -22,32 +22,6 @@ public class NumPointerController : MonoBehaviour
     public bool IsPlayerNum_3 { get; private set; }
     public bool IsPlayerNum_4 { get; private set; }
 
-    // 1回の移動距離
-    [SerializeField] private float moveDistance;
-    // 移動のスムーズ  （大きいほど速い）
-    [SerializeField] private float moveSpeed;
-    // 左端のX座標
-    [SerializeField] private float leftLimit;
-    // 右端のX座標
-    [SerializeField] private float rightLimit;
-    // 左端から右端へワープする際の加算値
-    [SerializeField] private float leftWarpP;
-    // 右端から左端へワープする際の加算値
-    [SerializeField] private float rightWarpP;
-    // 目標位置
-    [SerializeField] private Vector3 targetPosition;
-    // 左入力フラグ
-    [SerializeField] private bool InputLeft = false;
-    // 右入力フラグ
-    [SerializeField] private bool InputRight = false;
-    // 移動中フラグ
-    [SerializeField] private bool isMoving = false;
-
-
-
-
-
-
     [SerializeField] private RolePlayerNum rolePlayerNum;
     private void Awake()
     {
@@ -95,16 +69,8 @@ public class NumPointerController : MonoBehaviour
 
     public void LeftPlayerNum(InputAction.CallbackContext context)
     {
-        //ボタンを押したとき
-        if (context.performed)
+        if (context.canceled)
         {
-            InputLeft = true; // 右入力フラグを立てる
-            Debug.Log("LeftMove");
-        }
-        else if (context.canceled)
-        {
-            InputLeft = false;
-            Debug.Log("LeftMove_End");
             Debug.Log("LeftPlayerNum");
             SelectStateBack();   // ひとつ先の選択状態に進む
         }
@@ -112,16 +78,8 @@ public class NumPointerController : MonoBehaviour
 
     public void RightPlayerNum(InputAction.CallbackContext context)
     {
-        //ボタンを押したとき
-        if (context.performed)
+        if (!context.canceled)
         {
-            InputRight = true; // 右入力フラグを立てる
-            Debug.Log("RightMove");
-        }
-        else if (context.canceled)
-        {
-            InputRight = false;
-            Debug.Log("RightMove_End");
             Debug.Log("RightPlayerNum");
             SelectStateProceed();      // ひとつ前の選択状態に戻る
         } 
