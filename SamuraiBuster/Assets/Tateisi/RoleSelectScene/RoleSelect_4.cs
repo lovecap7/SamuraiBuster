@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static RoleSelect_1;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class RoleSelect_4 : MonoBehaviour
 {
@@ -21,6 +21,12 @@ public class RoleSelect_4 : MonoBehaviour
     public RoleNumPlayer4 SelectedRole { get; private set; }
     [SerializeField] private RoleNumPlayer4 roleNumPlayer4;
 
+    public Sprite imageFighter;
+    public Sprite imageHealer;
+    public Sprite imageMage;
+    public Sprite imageTank;
+    private Image image;
+
     // シングルトンインスタンスの取得
     private void Awake()
     {
@@ -37,6 +43,8 @@ public class RoleSelect_4 : MonoBehaviour
     // 初期化処理
     void Start()
     {
+        // SpriteRendererコンポーネントを取得します
+        image = GetComponent<Image>();
         SelectedRole = RoleNumPlayer4.Fighter; // 初期ロールを設定
     }
 
@@ -46,6 +54,7 @@ public class RoleSelect_4 : MonoBehaviour
     {
         // 選択されたロールを更新
         SelectedRole = roleNumPlayer4;
+        SetImage();
     }
 
     /// <summary>
@@ -56,7 +65,7 @@ public class RoleSelect_4 : MonoBehaviour
     {
         if (context.canceled)
         {
-            Debug.Log("UpRole");
+            Debug.Log("4P_UpRole");
             Back();
         }
     }
@@ -69,7 +78,7 @@ public class RoleSelect_4 : MonoBehaviour
     {
         if (context.canceled)
         {
-            Debug.Log("DownRole");
+            Debug.Log("4P_DownRole");
             Proceed();
         }
     }
@@ -124,6 +133,30 @@ public class RoleSelect_4 : MonoBehaviour
         if (roleNumPlayer4 == RoleNumPlayer4.Healer)
         {
             roleNumPlayer4 = RoleNumPlayer4.Fighter;
+            return;
+        }
+    }
+
+    private void SetImage()
+    {
+        if (roleNumPlayer4 == RoleNumPlayer4.Fighter)
+        {
+            image.sprite = imageFighter;
+            return;
+        }
+        if (roleNumPlayer4 == RoleNumPlayer4.Healer)
+        {
+            image.sprite = imageHealer;
+            return;
+        }
+        if (roleNumPlayer4 == RoleNumPlayer4.Mage)
+        {
+            image.sprite = imageMage;
+            return;
+        }
+        if (roleNumPlayer4 == RoleNumPlayer4.Tank)
+        {
+            image.sprite = imageTank;
             return;
         }
     }

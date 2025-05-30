@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static RoleSelect_1;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class RoleSelect_3 : MonoBehaviour
 {
@@ -21,6 +21,12 @@ public class RoleSelect_3 : MonoBehaviour
     public RoleNumPlayer3 SelectedRole { get; private set; }
     [SerializeField] private RoleNumPlayer3 roleNumPlayer3;
 
+    public Sprite imageFighter;
+    public Sprite imageHealer;
+    public Sprite imageMage;
+    public Sprite imageTank;
+    private Image image;
+
     // シングルトンインスタンスの取得
     private void Awake()
     {
@@ -37,6 +43,8 @@ public class RoleSelect_3 : MonoBehaviour
     // 初期化処理
     void Start()
     {
+        // SpriteRendererコンポーネントを取得します
+        image = GetComponent<Image>();
         SelectedRole = RoleNumPlayer3.Fighter; // 初期ロールを設定
     }
 
@@ -46,6 +54,7 @@ public class RoleSelect_3 : MonoBehaviour
     {
         // 選択されたロールを更新
         SelectedRole = roleNumPlayer3;
+        SetImage();
     }
 
     /// <summary>
@@ -56,7 +65,7 @@ public class RoleSelect_3 : MonoBehaviour
     {
         if (context.canceled)
         {
-            Debug.Log("UpRole");
+            Debug.Log("3P_UpRole");
             Back();
         }
     }
@@ -69,7 +78,7 @@ public class RoleSelect_3 : MonoBehaviour
     {
         if (context.canceled)
         {
-            Debug.Log("DownRole");
+            Debug.Log("3P_DownRole");
             Proceed();
         }
     }
@@ -124,6 +133,29 @@ public class RoleSelect_3 : MonoBehaviour
         if (roleNumPlayer3 == RoleNumPlayer3.Healer)
         {
             roleNumPlayer3 = RoleNumPlayer3.Fighter;
+            return;
+        }
+    }
+    private void SetImage()
+    {
+        if (roleNumPlayer3 == RoleNumPlayer3.Fighter)
+        {
+            image.sprite = imageFighter;
+            return;
+        }
+        if (roleNumPlayer3 == RoleNumPlayer3.Healer)
+        {
+            image.sprite = imageHealer;
+            return;
+        }
+        if (roleNumPlayer3 == RoleNumPlayer3.Mage)
+        {
+            image.sprite = imageMage;
+            return;
+        }
+        if (roleNumPlayer3 == RoleNumPlayer3.Tank)
+        {
+            image.sprite = imageTank;
             return;
         }
     }

@@ -21,17 +21,11 @@ public class RoleSelect_1 : MonoBehaviour
     public RoleNumPlayer1 SelectedRole { get; private set; }
     [SerializeField] private RoleNumPlayer1 roleNumPlayer1;
 
-
-
-
     public Sprite imageFighter;
     public Sprite imageHealer;
     public Sprite imageMage;
     public Sprite imageTank;
     private Image image;
-
-
-
 
 // シングルトンインスタンスの取得
 private void Awake()
@@ -71,7 +65,7 @@ private void Awake()
     {
         if (context.canceled)
         {
-            Debug.Log("UpRole");
+            Debug.Log("1P_UpRole");
             Back();
         }
     }
@@ -84,7 +78,7 @@ private void Awake()
     {
         if (context.canceled)
         {
-            Debug.Log("DownRole");
+            Debug.Log("1P_DownRole");
             Proceed();
         }
     }
