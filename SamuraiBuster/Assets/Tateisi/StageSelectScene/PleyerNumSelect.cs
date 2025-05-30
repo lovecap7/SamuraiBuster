@@ -9,7 +9,7 @@ public class PleyerNumSelect : MonoBehaviour
 
 
     [SerializeField]
-    private bool activeState;  // ゲームクリアー時のアクティブ状態
+    private bool activeState;  // アクティブ状態
     [SerializeField]
     private bool isStage1;  // ステージ1が選択されているかどうか
     [SerializeField]

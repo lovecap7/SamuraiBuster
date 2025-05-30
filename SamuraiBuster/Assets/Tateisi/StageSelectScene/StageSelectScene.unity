@@ -211,7 +211,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e6e4fb3502d0e74d845aaf76a343576, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  stageNum: 2
+  stageNum: 0
 --- !u!1 &116800723
 GameObject:
   m_ObjectHideFlags: 0
@@ -527,6 +527,18 @@ MonoBehaviour:
     m_ActionName: StageSelectScene/DownMove[/XInputControllerWindows/rightStick/down]
   - m_PersistentCalls:
       m_Calls:
+      - m_Target: {fileID: 763643043}
+        m_TargetAssemblyTypeName: SelectDirector, Assembly-CSharp
+        m_MethodName: SelectStateOK
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
       - m_Target: {fileID: 894537156}
         m_TargetAssemblyTypeName: selectstage_1, Assembly-CSharp
         m_MethodName: Stage1OK
@@ -565,7 +577,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 763643042}
         m_TargetAssemblyTypeName: IsNumselect, Assembly-CSharp
-        m_MethodName: Stage1OK
+        m_MethodName: NumPlayer1OK
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -577,7 +589,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 763643042}
         m_TargetAssemblyTypeName: IsNumselect, Assembly-CSharp
-        m_MethodName: Stage2OK
+        m_MethodName: NumPlayer2OK
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -589,7 +601,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 763643042}
         m_TargetAssemblyTypeName: IsNumselect, Assembly-CSharp
-        m_MethodName: Stage3OK
+        m_MethodName: NumPlayer3OK
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -601,19 +613,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 763643042}
         m_TargetAssemblyTypeName: IsNumselect, Assembly-CSharp
-        m_MethodName: Stage4OK
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 763643043}
-        m_TargetAssemblyTypeName: SelectDirector, Assembly-CSharp
-        m_MethodName: SelectStateOK
+        m_MethodName: NumPlayer4OK
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -629,7 +629,19 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 763643043}
         m_TargetAssemblyTypeName: SelectDirector, Assembly-CSharp
-        m_MethodName: Back
+        m_MethodName: SelectStateBack
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 763643043}
+        m_TargetAssemblyTypeName: SelectDirector, Assembly-CSharp
+        m_MethodName: TitleBack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -666,30 +678,6 @@ MonoBehaviour:
       - m_Target: {fileID: 810611640}
         m_TargetAssemblyTypeName: selectstage_3, Assembly-CSharp
         m_MethodName: Stage3Back
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 2027838369}
-        m_TargetAssemblyTypeName: NumPointerController, Assembly-CSharp
-        m_MethodName: ResetPos
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 763643043}
-        m_TargetAssemblyTypeName: SelectDirector, Assembly-CSharp
-        m_MethodName: SelectStateBack
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -740,7 +728,7 @@ MonoBehaviour:
   PlayerNum2: {fileID: 1203241639}
   PlayerNum3: {fileID: 1371375991}
   PlayerNum4: {fileID: 839705707}
-  scaleSpeed: 0.5
+  scaleSpeed: 0.3
   minScale: 0.72875
   maxScale: 1
 --- !u!114 &763643043
@@ -844,7 +832,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 65d0e8d30a32afa48b2802ca7719a2ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleSpeed: 0.5
+  scaleSpeed: 0.3
   minScale: 1
   maxScale: 1.2
 --- !u!1 &839705707
@@ -1017,7 +1005,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 9258d1b8187955b448d779adaaac0a12, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 70bc748cfcac54549b3fc525b24710f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1305,7 +1293,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0ff500c2765c58245a6f30a8ff071fe1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleSpeed: 0.5
+  scaleSpeed: 0.3
   minScale: 1
   maxScale: 1.2
 --- !u!1 &1371375991
