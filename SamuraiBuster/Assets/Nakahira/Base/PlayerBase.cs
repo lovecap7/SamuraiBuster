@@ -30,6 +30,7 @@ abstract public class PlayerBase : MonoBehaviour
     GameObject m_healEffect;
     GameObject m_camera;
     int m_stopFrame = 0;
+    float m_deathTimer = 0;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -116,15 +117,21 @@ abstract public class PlayerBase : MonoBehaviour
 
     void DeathUpdate()
     {
-        // ˆê’è—ÊHP‚ð‰ñ•œ‚·‚é
-        // MAX‚É‚È‚Á‚½‚ç•œŠˆ
-        m_characterStatus.hitPoint += (int)(MaxHP * 0.01f);
+        // ˆê’èŽžŠÔŒo‰ß‚µ‚½‚ç•œŠˆ
+        m_deathTimer += Time.deltaTime;
 
-        if (m_characterStatus.hitPoint >= MaxHP)
+        if (m_deathTimer >= 15.0f)
         {
-
+            m_isDeath = false;
+            m_anim.SetBool("Death", false);
         }
     }
+
+    public bool IsDeath()
+    {
+        return m_isDeath; 
+    }
+
 
     abstract public float GetHitPointRatio();
     abstract public float GetSkillChargeRatio();

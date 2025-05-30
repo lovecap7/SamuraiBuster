@@ -32,6 +32,12 @@ public class HPBar : MonoBehaviour
 
     private void Update()
     {
+        if (m_player.IsDeath())
+        {
+            DeathUpdate();
+            return;
+        }
+
         // 毎フレームHP割合を確認する
         float ratio = m_player.GetHitPointRatio();
 
@@ -53,6 +59,11 @@ public class HPBar : MonoBehaviour
         {
             DamageAinm();
         }
+    }
+
+    void DeathUpdate()
+    {
+
     }
 
     // 今のHPの割合から、HPゲージの色を変えます。
