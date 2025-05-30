@@ -55,6 +55,11 @@ public class HPBar : MonoBehaviour
         }
     }
 
+    void DeathUpdate()
+    {
+
+    }
+
     // 今のHPの割合から、HPゲージの色を変えます。
     // ついでに揺らします。
     public void DamageAinm()
