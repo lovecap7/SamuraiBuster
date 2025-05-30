@@ -90,6 +90,7 @@ public class Tank : PlayerBase
     {
         // —Y‚½‚¯‚Ñ‚ğã‚°‚ÄƒwƒCƒg‚ğW‚ß‚é
         if (m_skillTimer < kSkillInterval) return;
+        if (m_attackTimer < kAttackInterval) return; // UŒ‚’†”­“®–³Œø
 
         m_anim.SetTrigger("Skilling");
         m_anim.SetBool("Guard", true);
