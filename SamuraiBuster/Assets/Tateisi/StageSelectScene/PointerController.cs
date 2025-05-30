@@ -63,19 +63,26 @@ public class PointerController : MonoBehaviour
         {
             IsSelect_3 = true;
         }
+
     }
 
 
     public void LeftStageNum(InputAction.CallbackContext context)
     {
+        if (selectstage_1.Instance.Stage1)return;
+        if (selectstage_2.Instance.Stage2) return;
+        if (selectstage_3.Instance.Stage3) return;
         if (context.canceled)
         {
             Debug.Log("LeftStageNum");
-            SelectStateBack();   // ひとつ先の選択状態に進む
+            SelectStateBack();   // ひとつ先の選択状態に進む  
         }
     }
     public void RightStageNum(InputAction.CallbackContext context)
     {
+        if (selectstage_1.Instance.Stage1) return;
+        if (selectstage_2.Instance.Stage2) return;
+        if (selectstage_3.Instance.Stage3) return;
         if (context.canceled)
         {
             Debug.Log("RightStageNum");

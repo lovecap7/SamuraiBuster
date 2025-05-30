@@ -36,7 +36,7 @@ public class SelectDirector : MonoBehaviour
 
     public void SelectStateBack(InputAction.CallbackContext context)
     {
-        if(!context.performed) return;
+        if (!context.performed) return;
         Debug.Log("Back");
         SelectStateBack();      // ひとつ前の選択状態に戻る 
     }
@@ -97,12 +97,11 @@ public class SelectDirector : MonoBehaviour
     /// 右に移動するための入力処理
     /// </summary>
     /// <param name="context"></param>
-    public void Back(InputAction.CallbackContext context)
+    public void TitleBack(InputAction.CallbackContext context)
     {
         if (selectstage_1.Instance.Stage1) return;// 選択後は入力を受け付けない
         if (selectstage_2.Instance.Stage2) return;// 選択後は入力を受け付けない
         if (selectstage_3.Instance.Stage3) return;// 選択後は入力を受け付けない
-
         //ボタンを押したとき
         if (context.performed)
         {
