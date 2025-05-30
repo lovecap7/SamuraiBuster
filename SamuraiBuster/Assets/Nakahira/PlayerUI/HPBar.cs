@@ -32,12 +32,6 @@ public class HPBar : MonoBehaviour
 
     private void Update()
     {
-        if (m_player.IsDeath())
-        {
-            DeathUpdate();
-            return;
-        }
-
         // 毎フレームHP割合を確認する
         float ratio = m_player.GetHitPointRatio();
 
