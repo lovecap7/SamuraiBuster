@@ -327,9 +327,36 @@
             "id": "14fc1051-4d65-43b0-8e05-66ded338f09f",
             "actions": [
                 {
-                    "name": "New action",
+                    "name": "UpMove",
                     "type": "Button",
                     "id": "374f9b6c-729c-4526-a588-f0db0afd9108",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "DownMove",
+                    "type": "Button",
+                    "id": "a9d5a558-1815-4094-8c94-4019f65aa341",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OK",
+                    "type": "Button",
+                    "id": "829118bf-5246-4e49-9172-3056b98f1bce",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Back",
+                    "type": "Button",
+                    "id": "2d0626dc-68ec-4140-874a-e3e02f1fa947",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -340,11 +367,66 @@
                 {
                     "name": "",
                     "id": "773d14de-6e3d-47f8-b8b9-675e59e5db42",
-                    "path": "",
+                    "path": "<XInputController>/leftStick/up",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "New action",
+                    "action": "UpMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "c4d06b22-118a-4c9d-bde0-4bca0fad3354",
+                    "path": "<XInputController>/dpad/up",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "UpMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0d6ecc7a-8fa6-4ffa-a96f-852f46263906",
+                    "path": "<XInputController>/leftStick/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DownMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "994d1229-2b1d-4294-9a39-550f8818bdde",
+                    "path": "<XInputController>/dpad/down",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "DownMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2420a014-0222-4be8-b5d0-2ee6c4502acc",
+                    "path": "<XInputController>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OK",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a91393fd-33b2-4f0a-8ed4-15227fdbf000",
+                    "path": "<XInputController>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Back",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
