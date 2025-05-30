@@ -19,8 +19,10 @@ public class Mage : PlayerBase
     Quaternion kFireRotation = Quaternion.AngleAxis(20, Vector3.up);
     Vector3 kInitCircleDistance = new(0,0,3);
     Vector3 kMeterSpawnPos = new(0, 30, 0);
+    const float kMaxCircleDistace = 10;
 
     GameObject m_previewCircleInstance;
+    Rigidbody m_circleRigid;
     Vector3 m_circlePos;
     int m_skillTimer = 0;
     int m_attackTimer = 0;
@@ -56,7 +58,13 @@ public class Mage : PlayerBase
         if (m_previewCircleInstance != null)
         {
             // 入力でサークルが動くように
-            m_previewCircleInstance.transform.position += m_cameraQ * new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f, m_inputAxis.y * kCircleMoveSpeed);
+            m_circleRigid.AddForce(m_cameraQ * new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f, m_inputAxis.y * kCircleMoveSpeed) * 300);
+
+            // もし操作範囲を超えたら、戻す
+            if ((m_previewCircleInstance.transform.position - transform.position).sqrMagnitude > kMaxCircleDistace * kMaxCircleDistace)
+            {
+                m_circleRigid.AddForce((transform.position - m_previewCircleInstance.transform.position) * 10);
+            }
         }
     }
 
@@ -133,6 +141,7 @@ public class Mage : PlayerBase
     public void CreateCircle()
     {
         m_previewCircleInstance = Instantiate(m_previewCirclePrefab, transform.position + transform.rotation * kInitCircleDistance, Quaternion.identity);
+        m_circleRigid = m_previewCircleInstance.GetComponent<Rigidbody>();
     }
 
     public void DeleteCircle()
