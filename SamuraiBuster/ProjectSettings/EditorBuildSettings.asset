@@ -21,7 +21,7 @@ EditorBuildSettings:
     path: Assets/Tateisi/GameOverScene/GameOverScene.unity
     guid: 9bcb68dca741a734387536f88f9f343a
   - enabled: 1
-    path: Assets/Tateisi/ResultScene/ResultScene.unity
+    path: Assets/Inoue/ResultScene/ResultScene.unity
     guid: fea2368ef52489143a8c49b4a82ba5b8
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 77d105754a151ec4ea73713430925cdd, type: 2}

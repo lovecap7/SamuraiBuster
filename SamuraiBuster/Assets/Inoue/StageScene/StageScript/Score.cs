@@ -17,6 +17,7 @@ public class Score : MonoBehaviour
     private Text m_ScoreText;
     private void Start()
     {
+        m_totalScore = 0;
         m_ScoreText = GetComponent<Text>();
     }
 
@@ -38,5 +39,10 @@ public class Score : MonoBehaviour
     public void AddScore(int score)
     {
         m_totalScore += score;
+    }
+    private void OnDestroy()
+    {
+        //スコアを記録
+        PlayerPrefs.SetInt("Score", m_totalScore);
     }
 }
