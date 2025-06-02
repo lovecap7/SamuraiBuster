@@ -23,10 +23,10 @@ public class ScoreResult : MonoBehaviour
     [SerializeField] private GameObject m_rankA;
     [SerializeField] private GameObject m_rankS;
     //ランク別のスコア
-    private const float kRankCScore = 4000.0f;
-    private const float kRankBScore = 7000.0f;
-    private const float kRankAScore = 14000.0f;
-    private const float kRankSScore = 20000.0f;
+    private const float kRankCScore = 100.0f;
+    private const float kRankBScore = 300.0f;
+    private const float kRankAScore = 1000.0f;
+    private const float kRankSScore = 1700.0f;
 
     // Start is called before the first frame update
     void Start()

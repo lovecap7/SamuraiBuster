@@ -59,8 +59,8 @@ public class Time_Limit : MonoBehaviour
 
     private void OnDestroy()
     {
-        //時間を記録
-        PlayerPrefs.SetFloat("Timer", TotalTimeLimit);
+        //スコアを記録
+        PlayerPrefs.SetFloat("TimeScore", TotalTimeLimit);
     }
 }
 
