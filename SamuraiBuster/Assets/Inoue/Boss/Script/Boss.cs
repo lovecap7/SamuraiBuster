@@ -104,6 +104,7 @@ public class Boss : EnemyBase
         {
             //中身がないなら飛ばす
             if (m_targetList[i] == null) continue;
+            if (m_targetList[i].GetComponent<PlayerBase>().IsDeath()) continue;
 
             //相手に向かうベクトル
             Vector3 vec = m_targetList[i].transform.position - myPos;
