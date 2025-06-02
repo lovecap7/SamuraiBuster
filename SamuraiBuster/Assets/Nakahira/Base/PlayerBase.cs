@@ -7,8 +7,12 @@ abstract public class PlayerBase : MonoBehaviour
     const float kMoveSpeed = 2000.0f;
     const float kRotateSpeed = 0.2f;
     const float kMoveThreshold = 0.001f;
-    const int kInvincibleFrame = 60;
+    const int kDamageInvincibleFrame = 60;
     const int kHealValue = 2;
+    // 死んでから復活するまでの基本時間
+    // 回復を受けたら短くなる
+    const float kReviveTime = 20.0f;
+    const int kReviveInvincibelFrame = 120; 
 
     // 継承側で設定して
     protected abstract int MaxHP { get; }
@@ -30,6 +34,7 @@ abstract public class PlayerBase : MonoBehaviour
     GameObject m_healEffect;
     GameObject m_camera;
     int m_stopFrame = 0;
+    float m_deathTimer = 0;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -116,15 +121,25 @@ abstract public class PlayerBase : MonoBehaviour
 
     void DeathUpdate()
     {
-        // 一定量HPを回復する
-        // MAXになったら復活
-        m_characterStatus.hitPoint += (int)(MaxHP * 0.01f);
+        // 一定時間経過したら復活
+        m_deathTimer += Time.deltaTime;
 
-        if (m_characterStatus.hitPoint >= MaxHP)
+        m_characterStatus.hitPoint = (int)(MaxHP * (m_deathTimer / kReviveTime));
+
+        if (m_deathTimer >= kReviveTime)
         {
-
+            m_isDeath = false;
+            m_isInvincibleFrame = kReviveInvincibelFrame;
+            m_anim.SetBool("Death", false);
+            m_deathTimer = 0;
         }
     }
+
+    public bool IsDeath()
+    {
+        return m_isDeath; 
+    }
+
 
     abstract public float GetHitPointRatio();
     abstract public float GetSkillChargeRatio();
@@ -179,7 +194,7 @@ abstract public class PlayerBase : MonoBehaviour
             OnDamage(damage);
 
             // 無敵判定は基底でやってもいいでしょ
-            m_isInvincibleFrame = kInvincibleFrame;
+            m_isInvincibleFrame = kDamageInvincibleFrame;
 
             return;
         }
@@ -192,7 +207,6 @@ abstract public class PlayerBase : MonoBehaviour
         }
     }
 
-    // 回復のサークル用
     public void OnTriggerStay(Collider other)
     {
         if (other.CompareTag("HealCircle"))
@@ -209,12 +223,12 @@ abstract public class PlayerBase : MonoBehaviour
             if (m_isDeath) return;
 
             // ダメージを受けておく
-            // これはそれぞれのロール
+            // これはそれぞれのロールで異なる
             int damage = other.GetComponent<AttackPower>().damage;
             OnDamage(damage);
 
             // 無敵判定は基底でやってもいいでしょ
-            m_isInvincibleFrame = kInvincibleFrame;
+            m_isInvincibleFrame = kDamageInvincibleFrame;
 
             return;
         }

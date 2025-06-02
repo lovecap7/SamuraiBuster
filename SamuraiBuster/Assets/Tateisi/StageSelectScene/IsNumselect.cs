@@ -111,7 +111,7 @@ public class IsNumselect : MonoBehaviour
     /// 右に移動するための入力処理
     /// </summary>
     /// <param name="context"></param>
-    public void Stage1OK(InputAction.CallbackContext context)
+    public void NumPlayer1OK(InputAction.CallbackContext context)
     {
         //ボタンを押したとき
         if (Num1Selected && context.canceled)
@@ -120,7 +120,7 @@ public class IsNumselect : MonoBehaviour
             selectDirector.TryChangeScene();
         }
     }
-    public void Stage2OK(InputAction.CallbackContext context)
+    public void NumPlayer2OK(InputAction.CallbackContext context)
     {
         //ボタンを押したとき
         if (Num2Selected && context.canceled)
@@ -129,7 +129,7 @@ public class IsNumselect : MonoBehaviour
             selectDirector.TryChangeScene();
         }
     }
-    public void Stage3OK(InputAction.CallbackContext context)
+    public void NumPlayer3OK(InputAction.CallbackContext context)
     {
         //ボタンを押したとき
         if (Num3Selected && context.canceled)
@@ -138,7 +138,7 @@ public class IsNumselect : MonoBehaviour
             selectDirector.TryChangeScene();
         }
     }
-    public void Stage4OK(InputAction.CallbackContext context)
+    public void NumPlayer4OK(InputAction.CallbackContext context)
     {
         //ボタンを押したとき
         if (Num4Selected && context.canceled)

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static UnityEditorInternal.VersionControl.ListControl;
 
 enum RolePlayerNum
 {
@@ -69,6 +70,7 @@ public class NumPointerController : MonoBehaviour
 
     public void LeftPlayerNum(InputAction.CallbackContext context)
     {
+        if (!selectstage_1.Instance.Stage1 && !selectstage_2.Instance.Stage2 && !selectstage_3.Instance.Stage3) return;
         if (context.canceled)
         {
             Debug.Log("LeftPlayerNum");
@@ -78,11 +80,46 @@ public class NumPointerController : MonoBehaviour
 
     public void RightPlayerNum(InputAction.CallbackContext context)
     {
+        if (!selectstage_1.Instance.Stage1 && !selectstage_2.Instance.Stage2 && !selectstage_3.Instance.Stage3) return;
         if (!context.canceled)
         {
             Debug.Log("RightPlayerNum");
             SelectStateProceed();      // ひとつ前の選択状態に戻る
         } 
+    }
+
+    public void PlayerSelectBack(InputAction.CallbackContext context)
+    {
+        if (!selectstage_1.Instance.Stage1 && !selectstage_2.Instance.Stage2 && !selectstage_3.Instance.Stage3) return;
+        if (context.canceled)
+        {
+            Debug.Log("PlayerSelectBack");
+            SelectStateReset(); // 入力アクションの有効化
+        }
+    }
+
+    private void SelectStateReset()
+    {
+        if (rolePlayerNum == RolePlayerNum.PlayerNum1)
+        {
+            rolePlayerNum = RolePlayerNum.PlayerNum1;
+            return;
+        }
+        if (rolePlayerNum == RolePlayerNum.PlayerNum2)
+        {
+            rolePlayerNum = RolePlayerNum.PlayerNum1;
+            return;
+        }
+        if (rolePlayerNum == RolePlayerNum.PlayerNum3)
+        {
+            rolePlayerNum = RolePlayerNum.PlayerNum1;
+            return;
+        }
+        if (rolePlayerNum == RolePlayerNum.PlayerNum4)
+        {
+            rolePlayerNum = RolePlayerNum.PlayerNum1;
+            return;
+        }
     }
 
     /// <summary>

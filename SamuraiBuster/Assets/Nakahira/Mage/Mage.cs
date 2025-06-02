@@ -1,5 +1,6 @@
 using PlayerCommon;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Mage : PlayerBase
@@ -57,13 +58,24 @@ public class Mage : PlayerBase
         // もしサークルが存在していたら
         if (m_previewCircleInstance != null)
         {
+            //// 入力でサークルが動くように
+            //m_circleRigid.AddForce(m_cameraQ * new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f, m_inputAxis.y * kCircleMoveSpeed) * 300);
+
+            //// もし操作範囲を超えたら、戻す
+            //if ((m_previewCircleInstance.transform.position - transform.position).sqrMagnitude > kMaxCircleDistace * kMaxCircleDistace)
+            //{
+            //    m_circleRigid.AddForce((transform.position - m_previewCircleInstance.transform.position) * 10);
+            //}
+
+            var temp = m_previewCircleInstance.transform.position;
+
             // 入力でサークルが動くように
-            m_circleRigid.AddForce(m_cameraQ * new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f, m_inputAxis.y * kCircleMoveSpeed) * 300);
+            m_previewCircleInstance.transform.position += (m_cameraQ * new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f, m_inputAxis.y * kCircleMoveSpeed));
 
             // もし操作範囲を超えたら、戻す
             if ((m_previewCircleInstance.transform.position - transform.position).sqrMagnitude > kMaxCircleDistace * kMaxCircleDistace)
             {
-                m_circleRigid.AddForce((transform.position - m_previewCircleInstance.transform.position) * 10);
+                m_previewCircleInstance.transform.position = temp;
             }
         }
     }
