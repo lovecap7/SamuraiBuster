@@ -157,6 +157,17 @@
                 },
                 {
                     "name": "",
+                    "id": "9b41b787-8dda-4d19-9527-95b3fe0c63b6",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "5446209e-fd6f-4183-abdd-37218f07f734",
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "Press",
