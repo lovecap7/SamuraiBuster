@@ -56,6 +56,12 @@ public class Time_Limit : MonoBehaviour
             Debug.Log("ゲームオーバー");
         }
     }
+
+    private void OnDestroy()
+    {
+        //スコアを記録
+        PlayerPrefs.SetFloat("TimeScore", TotalTimeLimit);
+    }
 }
 
 

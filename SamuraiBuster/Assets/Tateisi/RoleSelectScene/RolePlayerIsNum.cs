@@ -4,19 +4,22 @@ using UnityEngine;
 
 public class RolePlayerIsNum : MonoBehaviour
 {
-    [SerializeField] private bool IsPlayerNum_1;  // ステージ1が選択されているかどうか
-    [SerializeField] private bool IsPlayerNum_2;  // ステージ2が選択されているかどうか
-    [SerializeField] private bool IsPlayerNum_3;  // ステージ2が選択されているかどうか
-    [SerializeField] private bool IsPlayerNum_4;  // ステージ2が選択されているかどうか
+    [SerializeField] private RoleSelect_1 roleSelect1;
+    [SerializeField] private RoleSelect_2 roleSelect2;
+    [SerializeField] private RoleSelect_3 roleSelect3;
+    [SerializeField] private RoleSelect_4 roleSelect4;
+
     private void Update()
     {
-        // ステージ1が選択されているかどうかをチェック
-        IsPlayerNum_1 = NumPointerController.Instance.IsPlayerNum_1;
-        // ステージ2が選択されているかどうかをチェック
-        IsPlayerNum_2 = NumPointerController.Instance.IsPlayerNum_2;
-        // ステージ3が選択されているかどうかをチェック
-        IsPlayerNum_3 = NumPointerController.Instance.IsPlayerNum_3;
-        // ステージ4が選択されているかどうかをチェック
-        IsPlayerNum_4 = NumPointerController.Instance.IsPlayerNum_4;
+        if (roleSelect1.IsDecided() && roleSelect2.IsDecided() && roleSelect3.IsDecided() && roleSelect4.IsDecided())
+        {
+            // 4人全員が役割を決定した場合の処理
+            PlayerPrefs.SetInt("Player1Role", (int)roleSelect1.SelectedRole);
+            PlayerPrefs.SetInt("Player2Role", (int)roleSelect2.SelectedRole);
+            PlayerPrefs.SetInt("Player3Role", (int)roleSelect3.SelectedRole);
+            PlayerPrefs.SetInt("Player4Role", (int)roleSelect4.SelectedRole);
+            //Debug.Log("All Players Decided");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("StageScene");
+        }
     }
 }

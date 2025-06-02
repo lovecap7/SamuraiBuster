@@ -152,9 +152,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 1166761652}
-  - {fileID: 1228823775}
   - {fileID: 443261325}
+  - {fileID: 1228823775}
+  - {fileID: 1166761652}
   - {fileID: 2035558369}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -169,10 +169,6 @@ PrefabInstance:
     - target: {fileID: 6364168805674056223, guid: 69972a39eccd55b44ae7fcf0213ceeb5, type: 3}
       propertyPath: m_Name
       value: Tank
-      objectReference: {fileID: 0}
-    - target: {fileID: 6364168805674056223, guid: 69972a39eccd55b44ae7fcf0213ceeb5, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6518760538731332912, guid: 69972a39eccd55b44ae7fcf0213ceeb5, type: 3}
       propertyPath: m_LocalPosition.x
@@ -378,10 +374,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Mage
       objectReference: {fileID: 0}
-    - target: {fileID: 7229285615740170888, guid: 099e1b616d65aa04f814f6ed03f1bd48, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -542,10 +534,6 @@ PrefabInstance:
     - target: {fileID: 6364168805674056223, guid: a2795f98e1b449b46a41a423fad21a9c, type: 3}
       propertyPath: m_Name
       value: Fighter
-      objectReference: {fileID: 0}
-    - target: {fileID: 6364168805674056223, guid: a2795f98e1b449b46a41a423fad21a9c, type: 3}
-      propertyPath: m_IsActive
-      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6518760538731332912, guid: a2795f98e1b449b46a41a423fad21a9c, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1330,10 +1318,6 @@ PrefabInstance:
     - target: {fileID: 6364168805674056223, guid: aec1026c307393b4d8419d1d4335dc97, type: 3}
       propertyPath: m_Name
       value: Healer
-      objectReference: {fileID: 0}
-    - target: {fileID: 6364168805674056223, guid: aec1026c307393b4d8419d1d4335dc97, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 6518760538731332912, guid: aec1026c307393b4d8419d1d4335dc97, type: 3}
       propertyPath: m_LocalPosition.x

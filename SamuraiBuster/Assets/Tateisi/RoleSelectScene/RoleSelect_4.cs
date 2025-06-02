@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class RoleSelect_4 : MonoBehaviour
 {
-    public enum RoleNumPlayer4
+    public enum RoleNumPlayer4 : int
     {
         Fighter,
         Healer,
@@ -15,7 +15,7 @@ public class RoleSelect_4 : MonoBehaviour
     }
 
     // シングルトンインスタンス
-    public static RoleSelect_4 Instance { get; private set; }
+    //public static RoleSelect_4 Instance { get; private set; }
 
     // 選択されたロール
     public RoleNumPlayer4 SelectedRole { get; private set; }
@@ -27,25 +27,52 @@ public class RoleSelect_4 : MonoBehaviour
     public Sprite imageTank;
     private Image image;
 
-    // シングルトンインスタンスの取得
-    private void Awake()
+    public GameObject Fighter;
+    public GameObject Healer;
+    public GameObject Mage;
+    public GameObject Tank;
+
+    [SerializeField] private bool activeFighter = false;  // アクティブ状態
+    [SerializeField] private bool activeHealer = false;  // アクティブ状態
+    [SerializeField] private bool activeMage = false;  // アクティブ状態
+    [SerializeField] private bool activeTank = false;  // アクティブ状態
+
+    private bool isDecided = false; // 決定済みフラグ
+    public bool IsDecided()
     {
-        roleNumPlayer4 = RoleNumPlayer4.Fighter;
-        // シングルトンインスタンスの設定
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        return isDecided;
     }
+    public void Decide(InputAction.CallbackContext context)
+    {
+        Debug.Log("4P_True");
+        isDecided = true; // 決定済みフラグを立てる
+    }
+
+    public void Cancel(InputAction.CallbackContext context)
+    {
+        Debug.Log("4P_False");
+        isDecided = false; // 決定をキャンセルする
+    }
+
+    // シングルトンインスタンスの取得
+    //private void Awake()
+    //{
+    //    roleNumPlayer4 = RoleNumPlayer4.Fighter;
+    //    // シングルトンインスタンスの設定
+    //    if (Instance != null && Instance != this)
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
+    //    Instance = this;
+    //}
 
     // 初期化処理
     void Start()
     {
         // SpriteRendererコンポーネントを取得します
         image = GetComponent<Image>();
-        SelectedRole = RoleNumPlayer4.Fighter; // 初期ロールを設定
+        roleNumPlayer4 = RoleNumPlayer4.Tank; // 初期ロールを設定
     }
 
 
@@ -55,6 +82,10 @@ public class RoleSelect_4 : MonoBehaviour
         // 選択されたロールを更新
         SelectedRole = roleNumPlayer4;
         SetImage();
+        this.Fighter.SetActive(activeFighter);
+        this.Healer.SetActive(activeHealer);
+        this.Mage.SetActive(activeMage);
+        this.Tank.SetActive(activeTank);
     }
 
     /// <summary>
@@ -63,6 +94,7 @@ public class RoleSelect_4 : MonoBehaviour
     /// <param name="context"></param>
     public void UpRole(InputAction.CallbackContext context)
     {
+        if (isDecided) return;
         if (context.canceled)
         {
             Debug.Log("4P_UpRole");
@@ -76,6 +108,7 @@ public class RoleSelect_4 : MonoBehaviour
     /// <param name="context"></param>
     public void DownRole(InputAction.CallbackContext context)
     {
+        if (isDecided) return;
         if (context.canceled)
         {
             Debug.Log("4P_DownRole");
@@ -139,24 +172,32 @@ public class RoleSelect_4 : MonoBehaviour
 
     private void SetImage()
     {
+        activeFighter = false;
+        activeHealer = false;
+        activeMage = false;
+        activeTank = false;
         if (roleNumPlayer4 == RoleNumPlayer4.Fighter)
         {
             image.sprite = imageFighter;
+            activeFighter = true;
             return;
         }
         if (roleNumPlayer4 == RoleNumPlayer4.Healer)
         {
             image.sprite = imageHealer;
+            activeHealer = true;
             return;
         }
         if (roleNumPlayer4 == RoleNumPlayer4.Mage)
         {
             image.sprite = imageMage;
+            activeMage = true;
             return;
         }
         if (roleNumPlayer4 == RoleNumPlayer4.Tank)
         {
             image.sprite = imageTank;
+            activeTank = true;
             return;
         }
     }

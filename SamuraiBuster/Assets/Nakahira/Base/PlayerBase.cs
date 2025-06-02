@@ -12,7 +12,7 @@ abstract public class PlayerBase : MonoBehaviour
     // Ž€‚ñ‚Å‚©‚ç•œŠˆ‚·‚é‚Ü‚Å‚ÌŠî–{ŽžŠÔ
     // ‰ñ•œ‚ðŽó‚¯‚½‚ç’Z‚­‚È‚é
     const float kReviveTime = 20.0f;
-    const int kReviveInvincibelFrame = 120; 
+    const int kReviveInvincibelFrame = 120;
 
     // Œp³‘¤‚ÅÝ’è‚µ‚Ä
     protected abstract int MaxHP { get; }
@@ -34,7 +34,6 @@ abstract public class PlayerBase : MonoBehaviour
     GameObject m_healEffect;
     GameObject m_camera;
     int m_stopFrame = 0;
-    float m_deathTimer = 0;
 
     // Start is called before the first frame update
     protected virtual void Start()
@@ -121,17 +120,13 @@ abstract public class PlayerBase : MonoBehaviour
 
     void DeathUpdate()
     {
-        // ˆê’èŽžŠÔŒo‰ß‚µ‚½‚ç•œŠˆ
-        m_deathTimer += Time.deltaTime;
+        m_characterStatus.hitPoint += MaxHP * (Time.deltaTime / kReviveTime);
 
-        m_characterStatus.hitPoint = (int)(MaxHP * (m_deathTimer / kReviveTime));
-
-        if (m_deathTimer >= kReviveTime)
+        if (m_characterStatus.hitPoint >= MaxHP)
         {
             m_isDeath = false;
             m_isInvincibleFrame = kReviveInvincibelFrame;
             m_anim.SetBool("Death", false);
-            m_deathTimer = 0;
         }
     }
 

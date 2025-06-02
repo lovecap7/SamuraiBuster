@@ -6,9 +6,9 @@ using UnityEngine.UI;
 public class Score : MonoBehaviour
 {
     // 合計スコア
-    private int m_totalScore = 0;
+    private float m_totalScore = 0.0f;
     //表示するスコア
-    private float m_viewScore = 0;
+    private float m_viewScore = 0.0f;
 
     // 前回Update時の秒数
     private float m_oldSecTime;
@@ -17,6 +17,7 @@ public class Score : MonoBehaviour
     private Text m_ScoreText;
     private void Start()
     {
+        m_totalScore = 0.0f;
         m_ScoreText = GetComponent<Text>();
     }
 
@@ -27,7 +28,7 @@ public class Score : MonoBehaviour
         {
             m_viewScore = m_viewScore * (1.0f - 0.2f) + m_totalScore * 0.2f; 
         }
-        else if(m_viewScore >= m_totalScore)
+        else if(m_viewScore >= m_totalScore - 0.5f)
         {
             m_viewScore = m_totalScore;
         }
@@ -38,5 +39,10 @@ public class Score : MonoBehaviour
     public void AddScore(int score)
     {
         m_totalScore += score;
+    }
+    private void OnDestroy()
+    {
+        //スコアを記録
+        PlayerPrefs.SetFloat("AnnihilationScore", m_totalScore);
     }
 }

@@ -13,7 +13,9 @@ public class Healer : PlayerBase
     protected override int MaxHP { get => 375; }
     const int kAttackInterval = 90;
     const float kCircleMoveSpeed = 0.5f;
-    Vector3 kPopCircleDistance = new(0,0,10);
+    const float kMaxCircleDistace = 10.0f;
+    Vector3 kPopCircleDistance = new(0,0,3.0f);
+    Rigidbody m_circleRigid;
 
     // 最初はスキルもたまっている
     int m_skillTimer = kSkillInterval;
@@ -49,7 +51,13 @@ public class Healer : PlayerBase
         if (m_healCirclePreviewInstance != null)
         {
             // 入力でサークルが動くように
-            m_healCirclePreviewInstance.transform.position += m_cameraQ * new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f ,m_inputAxis.y * kCircleMoveSpeed);
+            m_circleRigid.AddForce(m_cameraQ * new Vector3(m_inputAxis.x * kCircleMoveSpeed, 0.0f, m_inputAxis.y * kCircleMoveSpeed) * 300);
+
+            // もし操作範囲を超えたら、戻す
+            if ((m_healCirclePreviewInstance.transform.position - transform.position).sqrMagnitude > kMaxCircleDistace * kMaxCircleDistace)
+            {
+                m_circleRigid.AddForce((transform.position - m_healCirclePreviewInstance.transform.position) * 10);
+            }
         }
     }
 
@@ -124,6 +132,7 @@ public class Healer : PlayerBase
     public void CreateHealCirclePreview()
     {
         m_healCirclePreviewInstance = Instantiate(m_healCirclePreviewPrefab, transform.position + transform.rotation * kPopCircleDistance, Quaternion.identity);
+        m_circleRigid = m_healCirclePreviewInstance.GetComponent<Rigidbody>();
     }
 
     public void DeleteHealCirclePreview()
