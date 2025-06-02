@@ -52,7 +52,7 @@ public class MagicBall : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        if (other.CompareTag("MeleeEnemy") || other.CompareTag("RangeEnemy"))
+        if (other.CompareTag("MeleeEnemy") || other.CompareTag("RangeEnemy") || other.CompareTag("Boss"))
         {
             // ヒットエフェクトを出す
             var hit = Instantiate(m_hitEffect);
