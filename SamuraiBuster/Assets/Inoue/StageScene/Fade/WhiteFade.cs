@@ -48,4 +48,8 @@ public class WhiteFade : MonoBehaviour
     {
         m_fadeOut = true;
     }
+    public bool IsFade()
+    {
+        return m_fadeOut;
+    }
 }

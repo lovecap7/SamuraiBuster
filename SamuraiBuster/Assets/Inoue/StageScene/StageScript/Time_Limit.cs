@@ -2,65 +2,75 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using static UnityEditor.PlayerSettings;
 
 public class Time_Limit : MonoBehaviour
 {
+    [SerializeField] private TransitionFade transitionFade;
+
     // 制限時間
-    private float TotalTimeLimit;
+    private float m_totalTimeLimit;
 
     // 制限時間(分)
-    private int Min;
+    private int m_min;
 
     // 制限時間(秒)
-    private float Sec;
+    private float m_sec;
 
     // 前回Update時の秒数
-    private float oldSecTime;
+    private float m_oldSecTime;
     // スコア表示用UIテキスト
     [SerializeField]
-    private Text timerText;
+    private Text m_timerText;
+
+    //時間が切れたら白フェイド
+    [SerializeField] private WhiteFade m_whiteFade;
 
     private void Start()
     {
-        Min = GameDirector.Instance.Min;
-        Sec = GameDirector.Instance.Sec;
-        TotalTimeLimit = Min * 60 + Sec;
-        oldSecTime = 0f;
-        timerText = GetComponentInChildren<Text>();
+        m_min = GameDirector.Instance.Min;
+        m_sec = GameDirector.Instance.Sec;
+        m_totalTimeLimit = m_min * 60 + m_sec;
+        m_oldSecTime = 0f;
+        m_timerText = GetComponentInChildren<Text>();
+        m_timerText.text = m_min.ToString("00") + ":" + ((int)m_sec).ToString("00");
     }
 
     void Update()
     {
-        //　制限時間が0秒以下なら何もしない
-        if (TotalTimeLimit <= 0f)
-        {
-            return;
-        }
+        //フェード中は時間を止める
+        if (transitionFade.IsFadeNow()) return;
+        if (m_whiteFade.IsFade()) return;
+
         //　一旦トータルの制限時間を計測；
-        TotalTimeLimit = Min * 60 + Sec;
-        TotalTimeLimit -= Time.deltaTime;
+        m_totalTimeLimit = m_min * 60 + m_sec;
+        m_totalTimeLimit -= Time.deltaTime;
 
         //　再設定
-        Min = (int)TotalTimeLimit / 60;
-        Sec = TotalTimeLimit - Min * 60;
+        m_min = (int)m_totalTimeLimit / 60;
+        m_sec = m_totalTimeLimit - m_min * 60;
 
         //　タイマー表示用UIテキストに時間を表示する
-        if ((int)Sec != (int)oldSecTime)
+        if ((int)m_sec != (int)m_oldSecTime)
         {
-            timerText.text = Min.ToString("00") + ":" + ((int)Sec).ToString("00");
+            m_timerText.text = m_min.ToString("00") + ":" + ((int)m_sec).ToString("00");
         }
-        oldSecTime = Sec;
+        m_oldSecTime = m_sec;
         //　制限時間以下になったらコンソールに『ゲームオーバー』という文字列を表示する
-        if (TotalTimeLimit <= 0f)
+        if (m_totalTimeLimit <= 0f)
         {
-            Debug.Log("ゲームオーバー");
+            m_min = 0;
+            m_sec = 0;
+            m_timerText.text = m_min.ToString("00") + ":" + ((int)m_sec).ToString("00");
+            //画面を白くしていく
+            m_whiteFade.OnWhiteFade();
         }
     }
 
     private void OnDestroy()
     {
         //スコアを記録
-        PlayerPrefs.SetFloat("TimeScore", TotalTimeLimit);
+        PlayerPrefs.SetFloat("TimeScore", m_totalTimeLimit);
     }
 }
 
