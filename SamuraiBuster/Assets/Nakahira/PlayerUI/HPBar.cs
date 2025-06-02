@@ -10,6 +10,7 @@ public class HPBar : MonoBehaviour
     Image m_fill;
     Tweener m_shake;
     GameObject m_parent;
+    bool m_isDeath = false;
 
     const float kCautionRatio = 0.5f;
     const float kDangerRatio  = 0.2f;
@@ -17,6 +18,7 @@ public class HPBar : MonoBehaviour
     readonly Color kNomal   = new( 0.2f,  0.6f, 0.2f, 1.0f);
     readonly Color kCaution = new(0.95f, 0.95f, 0.2f, 1.0f);
     readonly Color kDanger  = new( 0.8f,  0.2f, 0.1f, 1.0f);
+    readonly Color kDeath   = new(0.27f, 0.27f, 0.4f, 1.0f);
 
     public void SetPlayer(in PlayerBase player)
     {
@@ -28,11 +30,20 @@ public class HPBar : MonoBehaviour
     {
         m_fill = transform.GetChild(0).GetComponent<Image>();
         m_parent = transform.parent.gameObject;
+
+        // 初期色
+        m_fill.color = kNomal;
     }
 
     private void Update()
     {
         if (m_player == null) return;
+
+        if (!m_player.IsDeath() && m_isDeath)
+        {
+            m_isDeath = false;
+            m_fill.color = kNomal;
+        }
 
         // 毎フレームHP割合を確認する
         float ratio = m_player.GetHitPointRatio();
@@ -55,11 +66,12 @@ public class HPBar : MonoBehaviour
         {
             DamageAinm();
         }
-    }
 
-    void DeathUpdate()
-    {
-
+        if (m_player.IsDeath() && !m_isDeath)
+        {
+            m_isDeath = true;
+            m_fill.color = kDeath;
+        }
     }
 
     // 今のHPの割合から、HPゲージの色を変えます。
@@ -90,6 +102,9 @@ public class HPBar : MonoBehaviour
     public void HealAnim()
     {
         float ratio = m_fill.fillAmount;
+
+        // 死んでたら死んだ色をしているので変えない
+        if (m_isDeath) return;
 
         if (ratio > kCautionRatio)
         {

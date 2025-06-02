@@ -14,7 +14,7 @@ public class Healer : PlayerBase
     const int kAttackInterval = 90;
     const float kCircleMoveSpeed = 0.5f;
     const float kMaxCircleDistace = 10.0f;
-    Vector3 kPopCircleDistance = new(0,0,10);
+    Vector3 kPopCircleDistance = new(0,0,3.0f);
     Rigidbody m_circleRigid;
 
     // Å‰‚ÍƒXƒLƒ‹‚à‚½‚Ü‚Á‚Ä‚¢‚é

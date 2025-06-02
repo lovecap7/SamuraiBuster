@@ -136,7 +136,7 @@ abstract public class EnemyBase : MonoBehaviour
        m_score.GetComponent<Score>().AddScore(m_scorePoint);
        Destroy(this.gameObject);
     }
-    virtual public int GetHp()
+    virtual public float GetHp()
     {
         return m_characterStatus.hitPoint;
     }
