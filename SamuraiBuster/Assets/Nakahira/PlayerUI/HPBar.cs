@@ -15,10 +15,10 @@ public class HPBar : MonoBehaviour
     const float kCautionRatio = 0.5f;
     const float kDangerRatio  = 0.2f;
 
-    readonly Color kNomal   = new( 0.2f,  0.6f, 0.2f, 1.0f);
-    readonly Color kCaution = new(0.95f, 0.95f, 0.2f, 1.0f);
-    readonly Color kDanger  = new( 0.8f,  0.2f, 0.1f, 1.0f);
-    readonly Color kDeath   = new(0.27f, 0.27f, 0.4f, 1.0f);
+    readonly Color kNomal   = new( 0.4f,  0.8f, 0.4f, 1.0f);
+    readonly Color kCaution = new(1.0f, 1.0f, 0.4f, 1.0f);
+    readonly Color kDanger  = new(1.0f,  0.4f, 0.3f, 1.0f);
+    readonly Color kDeath   = new(0.5f, 0.5f, 0.6f, 1.0f);
 
     public void SetPlayer(in PlayerBase player)
     {

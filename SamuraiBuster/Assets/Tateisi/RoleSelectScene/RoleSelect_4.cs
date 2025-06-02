@@ -27,6 +27,16 @@ public class RoleSelect_4 : MonoBehaviour
     public Sprite imageTank;
     private Image image;
 
+    public GameObject Fighter;
+    public GameObject Healer;
+    public GameObject Mage;
+    public GameObject Tank;
+
+    [SerializeField] private bool activeFighter = false;  // アクティブ状態
+    [SerializeField] private bool activeHealer = false;  // アクティブ状態
+    [SerializeField] private bool activeMage = false;  // アクティブ状態
+    [SerializeField] private bool activeTank = false;  // アクティブ状態
+
     private bool isDecided = false; // 決定済みフラグ
     public bool IsDecided()
     {
@@ -62,7 +72,7 @@ public class RoleSelect_4 : MonoBehaviour
     {
         // SpriteRendererコンポーネントを取得します
         image = GetComponent<Image>();
-        SelectedRole = RoleNumPlayer4.Fighter; // 初期ロールを設定
+        roleNumPlayer4 = RoleNumPlayer4.Tank; // 初期ロールを設定
     }
 
 
@@ -72,6 +82,10 @@ public class RoleSelect_4 : MonoBehaviour
         // 選択されたロールを更新
         SelectedRole = roleNumPlayer4;
         SetImage();
+        this.Fighter.SetActive(activeFighter);
+        this.Healer.SetActive(activeHealer);
+        this.Mage.SetActive(activeMage);
+        this.Tank.SetActive(activeTank);
     }
 
     /// <summary>
@@ -158,24 +172,32 @@ public class RoleSelect_4 : MonoBehaviour
 
     private void SetImage()
     {
+        activeFighter = false;
+        activeHealer = false;
+        activeMage = false;
+        activeTank = false;
         if (roleNumPlayer4 == RoleNumPlayer4.Fighter)
         {
             image.sprite = imageFighter;
+            activeFighter = true;
             return;
         }
         if (roleNumPlayer4 == RoleNumPlayer4.Healer)
         {
             image.sprite = imageHealer;
+            activeHealer = true;
             return;
         }
         if (roleNumPlayer4 == RoleNumPlayer4.Mage)
         {
             image.sprite = imageMage;
+            activeMage = true;
             return;
         }
         if (roleNumPlayer4 == RoleNumPlayer4.Tank)
         {
             image.sprite = imageTank;
+            activeTank = true;
             return;
         }
     }

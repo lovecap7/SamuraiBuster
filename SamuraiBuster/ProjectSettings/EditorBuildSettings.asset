@@ -12,7 +12,16 @@ EditorBuildSettings:
     path: Assets/Tateisi/StageSelectScene/StageSelectScene.unity
     guid: 0b67583075242e047a7bfb563ee9e45a
   - enabled: 1
-    path: Assets/Tateisi/RoleSelectScene/RollSelectScene.unity
+    path: Assets/Tateisi/RoleSelectScene/1PlayRollSelectScene.unity
+    guid: a57b99261e81c724f82e9a6648cd86fd
+  - enabled: 1
+    path: Assets/Tateisi/RoleSelectScene/2PlayRollSelectScene.unity
+    guid: de84ff0321aae774e887d3539efd93bf
+  - enabled: 1
+    path: Assets/Tateisi/RoleSelectScene/3PlayRollSelectScene.unity
+    guid: 3f4dc291041ccba4dae5bb84dd2ce503
+  - enabled: 1
+    path: Assets/Tateisi/RoleSelectScene/4PlayRollSelectScene.unity
     guid: 908febc4a6aba214783bf6b4dfd99f27
   - enabled: 1
     path: Assets/Inoue/StageScene/StageScene.unity
