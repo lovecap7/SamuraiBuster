@@ -16,7 +16,7 @@ public class Warrior : EnemyBase
     private CapsuleCollider m_swordCollider;
 
     //’Ç‚¢‚©‚¯‚é‘¬“x
-    private float kChaseSpeed = 50.0f;
+    private float kChaseSpeed = 35.0f;
     private float kChaseDis = 1.4f;
     //‚Ì‚¯‚¼‚é
     private float kKnockBackForce = 1.1f;

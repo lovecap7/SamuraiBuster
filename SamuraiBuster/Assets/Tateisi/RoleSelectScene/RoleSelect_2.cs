@@ -1,12 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using static RoleSelect_1;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class RoleSelect_2 : MonoBehaviour
 {
-    public enum RoleNumPlayer2
+    public enum RoleNumPlayer2 : int
     {
         Fighter,
         Healer,
@@ -14,29 +14,43 @@ public class RoleSelect_2 : MonoBehaviour
         Tank
     }
 
-    // シングルトンインスタンス
-    public static RoleSelect_2 Instance { get; private set; }
+    //// シングルトンインスタンス
+    //public static RoleSelect_2 Instance { get; private set; }
 
     // 選択されたロール
     public RoleNumPlayer2 SelectedRole { get; private set; }
     [SerializeField] private RoleNumPlayer2 roleNumPlayer2;
 
-    // シングルトンインスタンスの取得
-    private void Awake()
+    public Sprite imageFighter;
+    public Sprite imageHealer;
+    public Sprite imageMage;
+    public Sprite imageTank;
+    private Image image;
+
+    private bool isDecided = false; // 決定済みフラグ
+    public bool IsDecided()
     {
-        roleNumPlayer2 = RoleNumPlayer2.Fighter;
-        // シングルトンインスタンスの設定
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        return isDecided;
     }
+
+    // シングルトンインスタンスの取得
+    //private void Awake()
+    //{
+    //    roleNumPlayer2 = RoleNumPlayer2.Fighter;
+    //    // シングルトンインスタンスの設定
+    //    if (Instance != null && Instance != this)
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
+    //    Instance = this;
+    //}
 
     // 初期化処理
     void Start()
     {
+        // SpriteRendererコンポーネントを取得します
+        image = GetComponent<Image>();
         roleNumPlayer2 = RoleNumPlayer2.Fighter; // 初期ロールを設定
     }
 
@@ -46,6 +60,7 @@ public class RoleSelect_2 : MonoBehaviour
     {
         // 選択されたロールを更新
         SelectedRole = roleNumPlayer2;
+        SetImage();
     }
 
     /// <summary>
@@ -54,9 +69,10 @@ public class RoleSelect_2 : MonoBehaviour
     /// <param name="context"></param>
     public void UpRole(InputAction.CallbackContext context)
     {
+        if(isDecided)return;
         if (context.canceled)
         {
-            Debug.Log("UpRole");
+            Debug.Log("2P_UpRole");
             Back();
         }
     }
@@ -67,11 +83,24 @@ public class RoleSelect_2 : MonoBehaviour
     /// <param name="context"></param>
     public void DownRole(InputAction.CallbackContext context)
     {
+        if(isDecided) return;
         if (context.canceled)
         {
-            Debug.Log("DownRole");
+            Debug.Log("2P_DownRole");
             Proceed();
         }
+    }
+
+    public void Decide(InputAction.CallbackContext context)
+    {
+        Debug.Log("2P_True");
+        isDecided = true; // 決定済みフラグを立てる
+    }
+
+    public void Cancel(InputAction.CallbackContext context)
+    {
+        Debug.Log("2P_False");
+        isDecided = false; // 決定をキャンセルする
     }
 
     /// <summary>
@@ -124,6 +153,30 @@ public class RoleSelect_2 : MonoBehaviour
         if (roleNumPlayer2 == RoleNumPlayer2.Healer)
         {
             roleNumPlayer2 = RoleNumPlayer2.Fighter;
+            return;
+        }
+    }
+
+    private void SetImage()
+    {
+        if (roleNumPlayer2 == RoleNumPlayer2.Fighter)
+        {
+            image.sprite = imageFighter;
+            return;
+        }
+        if (roleNumPlayer2 == RoleNumPlayer2.Healer)
+        {
+            image.sprite = imageHealer;
+            return;
+        }
+        if (roleNumPlayer2 == RoleNumPlayer2.Mage)
+        {
+            image.sprite = imageMage;
+            return;
+        }
+        if (roleNumPlayer2 == RoleNumPlayer2.Tank)
+        {
+            image.sprite = imageTank;
             return;
         }
     }

@@ -1,5 +1,6 @@
 using PlayerCommon;
 using Unity.VisualScripting;
+using UnityEditor.Rendering;
 using UnityEngine;
 
 public class Mage : PlayerBase
@@ -19,7 +20,7 @@ public class Mage : PlayerBase
     Quaternion kFireRotation = Quaternion.AngleAxis(20, Vector3.up);
     Vector3 kInitCircleDistance = new(0,0,3);
     Vector3 kMeterSpawnPos = new(0, 30, 0);
-    const float kMaxCircleDistace = 10;
+    const float kMaxCircleDistace = 10.0f;
 
     GameObject m_previewCircleInstance;
     Rigidbody m_circleRigid;

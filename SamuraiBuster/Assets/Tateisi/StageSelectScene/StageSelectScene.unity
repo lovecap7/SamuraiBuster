@@ -689,6 +689,18 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 0c397dd5-7b9a-41de-a6c1-d27e1bb607e0
     m_ActionName: StageSelectScene/Back[/XInputControllerWindows/buttonEast]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a9d5a558-1815-4094-8c94-4019f65aa341
+    m_ActionName: RollSelectScene/DownMove[/XInputControllerWindows/leftStick/down,/XInputControllerWindows/dpad/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 829118bf-5246-4e49-9172-3056b98f1bce
+    m_ActionName: RollSelectScene/OK[/XInputControllerWindows/buttonSouth]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2d0626dc-68ec-4140-874a-e3e02f1fa947
+    m_ActionName: RollSelectScene/Back[/XInputControllerWindows/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: 
   m_DefaultActionMap: StageSelectScene
