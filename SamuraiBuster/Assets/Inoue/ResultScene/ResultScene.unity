@@ -385,6 +385,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b021293fbb6e372449d83a45e9508216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_finishResultText: {fileID: 1332926776}
   m_annihilationScoreText: {fileID: 1345160254}
   m_timerScoreText: {fileID: 74854624}
   m_totalScoreText: {fileID: 159853813}
@@ -2008,7 +2009,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1980628148}
   m_Layer: 0
-  m_Name: FinishResultObject
+  m_Name: FinishResultTextObject
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

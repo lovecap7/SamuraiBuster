@@ -12,6 +12,8 @@ public class ScoreResult : MonoBehaviour
     private float m_countTimeScore = 0;
     private float m_countTotalScore = 0;
     private  bool m_isFinishCountScore = false;
+    //結果
+    [SerializeField] private Text m_finishResultText;
     // スコア表示用UIテキスト
     [SerializeField] private Text m_annihilationScoreText;
     [SerializeField] private Text m_timerScoreText;
@@ -31,9 +33,18 @@ public class ScoreResult : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        m_annihilationScore = PlayerPrefs.GetInt("AnnihilationScore", 1000);//殲滅スコア
-        m_timeScore = PlayerPrefs.GetFloat("TimeScore", 10000.0f);//タイマー
+        m_annihilationScore = PlayerPrefs.GetFloat("AnnihilationScore", 0.0f);//殲滅スコア
+        m_timeScore = PlayerPrefs.GetFloat("TimeScore", 0.0f) * 10.0f;//タイマー
         m_totalScore = m_annihilationScore + m_timeScore;//合計
+        if(m_timeScore <= 0.0f)
+        {
+            m_finishResultText.text = "時間切れ";
+        }
+        else
+        {
+            m_finishResultText.text = "勝利";
+        }
+
         //最初は0で表示
         m_annihilationScoreText.text = m_countAnnihiScore.ToString("0");
         m_timerScoreText.text = m_countTimeScore.ToString("0");
