@@ -148,10 +148,6 @@ abstract public class EnemyBase : MonoBehaviour
         {
             m_isDead = true;
         }
-        //if (Input.GetKeyDown(KeyCode.X))
-        //{
-        //    m_isDead = true;
-        //}
     }
     abstract protected void AttackCoolTime();//攻撃クールタイム
     abstract protected void SerchTarget();//距離とターゲットのベクトルを計算

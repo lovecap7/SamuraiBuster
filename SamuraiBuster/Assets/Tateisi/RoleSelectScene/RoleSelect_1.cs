@@ -6,7 +6,7 @@ using UnityEngine.UI;
 
 public class RoleSelect_1 : MonoBehaviour
 {
-    public enum RoleNumPlayer1
+    public enum RoleNumPlayer1:int
     {
         Fighter,
         Healer,
@@ -14,8 +14,8 @@ public class RoleSelect_1 : MonoBehaviour
         Tank
     }
 
-    // シングルトンインスタンス
-    public static RoleSelect_1 Instance { get; private set; }
+    //// シングルトンインスタンス
+    //public static RoleSelect_1 Instance { get; private set; }
 
     // 選択されたロール
     public RoleNumPlayer1 SelectedRole { get; private set; }
@@ -27,18 +27,25 @@ public class RoleSelect_1 : MonoBehaviour
     public Sprite imageTank;
     private Image image;
 
-// シングルトンインスタンスの取得
-private void Awake()
+    private bool isDecided = false; // 決定済みフラグ
+    public bool IsDecided()
     {
-        roleNumPlayer1 = RoleNumPlayer1.Fighter;
-        // シングルトンインスタンスの設定
-        if (Instance != null && Instance != this)
-        {
-            Destroy(gameObject);
-            return;
-        }
-        Instance = this;
+        return isDecided;
     }
+
+
+    //// シングルトンインスタンスの取得
+    //private void Awake()
+    //{
+    //    roleNumPlayer1 = RoleNumPlayer1.Fighter;
+    //    // シングルトンインスタンスの設定
+    //    if (Instance != null && Instance != this)
+    //    {
+    //        Destroy(gameObject);
+    //        return;
+    //    }
+    //    Instance = this;
+    //}
 
     // 初期化処理
     void Start()
@@ -63,6 +70,7 @@ private void Awake()
     /// <param name="context"></param>
     public void UpRole(InputAction.CallbackContext context)
     {
+        if (isDecided) return; // 決定済みの場合は何もしない
         if (context.canceled)
         {
             Debug.Log("1P_UpRole");
@@ -76,11 +84,25 @@ private void Awake()
     /// <param name="context"></param>
     public void DownRole(InputAction.CallbackContext context)
     {
+        if (isDecided) return; // 決定済みの場合は何もしない
         if (context.canceled)
         {
             Debug.Log("1P_DownRole");
             Proceed();
         }
+    }
+
+
+    public void Decide(InputAction.CallbackContext context)
+    {
+        Debug.Log("1P_True");
+        isDecided = true; // 決定済みフラグを立てる
+    }
+
+    public void Cancel(InputAction.CallbackContext context)
+    {
+        Debug.Log("1P_False");
+        isDecided = false; // 決定をキャンセルする
     }
 
     /// <summary>

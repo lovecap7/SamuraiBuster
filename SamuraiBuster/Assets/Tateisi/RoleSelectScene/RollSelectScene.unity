@@ -1501,15 +1501,39 @@ MonoBehaviour:
     m_ActionId: a9d5a558-1815-4094-8c94-4019f65aa341
     m_ActionName: RollSelectScene/DownMove[/XInputControllerWindows/leftStick/down,/XInputControllerWindows1/leftStick/down,/XInputControllerWindows/dpad/down,/XInputControllerWindows1/dpad/down]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2019277537}
+        m_TargetAssemblyTypeName: RoleSelect_3, Assembly-CSharp
+        m_MethodName: Decide
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 829118bf-5246-4e49-9172-3056b98f1bce
     m_ActionName: RollSelectScene/OK[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2019277537}
+        m_TargetAssemblyTypeName: RoleSelect_3, Assembly-CSharp
+        m_MethodName: Cancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2d0626dc-68ec-4140-874a-e3e02f1fa947
     m_ActionName: RollSelectScene/Back[/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: RollSelectScene
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -5397,7 +5421,6 @@ RectTransform:
   - {fileID: 1109826325}
   - {fileID: 92485976}
   - {fileID: 854225620}
-  - {fileID: 1820655741}
   m_Father: {fileID: 3350383}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
@@ -11286,15 +11309,39 @@ MonoBehaviour:
     m_ActionId: a9d5a558-1815-4094-8c94-4019f65aa341
     m_ActionName: RollSelectScene/DownMove[/XInputControllerWindows/leftStick/down,/XInputControllerWindows1/leftStick/down,/XInputControllerWindows/dpad/down,/XInputControllerWindows1/dpad/down]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 587597052}
+        m_TargetAssemblyTypeName: RoleSelect_4, Assembly-CSharp
+        m_MethodName: Decide
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 829118bf-5246-4e49-9172-3056b98f1bce
     m_ActionName: RollSelectScene/OK[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 587597052}
+        m_TargetAssemblyTypeName: RoleSelect_4, Assembly-CSharp
+        m_MethodName: Cancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2d0626dc-68ec-4140-874a-e3e02f1fa947
     m_ActionName: RollSelectScene/Back[/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: RollSelectScene
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -14362,15 +14409,39 @@ MonoBehaviour:
     m_ActionId: a9d5a558-1815-4094-8c94-4019f65aa341
     m_ActionName: RollSelectScene/DownMove[/XInputControllerWindows/leftStick/down,/XInputControllerWindows1/leftStick/down,/XInputControllerWindows/dpad/down,/XInputControllerWindows1/dpad/down]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1473989902}
+        m_TargetAssemblyTypeName: RoleSelect_2, Assembly-CSharp
+        m_MethodName: Decide
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 829118bf-5246-4e49-9172-3056b98f1bce
     m_ActionName: RollSelectScene/OK[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1473989902}
+        m_TargetAssemblyTypeName: RoleSelect_2, Assembly-CSharp
+        m_MethodName: Cancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2d0626dc-68ec-4140-874a-e3e02f1fa947
     m_ActionName: RollSelectScene/Back[/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: RollSelectScene
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -23146,6 +23217,54 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1030973441, guid: abc00000000010994572018960371533, type: 3}
   m_PrefabInstance: {fileID: 1699812935}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1709147127
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1709147129}
+  - component: {fileID: 1709147128}
+  m_Layer: 0
+  m_Name: RolePlayerIsNum
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1709147128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709147127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3434c28eb0a7d604797fc2f76f82b4d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  roleSelect1: {fileID: 1334560993}
+  roleSelect2: {fileID: 1473989902}
+  roleSelect3: {fileID: 2019277537}
+  roleSelect4: {fileID: 587597052}
+--- !u!4 &1709147129
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1709147127}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 50.514046, y: -20.85914, z: 0.17483902}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1712082371
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -24688,140 +24807,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 1030973441, guid: abc00000000010994572018960371533, type: 3}
   m_PrefabInstance: {fileID: 1818168701}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1820655740
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 1820655741}
-  - component: {fileID: 1820655742}
-  m_Layer: 5
-  m_Name: PlayerNumber5Controller
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!224 &1820655741
-RectTransform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1820655740}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 433691545}
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 100, y: 100}
-  m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1820655742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1820655740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_Actions: {fileID: -944628639613478452, guid: 9b35a5231b908e04689ee1a620bb5f73, type: 3}
-  m_NotificationBehavior: 2
-  m_UIInputModule: {fileID: 0}
-  m_DeviceLostEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_DeviceRegainedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ControlsChangedEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  m_ActionEvents:
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 030ab023-e979-4b1e-b0fc-4c450ab63818
-    m_ActionName: TitleScene/PAB[/XInputControllerWindows1/buttonSouth,/XInputControllerWindows2/buttonSouth,/XInputControllerWindows/buttonSouth,/XInputControllerWindows3/buttonSouth,/XInputControllerWindows1/buttonEast,/XInputControllerWindows2/buttonEast,/XInputControllerWindows/buttonEast,/XInputControllerWindows3/buttonEast,/XInputControllerWindows1/buttonWest,/XInputControllerWindows2/buttonWest,/XInputControllerWindows/buttonWest,/XInputControllerWindows3/buttonWest,/XInputControllerWindows1/buttonNorth,/XInputControllerWindows2/buttonNorth,/XInputControllerWindows/buttonNorth,/XInputControllerWindows3/buttonNorth,/XInputControllerWindows1/leftShoulder,/XInputControllerWindows2/leftShoulder,/XInputControllerWindows/leftShoulder,/XInputControllerWindows3/leftShoulder,/XInputControllerWindows1/leftTrigger,/XInputControllerWindows2/leftTrigger,/XInputControllerWindows/leftTrigger,/XInputControllerWindows3/leftTrigger,/XInputControllerWindows1/rightShoulder,/XInputControllerWindows2/rightShoulder,/XInputControllerWindows/rightShoulder,/XInputControllerWindows3/rightShoulder,/XInputControllerWindows1/rightTrigger,/XInputControllerWindows2/rightTrigger,/XInputControllerWindows/rightTrigger,/XInputControllerWindows3/rightTrigger,/XInputControllerWindows1/leftStickPress,/XInputControllerWindows2/leftStickPress,/XInputControllerWindows/leftStickPress,/XInputControllerWindows3/leftStickPress,/XInputControllerWindows1/rightStickPress,/XInputControllerWindows2/rightStickPress,/XInputControllerWindows/rightStickPress,/XInputControllerWindows3/rightStickPress,/XInputControllerWindows1/start,/XInputControllerWindows2/start,/XInputControllerWindows/start,/XInputControllerWindows3/start,/XInputControllerWindows1/select,/XInputControllerWindows2/select,/XInputControllerWindows/select,/XInputControllerWindows3/select]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8ee4c209-7162-4a8c-aed3-ab6876334e94
-    m_ActionName: StageSelectScene/UpMove[/XInputControllerWindows1/leftStick/up,/XInputControllerWindows2/leftStick/up,/XInputControllerWindows/leftStick/up,/XInputControllerWindows3/leftStick/up,/XInputControllerWindows1/rightStick/up,/XInputControllerWindows2/rightStick/up,/XInputControllerWindows/rightStick/up,/XInputControllerWindows3/rightStick/up]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4fc7cb7b-a601-4608-b699-0bf8d3b32905
-    m_ActionName: StageSelectScene/LeftMove[/XInputControllerWindows1/leftStick/left,/XInputControllerWindows2/leftStick/left,/XInputControllerWindows/leftStick/left,/XInputControllerWindows3/leftStick/left,/XInputControllerWindows1/rightStick/left,/XInputControllerWindows2/rightStick/left,/XInputControllerWindows/rightStick/left,/XInputControllerWindows3/rightStick/left]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 4bfb0d12-c162-45c5-91e2-6d51a47c0e55
-    m_ActionName: StageSelectScene/RightMove[/XInputControllerWindows1/leftStick/right,/XInputControllerWindows2/leftStick/right,/XInputControllerWindows/leftStick/right,/XInputControllerWindows3/leftStick/right,/XInputControllerWindows1/rightStick/right,/XInputControllerWindows2/rightStick/right,/XInputControllerWindows/rightStick/right,/XInputControllerWindows3/rightStick/right]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 6429dd28-9fe8-4d0c-a282-194cbf648eae
-    m_ActionName: StageSelectScene/DownMove[/XInputControllerWindows1/leftStick/down,/XInputControllerWindows2/leftStick/down,/XInputControllerWindows/leftStick/down,/XInputControllerWindows3/leftStick/down,/XInputControllerWindows1/rightStick/down,/XInputControllerWindows2/rightStick/down,/XInputControllerWindows/rightStick/down,/XInputControllerWindows3/rightStick/down]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 917f4c3f-56f2-4db2-9862-e5870cfaec80
-    m_ActionName: StageSelectScene/OK[/XInputControllerWindows1/buttonSouth,/XInputControllerWindows2/buttonSouth,/XInputControllerWindows/buttonSouth,/XInputControllerWindows3/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 0c397dd5-7b9a-41de-a6c1-d27e1bb607e0
-    m_ActionName: StageSelectScene/Back[/XInputControllerWindows1/buttonEast,/XInputControllerWindows2/buttonEast,/XInputControllerWindows/buttonEast,/XInputControllerWindows3/buttonEast]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: 374f9b6c-729c-4526-a588-f0db0afd9108
-    m_ActionName: RollSelectScene/UpMove[/XInputControllerWindows1/leftStick/up,/XInputControllerWindows2/leftStick/up,/XInputControllerWindows/leftStick/up,/XInputControllerWindows3/leftStick/up,/XInputControllerWindows1/dpad/up,/XInputControllerWindows2/dpad/up,/XInputControllerWindows/dpad/up,/XInputControllerWindows3/dpad/up]
-  - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: a9d5a558-1815-4094-8c94-4019f65aa341
-    m_ActionName: RollSelectScene/DownMove[/XInputControllerWindows1/leftStick/down,/XInputControllerWindows2/leftStick/down,/XInputControllerWindows/leftStick/down,/XInputControllerWindows3/leftStick/down,/XInputControllerWindows1/dpad/down,/XInputControllerWindows2/dpad/down,/XInputControllerWindows/dpad/down,/XInputControllerWindows3/dpad/down]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 829118bf-5246-4e49-9172-3056b98f1bce
-    m_ActionName: RollSelectScene/OK[/XInputControllerWindows1/buttonSouth,/XInputControllerWindows2/buttonSouth,/XInputControllerWindows/buttonSouth,/XInputControllerWindows3/buttonSouth]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 2d0626dc-68ec-4140-874a-e3e02f1fa947
-    m_ActionName: RollSelectScene/Back[/XInputControllerWindows1/buttonEast,/XInputControllerWindows2/buttonEast,/XInputControllerWindows/buttonEast,/XInputControllerWindows3/buttonEast]
-  m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
-  m_DefaultActionMap: RollSelectScene
-  m_SplitScreenIndex: -1
-  m_Camera: {fileID: 0}
 --- !u!1001 &1825887522
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -27375,15 +27360,39 @@ MonoBehaviour:
     m_ActionId: a9d5a558-1815-4094-8c94-4019f65aa341
     m_ActionName: RollSelectScene/DownMove[/XInputControllerWindows/leftStick/down,/XInputControllerWindows1/leftStick/down,/XInputControllerWindows/dpad/down,/XInputControllerWindows1/dpad/down]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1334560993}
+        m_TargetAssemblyTypeName: RoleSelect_1, Assembly-CSharp
+        m_MethodName: Decide
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 829118bf-5246-4e49-9172-3056b98f1bce
     m_ActionName: RollSelectScene/OK[/XInputControllerWindows/buttonSouth,/XInputControllerWindows1/buttonSouth]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1334560993}
+        m_TargetAssemblyTypeName: RoleSelect_1, Assembly-CSharp
+        m_MethodName: Cancel
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 2d0626dc-68ec-4140-874a-e3e02f1fa947
     m_ActionName: RollSelectScene/Back[/XInputControllerWindows/buttonEast,/XInputControllerWindows1/buttonEast]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Gamepad
   m_DefaultActionMap: RollSelectScene
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
@@ -28861,3 +28870,4 @@ SceneRoots:
   - {fileID: 492872465}
   - {fileID: 3350383}
   - {fileID: 936578958}
+  - {fileID: 1709147129}

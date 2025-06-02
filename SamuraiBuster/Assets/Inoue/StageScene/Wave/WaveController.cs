@@ -2,9 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Data;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class WaveController : MonoBehaviour
 {
+
     private GameObject m_players; //プレイヤーのオブジェクト
     private int m_playerNum = 0; //プレイヤーの人数
     private int m_goRightNum = 0; //右に進んだプレイヤーの人数
@@ -63,7 +65,7 @@ public class WaveController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            //wave1中
+        //wave1中
         if (m_isWave1)
         {
             Debug.Log("Wave1開始");
