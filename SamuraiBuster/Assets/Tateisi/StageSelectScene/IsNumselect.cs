@@ -117,7 +117,8 @@ public class IsNumselect : MonoBehaviour
         if (Num1Selected && context.canceled)
         {
             NumPlayer1 = true;
-            selectDirector.TryChangeScene();
+            //selectDirector.TryChangeScene();
+            UnityEngine.SceneManagement.SceneManager.LoadScene("1PlayRollSelectScene");
         }
     }
     public void NumPlayer2OK(InputAction.CallbackContext context)
@@ -126,7 +127,8 @@ public class IsNumselect : MonoBehaviour
         if (Num2Selected && context.canceled)
         {
             NumPlayer2 = true;
-            selectDirector.TryChangeScene();
+            //selectDirector.TryChangeScene();
+            UnityEngine.SceneManagement.SceneManager.LoadScene("2PlayRollSelectScene");
         }
     }
     public void NumPlayer3OK(InputAction.CallbackContext context)
@@ -135,7 +137,8 @@ public class IsNumselect : MonoBehaviour
         if (Num3Selected && context.canceled)
         {
             NumPlayer3 = true;
-            selectDirector.TryChangeScene();
+            //selectDirector.TryChangeScene();
+            UnityEngine.SceneManagement.SceneManager.LoadScene("3PlayRollSelectScene");
         }
     }
     public void NumPlayer4OK(InputAction.CallbackContext context)
@@ -144,7 +147,8 @@ public class IsNumselect : MonoBehaviour
         if (Num4Selected && context.canceled)
         {
             NumPlayer4 = true;
-            selectDirector.TryChangeScene();
+            //selectDirector.TryChangeScene();
+            UnityEngine.SceneManagement.SceneManager.LoadScene("4PlayRollSelectScene");
         }
     }
 

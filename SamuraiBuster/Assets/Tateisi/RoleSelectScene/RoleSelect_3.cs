@@ -27,6 +27,16 @@ public class RoleSelect_3 : MonoBehaviour
     public Sprite imageTank;
     private Image image;
 
+    public GameObject Fighter;
+    public GameObject Healer;
+    public GameObject Mage;
+    public GameObject Tank;
+
+    [SerializeField] private bool activeFighter = false;  // アクティブ状態
+    [SerializeField] private bool activeHealer = false;  // アクティブ状態
+    [SerializeField] private bool activeMage = false;  // アクティブ状態
+    [SerializeField] private bool activeTank = false;  // アクティブ状態
+
     private bool isDecided = false; // 決定済みフラグ
     public bool IsDecided()
     {
@@ -63,7 +73,7 @@ public class RoleSelect_3 : MonoBehaviour
     {
         // SpriteRendererコンポーネントを取得します
         image = GetComponent<Image>();
-        SelectedRole = RoleNumPlayer3.Fighter; // 初期ロールを設定
+        roleNumPlayer3 = RoleNumPlayer3.Mage; // 初期ロールを設定
     }
 
 
@@ -73,6 +83,10 @@ public class RoleSelect_3 : MonoBehaviour
         // 選択されたロールを更新
         SelectedRole = roleNumPlayer3;
         SetImage();
+        this.Fighter.SetActive(activeFighter);
+        this.Healer.SetActive(activeHealer);
+        this.Mage.SetActive(activeMage);
+        this.Tank.SetActive(activeTank);
     }
 
     /// <summary>
@@ -159,24 +173,32 @@ public class RoleSelect_3 : MonoBehaviour
     }
     private void SetImage()
     {
+        activeFighter = false;
+        activeHealer = false;
+        activeMage = false;
+        activeTank = false;
         if (roleNumPlayer3 == RoleNumPlayer3.Fighter)
         {
             image.sprite = imageFighter;
+            activeFighter = true;
             return;
         }
         if (roleNumPlayer3 == RoleNumPlayer3.Healer)
         {
             image.sprite = imageHealer;
+            activeHealer = true;
             return;
         }
         if (roleNumPlayer3 == RoleNumPlayer3.Mage)
         {
             image.sprite = imageMage;
+            activeMage = true;
             return;
         }
         if (roleNumPlayer3 == RoleNumPlayer3.Tank)
         {
             image.sprite = imageTank;
+            activeTank = true;
             return;
         }
     }

@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
+using static RoleSelect_1;
 
 public class RoleSelect_2 : MonoBehaviour
 {
@@ -26,6 +27,16 @@ public class RoleSelect_2 : MonoBehaviour
     public Sprite imageMage;
     public Sprite imageTank;
     private Image image;
+
+    public GameObject Fighter;
+    public GameObject Healer;
+    public GameObject Mage;
+    public GameObject Tank;
+
+    [SerializeField] private bool activeFighter = false;  // アクティブ状態
+    [SerializeField] private bool activeHealer = false;  // アクティブ状態
+    [SerializeField] private bool activeMage = false;  // アクティブ状態
+    [SerializeField] private bool activeTank = false;  // アクティブ状態
 
     private bool isDecided = false; // 決定済みフラグ
     public bool IsDecided()
@@ -51,7 +62,7 @@ public class RoleSelect_2 : MonoBehaviour
     {
         // SpriteRendererコンポーネントを取得します
         image = GetComponent<Image>();
-        roleNumPlayer2 = RoleNumPlayer2.Fighter; // 初期ロールを設定
+        roleNumPlayer2 = RoleNumPlayer2.Healer; // 初期ロールを設定
     }
 
 
@@ -61,6 +72,10 @@ public class RoleSelect_2 : MonoBehaviour
         // 選択されたロールを更新
         SelectedRole = roleNumPlayer2;
         SetImage();
+        this.Fighter.SetActive(activeFighter);
+        this.Healer.SetActive(activeHealer);
+        this.Mage.SetActive(activeMage);
+        this.Tank.SetActive(activeTank);
     }
 
     /// <summary>
@@ -159,24 +174,32 @@ public class RoleSelect_2 : MonoBehaviour
 
     private void SetImage()
     {
+        activeFighter = false;
+        activeHealer = false;
+        activeMage = false;
+        activeTank = false;
         if (roleNumPlayer2 == RoleNumPlayer2.Fighter)
         {
             image.sprite = imageFighter;
+            activeFighter = true;
             return;
         }
         if (roleNumPlayer2 == RoleNumPlayer2.Healer)
         {
             image.sprite = imageHealer;
+            activeHealer = true;
             return;
         }
         if (roleNumPlayer2 == RoleNumPlayer2.Mage)
         {
             image.sprite = imageMage;
+            activeMage = true;
             return;
         }
         if (roleNumPlayer2 == RoleNumPlayer2.Tank)
         {
             image.sprite = imageTank;
+            activeTank = true;
             return;
         }
     }

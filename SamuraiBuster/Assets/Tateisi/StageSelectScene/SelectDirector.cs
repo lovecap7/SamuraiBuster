@@ -55,7 +55,7 @@ public class SelectDirector : MonoBehaviour
         }
         if (selectState == SelectState.RoleSelect)
         {
-            UnityEngine.SceneManagement.SceneManager.LoadScene("RollSelectScene");
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("RollSelectScene");
         }
     }
 
