@@ -54,16 +54,24 @@ public class selectstage_1 : MonoBehaviour
         Scale();
     }
 
-    /// <summary>
-    /// 右に移動するための入力処理
-    /// </summary>
-    /// <param name="context"></param>
     public void Stage1OK(InputAction.CallbackContext context)
     {
+        if (selectstage_1.Instance.Stage1) return;
+        if (selectstage_2.Instance.Stage2) return;
+        if (selectstage_3.Instance.Stage3) return;
         //ボタンを押したとき
         if (stage1Selected && context.started)
         {
             Stage1 = true;
+        }
+    }
+
+    public void Stage1Back(InputAction.CallbackContext context)
+    {
+        //ボタンを押したとき
+        if (stage1Selected && context.canceled)
+        {
+            Stage1 = false;
         }
     }
 
@@ -72,14 +80,19 @@ public class selectstage_1 : MonoBehaviour
     /// </summary>
     private void Scale()
     {
+        // 人数選択画面に移行してるなら、動かない
+        if (selectstage_1.Instance.Stage1) return;
+        if (selectstage_2.Instance.Stage2) return;
+        if (selectstage_3.Instance.Stage3) return;
+
         // 現在のスケールを取得
         Vector3 currentScale = transform.localScale;
 
         // 拡大・縮小の方向を判定
         if (PointerController.Instance.IsSelect_1)
         {
-                // 拡大・縮小の方向を判定
-                if (scalingUp)
+            // 拡大・縮小の方向を判定
+            if (scalingUp)
             {
                 currentScale += Vector3.one * scaleSpeed * Time.deltaTime;
                 if (currentScale.x >= maxScale)

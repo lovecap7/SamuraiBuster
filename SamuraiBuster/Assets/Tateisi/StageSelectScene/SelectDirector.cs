@@ -1,9 +1,5 @@
-using System.Collections;
-using System.Collections.Generic;
-using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
-using static UnityEngine.InputSystem.InputAction;
 
 enum  SelectState
 {
@@ -80,6 +76,8 @@ public class SelectDirector : MonoBehaviour
     /// </summary>
     private void SelectStateBack()
     {
+        // l”‘I‘ğ‚Ì“ü—Í‚Å‚«‚È‚¢ŠúŠÔ‚ğ•œŠˆ
+        IsNumselect.Instance.cantSelectFrame = IsNumselect.kCantSelectFrameCount;
 
         if (selectState == SelectState.PlayerNumSelect)
         {

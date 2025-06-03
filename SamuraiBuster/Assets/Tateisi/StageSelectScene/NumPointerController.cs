@@ -9,13 +9,19 @@ enum RolePlayerNum
     PlayerNum1,
     PlayerNum2,
     PlayerNum3,
-    PlayerNum4
+    PlayerNum4,
+    Max
 }
 
 public class NumPointerController : MonoBehaviour
 {
     // シングルトンインスタンス
     public static NumPointerController Instance { get; private set; }
+
+    Vector3 targetPos;
+
+    // インスペクターでよろ
+    public GameObject[] playerNumUI = new GameObject[4]; 
 
     // ゲーム状態
     public bool IsPlayerNum_1 { get; private set; }
@@ -43,7 +49,10 @@ public class NumPointerController : MonoBehaviour
         IsPlayerNum_2 = false;
         IsPlayerNum_3 = false;
         IsPlayerNum_4 = false;
+
+        targetPos = transform.position;
     }
+
     void Update()
     {
         IsPlayerNum_1 = false;
@@ -66,12 +75,19 @@ public class NumPointerController : MonoBehaviour
         {
             IsPlayerNum_4 = true;
         }
+
+        // ポインターの位置を動かす
+        transform.position = Vector3.Lerp(transform.position, targetPos, 0.1f);
     }
 
     public void LeftPlayerNum(InputAction.CallbackContext context)
     {
-        if (!selectstage_1.Instance.Stage1 && !selectstage_2.Instance.Stage2 && !selectstage_3.Instance.Stage3) return;
-        if (context.canceled)
+        // 人数選択画面でないなら
+        if (!selectstage_1.Instance.Stage1 &&
+            !selectstage_2.Instance.Stage2 &&
+            !selectstage_3.Instance.Stage3) return;
+
+        if (context.started)
         {
             Debug.Log("LeftPlayerNum");
             SelectStateBack();   // ひとつ先の選択状態に進む
@@ -80,8 +96,12 @@ public class NumPointerController : MonoBehaviour
 
     public void RightPlayerNum(InputAction.CallbackContext context)
     {
-        if (!selectstage_1.Instance.Stage1 && !selectstage_2.Instance.Stage2 && !selectstage_3.Instance.Stage3) return;
-        if (!context.canceled)
+        // 人数選択画面でないなら
+        if (!selectstage_1.Instance.Stage1 &&
+            !selectstage_2.Instance.Stage2 &&
+            !selectstage_3.Instance.Stage3) return;
+
+        if (context.started)
         {
             Debug.Log("RightPlayerNum");
             SelectStateProceed();      // ひとつ前の選択状態に戻る
@@ -90,8 +110,7 @@ public class NumPointerController : MonoBehaviour
 
     public void PlayerSelectBack(InputAction.CallbackContext context)
     {
-        if (!selectstage_1.Instance.Stage1 && !selectstage_2.Instance.Stage2 && !selectstage_3.Instance.Stage3) return;
-        if (context.canceled)
+        if (context.started)
         {
             Debug.Log("PlayerSelectBack");
             SelectStateReset(); // 入力アクションの有効化
@@ -100,26 +119,7 @@ public class NumPointerController : MonoBehaviour
 
     private void SelectStateReset()
     {
-        if (rolePlayerNum == RolePlayerNum.PlayerNum1)
-        {
-            rolePlayerNum = RolePlayerNum.PlayerNum1;
-            return;
-        }
-        if (rolePlayerNum == RolePlayerNum.PlayerNum2)
-        {
-            rolePlayerNum = RolePlayerNum.PlayerNum1;
-            return;
-        }
-        if (rolePlayerNum == RolePlayerNum.PlayerNum3)
-        {
-            rolePlayerNum = RolePlayerNum.PlayerNum1;
-            return;
-        }
-        if (rolePlayerNum == RolePlayerNum.PlayerNum4)
-        {
-            rolePlayerNum = RolePlayerNum.PlayerNum1;
-            return;
-        }
+        rolePlayerNum = RolePlayerNum.PlayerNum1; // 選択状態をリセット
     }
 
     /// <summary>
@@ -127,52 +127,17 @@ public class NumPointerController : MonoBehaviour
     /// </summary>
     private void SelectStateProceed()
     {
-        if (rolePlayerNum == RolePlayerNum.PlayerNum1)
-        {
-            rolePlayerNum = RolePlayerNum.PlayerNum2;
-            return;
-        }
-        if (rolePlayerNum == RolePlayerNum.PlayerNum2)
-        {
-            rolePlayerNum = RolePlayerNum.PlayerNum3;
-            return;
-        }
-        if (rolePlayerNum == RolePlayerNum.PlayerNum3)
-        {
-            rolePlayerNum = RolePlayerNum.PlayerNum4;
-            return;
-        }
-        if (rolePlayerNum == RolePlayerNum.PlayerNum4)
-        {
-            rolePlayerNum = RolePlayerNum.PlayerNum1;
-            return;
-        }
+        rolePlayerNum = (RolePlayerNum)(((int)rolePlayerNum + 1 + (int)RolePlayerNum.Max) % (int)RolePlayerNum.Max);
+        // ここでtargetPosを更新
+        targetPos.x = playerNumUI[(int)rolePlayerNum].transform.position.x;
     }
     /// <summary>
     /// ひとつ前の選択状態に戻る関数
     /// </summary>
     private void SelectStateBack()
     {
-
-        if (rolePlayerNum == RolePlayerNum.PlayerNum4)
-        {
-            rolePlayerNum = RolePlayerNum.PlayerNum3;
-            return;
-        }
-        if (rolePlayerNum == RolePlayerNum.PlayerNum3)
-        {
-            rolePlayerNum = RolePlayerNum.PlayerNum2;
-            return;
-        }
-        if (rolePlayerNum == RolePlayerNum.PlayerNum2)
-        {
-            rolePlayerNum = RolePlayerNum.PlayerNum1;
-            return;
-        }
-        if (rolePlayerNum == RolePlayerNum.PlayerNum1)
-        {
-            rolePlayerNum = RolePlayerNum.PlayerNum4;
-            return;
-        }
+        rolePlayerNum = (RolePlayerNum)(((int)rolePlayerNum - 1 + (int)RolePlayerNum.Max) % (int)RolePlayerNum.Max);
+        // ここでtargetPosを更新
+        targetPos.x = playerNumUI[(int)rolePlayerNum].transform.position.x;
     }
 }

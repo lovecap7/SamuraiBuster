@@ -57,6 +57,9 @@ public class selectstage_2 : MonoBehaviour
     /// <param name="context"></param>
     public void Stage2OK(InputAction.CallbackContext context)
     {
+        if (selectstage_1.Instance.Stage1) return;
+        if (selectstage_2.Instance.Stage2) return;
+        if (selectstage_3.Instance.Stage3) return;
         //ボタンを押したとき
         if (stage2Selected && context.canceled)
         {
@@ -82,6 +85,11 @@ public class selectstage_2 : MonoBehaviour
     /// </summary>
     private void Scale()
     {
+        // 人数選択画面に移行してるなら、動かない
+        if (selectstage_1.Instance.Stage1) return;
+        if (selectstage_2.Instance.Stage2) return;
+        if (selectstage_3.Instance.Stage3) return;
+
         // 現在のスケールを取得
         Vector3 currentScale = transform.localScale;
 
