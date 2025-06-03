@@ -7,13 +7,16 @@ public class TransitionFade : MonoBehaviour
 {
     [SerializeField] private bool m_fadeNow = false; 
     [SerializeField] private GameObject m_fadeImage;
-    private float kFadeSpeed = 20.0f;
+    [SerializeField] private GameObject m_blackScreen;
+    private float kFadeSpeed = 25.0f;
     //‰ŠúˆÊ’u
     private Vector3 kFirstPos = Vector3.zero;
     // Start is called before the first frame update
     void Start()
     {
         kFirstPos = m_fadeImage.transform.localPosition;
+        //Å‰‚Í^‚ÁˆÃ
+        m_blackScreen.SetActive(true);
     }
 
     // Update is called once per frame
@@ -23,6 +26,12 @@ public class TransitionFade : MonoBehaviour
         if(m_fadeNow)
         {
             m_fadeImage.transform.Translate(new Vector3(kFadeSpeed, 0.0f, 0.0f));
+            //‰æ–Ê’†‰›‚É‰æ‘œ‚ª—ˆ‚½‚ç^‚ÁˆÃ‚ğ‰ğœ
+            if (IsPitchBlack())
+            {
+                m_blackScreen.SetActive(false);
+            }
+
             if (m_fadeImage.transform.localPosition.x < -kFirstPos.x * 4.0f)
             {
                 m_fadeImage.transform.localPosition = kFirstPos;
