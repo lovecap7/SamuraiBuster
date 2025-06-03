@@ -368,9 +368,9 @@
                     "name": "",
                     "id": "773d14de-6e3d-47f8-b8b9-675e59e5db42",
                     "path": "<XInputController>/leftStick/up",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "UpMove",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -381,7 +381,18 @@
                     "path": "<XInputController>/dpad/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
+                    "action": "UpMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "ae16ad74-0e70-4b07-a167-6b2b9a8907ab",
+                    "path": "<Keyboard>/w",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "UpMove",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -390,9 +401,9 @@
                     "name": "",
                     "id": "0d6ecc7a-8fa6-4ffa-a96f-852f46263906",
                     "path": "<XInputController>/leftStick/down",
-                    "interactions": "",
+                    "interactions": "Press(behavior=1)",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "DownMove",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -403,7 +414,18 @@
                     "path": "<XInputController>/dpad/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
+                    "action": "DownMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "0164654b-0181-40dc-9f8d-be76747c1a0d",
+                    "path": "<Keyboard>/s",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "DownMove",
                     "isComposite": false,
                     "isPartOfComposite": false

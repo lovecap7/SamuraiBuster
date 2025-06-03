@@ -4,20 +4,28 @@ using UnityEngine;
 
 public class RolePlayerIsNum : MonoBehaviour
 {
-    [SerializeField] private RoleSelect_1 roleSelect1;
-    [SerializeField] private RoleSelect_2 roleSelect2;
-    [SerializeField] private RoleSelect_3 roleSelect3;
-    [SerializeField] private RoleSelect_4 roleSelect4;
+    private RoleSelectController roleSelect1;
+    private RoleSelectController roleSelect2;
+    private RoleSelectController roleSelect3;
+    private RoleSelectController roleSelect4;
+
+    private void Start()
+    {
+        roleSelect1 = transform.GetChild(0).GetComponent<RoleSelectController>();
+        roleSelect2 = transform.GetChild(1).GetComponent<RoleSelectController>();
+        roleSelect3 = transform.GetChild(2).GetComponent<RoleSelectController>();
+        roleSelect4 = transform.GetChild(3).GetComponent<RoleSelectController>();
+    }
 
     private void Update()
     {
         if (roleSelect1.IsDecided() && roleSelect2.IsDecided() && roleSelect3.IsDecided() && roleSelect4.IsDecided())
         {
             // 4êlëSàıÇ™ñäÑÇåàíËÇµÇΩèÍçáÇÃèàóù
-            PlayerPrefs.SetInt("Player1Role", (int)roleSelect1.SelectedRole);
-            PlayerPrefs.SetInt("Player2Role", (int)roleSelect2.SelectedRole);
-            PlayerPrefs.SetInt("Player3Role", (int)roleSelect3.SelectedRole);
-            PlayerPrefs.SetInt("Player4Role", (int)roleSelect4.SelectedRole);
+            PlayerPrefs.SetInt("Player1Role", (int)roleSelect1.selectedRole);
+            PlayerPrefs.SetInt("Player2Role", (int)roleSelect2.selectedRole);
+            PlayerPrefs.SetInt("Player3Role", (int)roleSelect3.selectedRole);
+            PlayerPrefs.SetInt("Player4Role", (int)roleSelect4.selectedRole);
             //Debug.Log("All Players Decided");
             UnityEngine.SceneManagement.SceneManager.LoadScene("StageScene");
         }
