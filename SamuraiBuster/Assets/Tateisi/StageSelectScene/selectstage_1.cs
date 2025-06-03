@@ -68,19 +68,6 @@ public class selectstage_1 : MonoBehaviour
     }
 
     /// <summary>
-    /// 右に移動するための入力処理
-    /// </summary>
-    /// <param name="context"></param>
-    public void Stage1Back(InputAction.CallbackContext context)
-    {
-        //ボタンを押したとき
-        if (stage1Selected && context.started)
-        {
-            Stage1 = false;
-        }
-    }
-
-    /// <summary>
     /// オブジェクトのスケールを拡大・縮小するメソッド
     /// </summary>
     private void Scale()
