@@ -27,6 +27,8 @@ public class Boss : EnemyBase
     [SerializeField] private GameObject m_chargeEff;
     //タックル中のエフェクト
     [SerializeField] private GameObject m_tackleEff;
+    //ヒットエフェクト
+    [SerializeField] private GameObject m_hitEffect;
     //弾の速度
     private const float kShotSpeed = 5.0f;
 
@@ -527,6 +529,26 @@ public class Boss : EnemyBase
             m_rb.velocity = Vector3.zero;
             m_animator.speed = 0.0f;
             m_stopFrame = kStopFrame; // 硬直フレームを設定
+        }
+        //攻撃を当てたとき
+        if (m_nowState == StateType.Attack)
+        {
+            //攻撃を当てたとき
+            if (other.tag == "Fighter" ||
+               other.tag == "Mage" ||
+               other.tag == "Healer" ||
+               other.tag == "Tank")
+            {
+                if (m_isMeleeAttack)
+                {
+                    //ヒットエフェクトを出す
+                    GameObject hitEffect = Instantiate(m_hitEffect, m_rightHand.transform.position, Quaternion.identity);
+                }
+                else if (m_isTackleAttack)
+                {
+                    GameObject hitEffect = Instantiate(m_hitEffect, m_tackle.transform.position, Quaternion.identity);
+                }
+            }
         }
     }
 }

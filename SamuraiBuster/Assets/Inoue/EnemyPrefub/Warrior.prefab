@@ -1064,7 +1064,7 @@ Transform:
   m_GameObject: {fileID: 2393785634172868314}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -8.429903, y: 7.6441584, z: 8.394981}
+  m_LocalPosition: {x: -4.62, y: 1, z: -1.79}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1158,6 +1158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_isDead: 0
   m_sword: {fileID: 6658694412027999201}
+  m_hitEffect: {fileID: 6823302871133167919, guid: ce80ed66d591faf41825e8f585787b3f, type: 3}
 --- !u!114 &1713024850293527197
 MonoBehaviour:
   m_ObjectHideFlags: 0
