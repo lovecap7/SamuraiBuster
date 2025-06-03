@@ -1,15 +1,12 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UIElements;
 using UnityEngine.InputSystem;
-using static UnityEngine.InputSystem.InputAction;
 
-enum StageNum
+enum StageKind
 {
-    StageNum1,
-    StageNum2,
-    StageNum3
+    Stage1,
+    Stage2,
+    Stage3,
+    StageNum
 }
 public class PointerController : MonoBehaviour
 {
@@ -21,12 +18,12 @@ public class PointerController : MonoBehaviour
     public bool IsSelect_2 { get; private set; }
     public bool IsSelect_3 { get; private set; }
 
-    [SerializeField] private StageNum stageNum;
+    private StageKind stageKind;
 
 
     private void Awake()
     {
-        stageNum = StageNum.StageNum1; // 初期ステージ番号を設定
+        stageKind = StageKind.Stage1; // 初期ステージ番号を設定
 
         // シングルトンインスタンスの設定
         if (Instance != null && Instance != this)
@@ -35,7 +32,6 @@ public class PointerController : MonoBehaviour
             return;
         }
         Instance = this;
-        //DontDestroyOnLoad(gameObject); // シーン遷移してもオブジェクトを破棄しない
     }
 
     void Start()
@@ -49,17 +45,17 @@ public class PointerController : MonoBehaviour
         IsSelect_1 = false;
         IsSelect_2 = false;
         IsSelect_3 = false;
-        if (stageNum == StageNum.StageNum1)
+        if (stageKind == StageKind.Stage1)
         {
             IsSelect_1 = true;
         }
 
-        if (stageNum == StageNum.StageNum2)
+        if (stageKind == StageKind.Stage2)
         {
             IsSelect_2 = true;
         }
 
-        if (stageNum == StageNum.StageNum3)
+        if (stageKind == StageKind.Stage3)
         {
             IsSelect_3 = true;
         }
@@ -72,7 +68,7 @@ public class PointerController : MonoBehaviour
         if (selectstage_1.Instance.Stage1)return;
         if (selectstage_2.Instance.Stage2) return;
         if (selectstage_3.Instance.Stage3) return;
-        if (context.canceled)
+        if (context.started)
         {
             Debug.Log("LeftStageNum");
             SelectStateBack();   // ひとつ先の選択状態に進む  
@@ -83,7 +79,7 @@ public class PointerController : MonoBehaviour
         if (selectstage_1.Instance.Stage1) return;
         if (selectstage_2.Instance.Stage2) return;
         if (selectstage_3.Instance.Stage3) return;
-        if (context.canceled)
+        if (context.started)
         {
             Debug.Log("RightStageNum");
             SelectStateProceed();      // ひとつ前の選択状態に戻る
@@ -95,42 +91,14 @@ public class PointerController : MonoBehaviour
     /// </summary>
     private void SelectStateProceed()
     {
-        if (stageNum == StageNum.StageNum1)
-        {
-            stageNum = StageNum.StageNum2;
-            return;
-        }
-        if (stageNum == StageNum.StageNum2)
-        {
-            stageNum = StageNum.StageNum3;
-            return;
-        }
-        if (stageNum == StageNum.StageNum3)
-        {
-            stageNum = StageNum.StageNum1;
-            return;
-        }
+        stageKind = (StageKind)(((int)stageKind + 1 + (int)StageKind.StageNum) % (int)StageKind.StageNum);
     }
+
     /// <summary>
     /// ひとつ前の選択状態に戻る関数
     /// </summary>
     private void SelectStateBack()
     {
-
-        if (stageNum == StageNum.StageNum3)
-        {
-            stageNum = StageNum.StageNum2;
-            return;
-        }
-        if (stageNum == StageNum.StageNum2)
-        {
-            stageNum = StageNum.StageNum1;
-            return;
-        }
-        if (stageNum == StageNum.StageNum1)
-        {
-            stageNum = StageNum.StageNum3;
-            return;
-        }
+        stageKind = (StageKind)(((int)stageKind - 1 + (int)StageKind.StageNum) % (int)StageKind.StageNum);
     }
 }
