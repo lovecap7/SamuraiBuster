@@ -1,33 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RolePlayerIsNum : MonoBehaviour
 {
-    private RoleSelectController roleSelect1;
-    private RoleSelectController roleSelect2;
-    private RoleSelectController roleSelect3;
-    private RoleSelectController roleSelect4;
+    private List<RoleSelectController> roleSelects;
 
     private void Start()
     {
-        roleSelect1 = transform.GetChild(0).GetComponent<RoleSelectController>();
-        roleSelect2 = transform.GetChild(1).GetComponent<RoleSelectController>();
-        roleSelect3 = transform.GetChild(2).GetComponent<RoleSelectController>();
-        roleSelect4 = transform.GetChild(3).GetComponent<RoleSelectController>();
+        // プレイヤーの人数を把握
+        roleSelects = new List<RoleSelectController>();
+        int playerNum = PlayerPrefs.GetInt("PlayerNum");
+        for (int i = 0; i < playerNum; ++i)
+        {
+            roleSelects.Add(transform.GetChild(i).GetComponent<RoleSelectController>());
+        }
     }
 
     private void Update()
     {
-        if (roleSelect1.IsDecided() && roleSelect2.IsDecided() && roleSelect3.IsDecided() && roleSelect4.IsDecided())
+        bool allDicided = false;
+        foreach (var role in roleSelects)
         {
-            // 4人全員が役割を決定した場合の処理
-            PlayerPrefs.SetInt("Player1Role", (int)roleSelect1.selectedRole);
-            PlayerPrefs.SetInt("Player2Role", (int)roleSelect2.selectedRole);
-            PlayerPrefs.SetInt("Player3Role", (int)roleSelect3.selectedRole);
-            PlayerPrefs.SetInt("Player4Role", (int)roleSelect4.selectedRole);
-            //Debug.Log("All Players Decided");
-            UnityEngine.SceneManagement.SceneManager.LoadScene("StageScene");
+            allDicided |= role.IsDecided();
         }
+
+        if (!allDicided) return;
+
+        int playerId = 0;
+
+        foreach (var role in roleSelects)
+        {
+            string saveString = "PlayerRole" + playerId.ToString();
+            PlayerPrefs.SetInt(saveString, (int)role.selectedRole);
+            ++playerId;
+        }
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("StageScene");
     }
 }
