@@ -10,8 +10,13 @@ enum StageKind
 }
 public class PointerController : MonoBehaviour
 {
+
     // シングルトンインスタンス
     public static PointerController Instance { get; private set; }
+
+    private Vector3 targetPos;
+
+    public GameObject[] stageUIs = new GameObject[3];
 
     // ゲーム状態
     public bool IsSelect_1 { get; private set; }
@@ -39,6 +44,7 @@ public class PointerController : MonoBehaviour
         IsSelect_1 = false;
         IsSelect_2 = false;
         IsSelect_3 = false;
+        targetPos = transform.position;
     }
     void Update()
     {
@@ -60,12 +66,14 @@ public class PointerController : MonoBehaviour
             IsSelect_3 = true;
         }
 
+        transform.position = Vector3.Lerp(transform.position, targetPos, 0.1f);
     }
 
 
     public void LeftStageNum(InputAction.CallbackContext context)
     {
-        if (selectstage_1.Instance.Stage1)return;
+        // すでにステージを選択している場合、動かない
+        if (selectstage_1.Instance.Stage1) return;
         if (selectstage_2.Instance.Stage2) return;
         if (selectstage_3.Instance.Stage3) return;
         if (context.started)
@@ -76,6 +84,7 @@ public class PointerController : MonoBehaviour
     }
     public void RightStageNum(InputAction.CallbackContext context)
     {
+        // すでにステージを選択している場合、動かない
         if (selectstage_1.Instance.Stage1) return;
         if (selectstage_2.Instance.Stage2) return;
         if (selectstage_3.Instance.Stage3) return;
@@ -92,6 +101,7 @@ public class PointerController : MonoBehaviour
     private void SelectStateProceed()
     {
         stageKind = (StageKind)(((int)stageKind + 1 + (int)StageKind.StageNum) % (int)StageKind.StageNum);
+        targetPos.x = stageUIs[(int)stageKind].transform.position.x;
     }
 
     /// <summary>
@@ -100,5 +110,6 @@ public class PointerController : MonoBehaviour
     private void SelectStateBack()
     {
         stageKind = (StageKind)(((int)stageKind - 1 + (int)StageKind.StageNum) % (int)StageKind.StageNum);
+        targetPos.x = stageUIs[(int)stageKind].transform.position.x;
     }
 }

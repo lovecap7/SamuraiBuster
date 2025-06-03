@@ -47,7 +47,10 @@ public class IsNumselect : MonoBehaviour
     private bool Num3Selected;
     private bool Num4Selected;
 
-
+    public const int kCantSelectFrameCount = 30;
+    // 選択できない時間を作る
+    // じゃないとステージ選択の入力が流れて入ってしまうため
+    public int cantSelectFrame = kCantSelectFrameCount;
 
     void Start()
     {
@@ -105,6 +108,16 @@ public class IsNumselect : MonoBehaviour
             Num4Selected = false;
         }
         Scale();
+
+        // 人数選択画面なら
+        if (!Num1Selected &&
+            !Num2Selected &&
+            !Num3Selected &&
+            !Num4Selected) return;
+        // タイマー減らす
+        // 一応値も制限
+        --cantSelectFrame;
+        if (cantSelectFrame < 0) cantSelectFrame = 0;  
     }
 
     /// <summary>
@@ -113,6 +126,8 @@ public class IsNumselect : MonoBehaviour
     /// <param name="context"></param>
     public void NumPlayer1OK(InputAction.CallbackContext context)
     {
+        if (cantSelectFrame > 0) return;
+
         //ボタンを押したとき
         if (Num1Selected && context.started)
         {
@@ -123,6 +138,8 @@ public class IsNumselect : MonoBehaviour
     }
     public void NumPlayer2OK(InputAction.CallbackContext context)
     {
+        if (cantSelectFrame > 0) return;
+
         //ボタンを押したとき
         if (Num2Selected && context.canceled)
         {
@@ -133,6 +150,8 @@ public class IsNumselect : MonoBehaviour
     }
     public void NumPlayer3OK(InputAction.CallbackContext context)
     {
+        if (cantSelectFrame > 0) return;
+
         //ボタンを押したとき
         if (Num3Selected && context.canceled)
         {
@@ -143,6 +162,8 @@ public class IsNumselect : MonoBehaviour
     }
     public void NumPlayer4OK(InputAction.CallbackContext context)
     {
+        if (cantSelectFrame > 0) return;
+
         //ボタンを押したとき
         if (Num4Selected && context.canceled)
         {

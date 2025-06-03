@@ -245,6 +245,17 @@
                 },
                 {
                     "name": "",
+                    "id": "8f7b50ea-ca9d-47cd-b6cc-adeccac4be98",
+                    "path": "<Keyboard>/a",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "LeftMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ccad9acc-8936-4884-94e8-3857689ac211",
                     "path": "<XInputController>/leftStick/right",
                     "interactions": "Press(behavior=1)",
@@ -272,6 +283,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
+                    "action": "RightMove",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df149401-4de0-440c-849f-66da6c03b83c",
+                    "path": "<Keyboard>/d",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Gamepad;Keyboard&Mouse",
                     "action": "RightMove",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -327,6 +349,17 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";Gamepad",
+                    "action": "OK",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "dd63a06e-ef64-4722-ac28-8c1a5c2018f4",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "OK",
                     "isComposite": false,
                     "isPartOfComposite": false
