@@ -61,7 +61,7 @@ public class selectstage_1 : MonoBehaviour
     public void Stage1OK(InputAction.CallbackContext context)
     {
         //ボタンを押したとき
-        if (stage1Selected && context.canceled)
+        if (stage1Selected && context.started)
         {
             Stage1 = true;
         }
@@ -74,7 +74,7 @@ public class selectstage_1 : MonoBehaviour
     public void Stage1Back(InputAction.CallbackContext context)
     {
         //ボタンを押したとき
-        if (stage1Selected && context.canceled)
+        if (stage1Selected && context.started)
         {
             Stage1 = false;
         }

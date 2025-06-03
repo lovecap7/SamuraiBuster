@@ -14,6 +14,8 @@ public class Warrior : EnemyBase
     //攻撃判定
     [SerializeField] private GameObject m_sword;
     private CapsuleCollider m_swordCollider;
+    //ヒットエフェクト
+    [SerializeField] private GameObject m_hitEffect;
 
     //追いかける速度
     private float kChaseSpeed = 35.0f;
@@ -334,6 +336,19 @@ public class Warrior : EnemyBase
                 return;
             }
            
+        }
+        //攻撃を当てたとき
+        if (m_nowState == StateType.Attack)
+        {
+            //攻撃を当てたとき
+            if (other.tag == "Fighter" ||
+               other.tag == "Mage" ||
+               other.tag == "Healer" ||
+               other.tag == "Tank")
+            {
+                //ヒットエフェクトを出す
+                GameObject hitEffect = Instantiate(m_hitEffect, m_sword.transform.position, Quaternion.identity);
+            }
         }
     }
 }

@@ -1,25 +1,42 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class RolePlayerIsNum : MonoBehaviour
 {
-    [SerializeField] private RoleSelect_1 roleSelect1;
-    [SerializeField] private RoleSelect_2 roleSelect2;
-    [SerializeField] private RoleSelect_3 roleSelect3;
-    [SerializeField] private RoleSelect_4 roleSelect4;
+    private List<RoleSelectController> roleSelects;
+
+    private void Start()
+    {
+        // プレイヤーの人数を把握
+        roleSelects = new List<RoleSelectController>();
+        int playerNum = PlayerPrefs.GetInt("PlayerNum");
+        for (int i = 0; i < playerNum; ++i)
+        {
+            roleSelects.Add(transform.GetChild(i).GetComponent<RoleSelectController>());
+        }
+    }
 
     private void Update()
     {
-        if (roleSelect1.IsDecided() && roleSelect2.IsDecided() && roleSelect3.IsDecided() && roleSelect4.IsDecided())
+        bool allDicided = false;
+        foreach (var role in roleSelects)
         {
-            // 4人全員が役割を決定した場合の処理
-            PlayerPrefs.SetInt("Player1Role", (int)roleSelect1.SelectedRole);
-            PlayerPrefs.SetInt("Player2Role", (int)roleSelect2.SelectedRole);
-            PlayerPrefs.SetInt("Player3Role", (int)roleSelect3.SelectedRole);
-            PlayerPrefs.SetInt("Player4Role", (int)roleSelect4.SelectedRole);
-            //Debug.Log("All Players Decided");
-            UnityEngine.SceneManagement.SceneManager.LoadScene("StageScene");
+            allDicided |= role.IsDecided();
         }
+
+        if (!allDicided) return;
+
+        int playerId = 0;
+
+        foreach (var role in roleSelects)
+        {
+            string saveString = "PlayerRole" + playerId.ToString();
+            PlayerPrefs.SetInt(saveString, (int)role.selectedRole);
+            ++playerId;
+        }
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene("StageScene");
     }
 }

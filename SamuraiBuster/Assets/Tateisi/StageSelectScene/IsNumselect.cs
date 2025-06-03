@@ -114,7 +114,7 @@ public class IsNumselect : MonoBehaviour
     public void NumPlayer1OK(InputAction.CallbackContext context)
     {
         //ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«
-        if (Num1Selected && context.canceled)
+        if (Num1Selected && context.started)
         {
             NumPlayer1 = true;
             //selectDirector.TryChangeScene();

@@ -41625,6 +41625,7 @@ MonoBehaviour:
   m_magicShotPrefab: {fileID: 7943957556032773505, guid: ed153131ee71eed41a5bf02b210c556e, type: 3}
   m_chargeEff: {fileID: 5161630790483970098}
   m_tackleEff: {fileID: 5476948781020555581}
+  m_hitEffect: {fileID: 6823302871133167919, guid: ce80ed66d591faf41825e8f585787b3f, type: 3}
 --- !u!114 &898066990044022644
 MonoBehaviour:
   m_ObjectHideFlags: 0
