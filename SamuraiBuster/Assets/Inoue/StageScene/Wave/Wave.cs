@@ -7,7 +7,7 @@ public class Wave : MonoBehaviour
     private GameObject[] enemies;
     //ゲームオブジェクトが0になったらtrue
     private bool m_isWaveEnd = false;
-   
+ 
     // Start is called before the first frame update
     void Start()
     {
@@ -17,7 +17,6 @@ public class Wave : MonoBehaviour
         {
             enemies[i] = this.gameObject.transform.GetChild(i).gameObject;
         }
-
     }
 
     // Update is called once per frame
@@ -41,5 +40,17 @@ public class Wave : MonoBehaviour
     public bool GetIsWaveEnd()
     {
         return m_isWaveEnd;
+    }
+
+    public void AllEnemyDead()
+    {
+        //すべての敵を死亡させる
+        for (int i = 0; i < enemies.Length; ++i)
+        {
+            if (enemies[i] != null)
+            {
+                enemies[i].GetComponent<EnemyBase>().EnemyDead();
+            }
+        }
     }
 }

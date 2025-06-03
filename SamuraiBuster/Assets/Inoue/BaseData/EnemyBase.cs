@@ -153,4 +153,12 @@ abstract public class EnemyBase : MonoBehaviour
     abstract protected void SerchTarget();//距離とターゲットのベクトルを計算
     abstract protected void ChangeState(StateType state);//距離とターゲットのベクトルを計算
     abstract protected void UpdateState();//距離とターゲットのベクトルを計算
+    virtual public void EnemyDead()//すべての敵を死亡
+    {
+        m_isDead = true;
+    }
+    virtual public bool IsDead()//敵が死亡したかどうか
+    {
+        return m_isDead;
+    }
 }
