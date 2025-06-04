@@ -9,9 +9,9 @@ public class Boss : EnemyBase
     //体力
     private const int kHP = 8500;
     //ダメージ
-    private const int kMeleeDamage = 120;
-    private const int kMagicDamage = 80;
-    private const int kTackleDamage = 150;
+    private const int kMeleeDamage = 110;
+    private const int kMagicDamage = 110;
+    private const int kTackleDamage = 100;
     private AttackPower m_meleePower;
     private AttackPower m_tacklePower;
     //攻撃判定
@@ -56,7 +56,7 @@ public class Boss : EnemyBase
     //タックルのスピード
     private float kTackleSpeed = 1500.0f;
     //スコア
-    private const int kScorePoint = 15000;
+    private const int kScorePoint = 12000;
 
     // Start is called before the first frame update
     override protected void Start()
@@ -388,7 +388,7 @@ public class Boss : EnemyBase
                 OffActivemTackleAttack();
                 break;
             //移動
-            case StateType.Run:
+            case StateType.Chase:
               
                 break;
             //攻撃
@@ -467,7 +467,7 @@ public class Boss : EnemyBase
                     UpdateIdle();
                     break;
                 //追いかける
-                case StateType.Run:
+                case StateType.Chase:
                     UpdateRun();
                     break;
                 //攻撃

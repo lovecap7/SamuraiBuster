@@ -8,7 +8,7 @@ public class Wizard : EnemyBase
     //左手から魔法を出す
     [SerializeField] private GameObject m_leftHand;
     //体力
-    private const int kHP = 1000;
+    private const int kHP = 900;
     //ダメージ
     private const int kDamage = 100;
     // Start is called before the first frame update
@@ -39,7 +39,7 @@ public class Wizard : EnemyBase
         //体力
         //人数が多い場合少し体力が増える
         int addHp = 0;
-        if (m_targetList.Length > 2) addHp = 500;
+        if (m_targetList.Length > 2) addHp = 200;
         m_characterStatus.hitPoint = kHP + addHp;
         //体力バーに設定
         Slider hpBar = transform.Find("Canvas_Hp/Hpbar").gameObject.GetComponent<Slider>();
