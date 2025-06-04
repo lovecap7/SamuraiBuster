@@ -90,7 +90,7 @@ public class NumPointerController : MonoBehaviour
         if (context.started)
         {
             Debug.Log("LeftPlayerNum");
-            SelectStateBack();   // ひとつ先の選択状態に進む
+            SelectStateLeft();   // ひとつ先の選択状態に進む
         }
     }
 
@@ -104,7 +104,7 @@ public class NumPointerController : MonoBehaviour
         if (context.started)
         {
             Debug.Log("RightPlayerNum");
-            SelectStateProceed();      // ひとつ前の選択状態に戻る
+            SelectStateRight();      // ひとつ前の選択状態に戻る
         } 
     }
 
@@ -125,7 +125,7 @@ public class NumPointerController : MonoBehaviour
     /// <summary>
     /// ひとつ先の選択状態に進む関数
     /// </summary>
-    private void SelectStateProceed()
+    private void SelectStateRight()
     {
         rolePlayerNum = (RolePlayerNum)(((int)rolePlayerNum + 1 + (int)RolePlayerNum.Max) % (int)RolePlayerNum.Max);
         // ここでtargetPosを更新
@@ -134,7 +134,7 @@ public class NumPointerController : MonoBehaviour
     /// <summary>
     /// ひとつ前の選択状態に戻る関数
     /// </summary>
-    private void SelectStateBack()
+    private void SelectStateLeft()
     {
         rolePlayerNum = (RolePlayerNum)(((int)rolePlayerNum - 1 + (int)RolePlayerNum.Max) % (int)RolePlayerNum.Max);
         // ここでtargetPosを更新

@@ -12,6 +12,7 @@ enum  SelectState
 public class SelectDirector : MonoBehaviour
 {
     [SerializeField] private SelectState selectState;
+    [SerializeField] GameObject stageSelectText;
     private void Awake()
     {
         selectState = SelectState.StageSelect;
@@ -63,6 +64,8 @@ public class SelectDirector : MonoBehaviour
         if(selectState == SelectState.StageSelect)
         {
             selectState = SelectState.PlayerNumSelect;
+            // ステージ選択のテキストを消す
+            stageSelectText.SetActive(false);
             return;
         }
         if(selectState == SelectState.PlayerNumSelect)
@@ -82,6 +85,8 @@ public class SelectDirector : MonoBehaviour
         if (selectState == SelectState.PlayerNumSelect)
         {
             selectState = SelectState.StageSelect;
+            // ステージ選択のテキストを出す
+            stageSelectText.SetActive(true);
             return;
         }
         if (selectState == SelectState.StageSelect)

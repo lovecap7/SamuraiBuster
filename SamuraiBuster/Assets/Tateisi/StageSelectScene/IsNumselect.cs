@@ -9,11 +9,6 @@ public class IsNumselect : MonoBehaviour
     public static IsNumselect Instance { get; private set; }
 
     [SerializeField] private SelectDirector selectDirector;  
-    // ゲーム状態
-    public bool NumPlayer1 { get; private set; }
-    public bool NumPlayer2 { get; private set; }
-    public bool NumPlayer3 { get; private set; }
-    public bool NumPlayer4 { get; private set; }
 
     private bool scalingUp = true;
 
@@ -54,10 +49,6 @@ public class IsNumselect : MonoBehaviour
 
     void Start()
     {
-        NumPlayer1 = false;
-        NumPlayer2 = false;
-        NumPlayer3 = false;
-        NumPlayer4 = false;
         Num1Selected = false;
         Num2Selected = false;
         Num3Selected = false;
@@ -65,12 +56,14 @@ public class IsNumselect : MonoBehaviour
     }
     void Update()
     {
+        // ステージ選択画面なら、何もしない
         if (!selectstage_1.Instance.Stage1 && !selectstage_2.Instance.Stage2 && !selectstage_3.Instance.Stage3)
         {
             Num1Selected = false;
             Num2Selected = false;
             Num3Selected = false;
             Num4Selected = false;
+            return;
         }
         if (NumPointerController.Instance.IsPlayerNum_1)
         {
@@ -131,7 +124,6 @@ public class IsNumselect : MonoBehaviour
         //ボタンを押したとき
         if (Num1Selected && context.started)
         {
-            NumPlayer1 = true;
             //selectDirector.TryChangeScene();
             UnityEngine.SceneManagement.SceneManager.LoadScene("1PlayRollSelectScene");
         }
@@ -141,9 +133,8 @@ public class IsNumselect : MonoBehaviour
         if (cantSelectFrame > 0) return;
 
         //ボタンを押したとき
-        if (Num2Selected && context.canceled)
+        if (Num2Selected && context.started)
         {
-            NumPlayer2 = true;
             //selectDirector.TryChangeScene();
             UnityEngine.SceneManagement.SceneManager.LoadScene("2PlayRollSelectScene");
         }
@@ -153,9 +144,8 @@ public class IsNumselect : MonoBehaviour
         if (cantSelectFrame > 0) return;
 
         //ボタンを押したとき
-        if (Num3Selected && context.canceled)
+        if (Num3Selected && context.started)
         {
-            NumPlayer3 = true;
             //selectDirector.TryChangeScene();
             UnityEngine.SceneManagement.SceneManager.LoadScene("3PlayRollSelectScene");
         }
@@ -165,9 +155,8 @@ public class IsNumselect : MonoBehaviour
         if (cantSelectFrame > 0) return;
 
         //ボタンを押したとき
-        if (Num4Selected && context.canceled)
+        if (Num4Selected && context.started)
         {
-            NumPlayer4 = true;
             //selectDirector.TryChangeScene();
             UnityEngine.SceneManagement.SceneManager.LoadScene("4PlayRollSelectScene");
         }
