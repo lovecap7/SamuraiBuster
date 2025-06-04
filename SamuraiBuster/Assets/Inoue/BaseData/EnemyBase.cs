@@ -63,6 +63,9 @@ abstract public class EnemyBase : MonoBehaviour
     private GameObject m_score;
     protected int m_scorePoint = 0;
 
+    //SE
+    protected AudioSource m_audioSource;
+    
     // Start is called before the first frame update
     virtual protected void Start()
     {
@@ -71,7 +74,9 @@ abstract public class EnemyBase : MonoBehaviour
         m_animator = GetComponent<Animator>();
 
         m_characterStatus = GetComponent<CharacterStatus>();
-    
+
+        m_audioSource = GetComponent<AudioSource>();
+
         m_attackCoolTime = kAttackCoolTime;
 
         //プレイヤーをまとめたオブジェクトを探す
@@ -153,4 +158,12 @@ abstract public class EnemyBase : MonoBehaviour
     abstract protected void SerchTarget();//距離とターゲットのベクトルを計算
     abstract protected void ChangeState(StateType state);//距離とターゲットのベクトルを計算
     abstract protected void UpdateState();//距離とターゲットのベクトルを計算
+    virtual public void EnemyDead()//すべての敵を死亡
+    {
+        m_isDead = true;
+    }
+    virtual public bool IsDead()//敵が死亡したかどうか
+    {
+        return m_isDead;
+    }
 }

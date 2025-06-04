@@ -22,8 +22,13 @@ public class PlayerUI : MonoBehaviour
         Icons,
     };
 
-    void Start()
+    IEnumerator Start()
     {
+        // 1フレーム遅らせる
+        // これは確実にプレイヤーを生成させてから実行するため
+        // 頼むからバグらないでくれ
+        yield return null;
+
         // 人数把握
         m_playersCount = m_players.transform.childCount;
 

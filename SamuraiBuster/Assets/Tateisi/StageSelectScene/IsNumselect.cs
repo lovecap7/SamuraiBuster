@@ -9,11 +9,6 @@ public class IsNumselect : MonoBehaviour
     public static IsNumselect Instance { get; private set; }
 
     [SerializeField] private SelectDirector selectDirector;  
-    // ゲーム状態
-    public bool NumPlayer1 { get; private set; }
-    public bool NumPlayer2 { get; private set; }
-    public bool NumPlayer3 { get; private set; }
-    public bool NumPlayer4 { get; private set; }
 
     private bool scalingUp = true;
 
@@ -54,10 +49,6 @@ public class IsNumselect : MonoBehaviour
 
     void Start()
     {
-        NumPlayer1 = false;
-        NumPlayer2 = false;
-        NumPlayer3 = false;
-        NumPlayer4 = false;
         Num1Selected = false;
         Num2Selected = false;
         Num3Selected = false;
@@ -65,12 +56,14 @@ public class IsNumselect : MonoBehaviour
     }
     void Update()
     {
+        // ステージ選択画面なら、何もしない
         if (!selectstage_1.Instance.Stage1 && !selectstage_2.Instance.Stage2 && !selectstage_3.Instance.Stage3)
         {
             Num1Selected = false;
             Num2Selected = false;
             Num3Selected = false;
             Num4Selected = false;
+            return;
         }
         if (NumPointerController.Instance.IsPlayerNum_1)
         {
@@ -124,55 +117,39 @@ public class IsNumselect : MonoBehaviour
     /// 右に移動するための入力処理
     /// </summary>
     /// <param name="context"></param>
-    public void NumPlayer1OK(InputAction.CallbackContext context)
+    public void NumPlayerOK(InputAction.CallbackContext context)
     {
         if (cantSelectFrame > 0) return;
+        if (!context.started) return;
 
-        //ボタンを押したとき
-        if (Num1Selected && context.started)
+        // ボタンを押したとき
+        // 選んでいたボタンに応じて送るデータを変える
+        // シーンも変える
+        if (Num1Selected)
         {
-            NumPlayer1 = true;
-            //selectDirector.TryChangeScene();
+            PlayerPrefs.SetInt("PlayerNum", 1);
             UnityEngine.SceneManagement.SceneManager.LoadScene("1PlayRollSelectScene");
+            return;
         }
-    }
-    public void NumPlayer2OK(InputAction.CallbackContext context)
-    {
-        if (cantSelectFrame > 0) return;
-
-        //ボタンを押したとき
-        if (Num2Selected && context.canceled)
+        else if (Num2Selected)
         {
-            NumPlayer2 = true;
-            //selectDirector.TryChangeScene();
+            PlayerPrefs.SetInt("PlayerNum", 2);
             UnityEngine.SceneManagement.SceneManager.LoadScene("2PlayRollSelectScene");
+            return;
         }
-    }
-    public void NumPlayer3OK(InputAction.CallbackContext context)
-    {
-        if (cantSelectFrame > 0) return;
-
-        //ボタンを押したとき
-        if (Num3Selected && context.canceled)
+        else if (Num3Selected)
         {
-            NumPlayer3 = true;
-            //selectDirector.TryChangeScene();
+            PlayerPrefs.SetInt("PlayerNum", 3);
             UnityEngine.SceneManagement.SceneManager.LoadScene("3PlayRollSelectScene");
+            return;
         }
-    }
-    public void NumPlayer4OK(InputAction.CallbackContext context)
-    {
-        if (cantSelectFrame > 0) return;
-
-        //ボタンを押したとき
-        if (Num4Selected && context.canceled)
+        else if (Num4Selected)
         {
-            NumPlayer4 = true;
-            //selectDirector.TryChangeScene();
+            PlayerPrefs.SetInt("PlayerNum", 4);
             UnityEngine.SceneManagement.SceneManager.LoadScene("4PlayRollSelectScene");
+            return;
         }
     }
-
 
     /// <summary>
     /// オブジェクトのスケールを拡大・縮小するメソッド

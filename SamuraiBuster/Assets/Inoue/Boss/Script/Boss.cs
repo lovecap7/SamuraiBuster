@@ -9,9 +9,9 @@ public class Boss : EnemyBase
     //体力
     private const int kHP = 8500;
     //ダメージ
-    private const int kMeleeDamage = 120;
-    private const int kMagicDamage = 80;
-    private const int kTackleDamage = 150;
+    private const int kMeleeDamage = 110;
+    private const int kMagicDamage = 110;
+    private const int kTackleDamage = 100;
     private AttackPower m_meleePower;
     private AttackPower m_tacklePower;
     //攻撃判定
@@ -56,7 +56,12 @@ public class Boss : EnemyBase
     //タックルのスピード
     private float kTackleSpeed = 1500.0f;
     //スコア
-    private const int kScorePoint = 15000;
+    private const int kScorePoint = 12000;
+
+    [SerializeField] protected AudioClip m_attackHitSE; //攻撃ヒットSE
+    [SerializeField] protected AudioClip m_chargeSE; //チャージSE
+    [SerializeField] protected AudioClip m_magicSE; //魔法SE
+    [SerializeField] protected AudioClip m_damageSE;    //ダメージSE
 
     // Start is called before the first frame update
     override protected void Start()
@@ -306,7 +311,7 @@ public class Boss : EnemyBase
         m_chargeEff.SetActive(true);//チャージエフェクトを表示
         //チャージが完了したら
         if (m_isChargeCmp)
-        {
+        { 
             m_tackleEff.SetActive(true);//タックルエフェクトを表示
             m_tackleTime -= Time.deltaTime;
             //移動
@@ -365,6 +370,39 @@ public class Boss : EnemyBase
             return;
         }
     }
+    //攻撃ヒットSEを再生する
+    private void PlayAttackHitSE()
+    {
+        if (m_audioSource != null && m_attackHitSE != null)
+        {
+            m_audioSource.PlayOneShot(m_attackHitSE);
+        }
+    }
+
+    //ダメージSEを再生する
+    private void PlayDamageSE()
+    {
+        if (m_audioSource != null && m_damageSE != null)
+        {
+            m_audioSource.PlayOneShot(m_damageSE);
+        }
+    }
+    //魔法SEを再生する
+    private void PlayMagicSE()
+    {
+        if (m_audioSource != null && m_magicSE != null)
+        {
+            m_audioSource.PlayOneShot(m_magicSE);
+        }
+    }
+    //チャージSEを再生する
+    private void PlayChargeSE()
+    {
+        if (m_audioSource != null && m_chargeSE != null)
+        {
+            m_audioSource.PlayOneShot(m_chargeSE);
+        }
+    }
 
     override protected void ChangeState(StateType state)
     {
@@ -377,9 +415,18 @@ public class Boss : EnemyBase
                 m_animator.SetBool("RangeA", false);
                 m_animator.SetBool("Freeze", false);
                 m_animator.SetBool("Dead", false);
+                //リセット
+                m_isMeleeAttack = false;
+                m_isTackleAttack = false;
+                m_isRangeAttack = false;
+                m_isUltAttack = false;
+                m_attackCoolTime = kAttackCoolTime;//クールタイム
+                m_tackleTime = kTackleFrame;
+                m_isChargeCmp = false;
+                OffActivemTackleAttack();
                 break;
             //移動
-            case StateType.Run:
+            case StateType.Chase:
               
                 break;
             //攻撃
@@ -397,6 +444,7 @@ public class Boss : EnemyBase
                 }
                 else if(m_isTackleAttack)
                 {
+                    PlayChargeSE(); //チャージSEを再生
                     //タックル
                     m_tackleTime = kTackleFrame;
                     m_isChargeCmp = false;
@@ -408,6 +456,7 @@ public class Boss : EnemyBase
                 }
                 else if(m_isRangeAttack)
                 {
+                    PlayMagicSE(); //魔法SEを再生
                     //レンジアタック
                     m_animator.SetBool("MeleeA", false);
                     m_animator.SetBool("TackleA", false);
@@ -458,7 +507,7 @@ public class Boss : EnemyBase
                     UpdateIdle();
                     break;
                 //追いかける
-                case StateType.Run:
+                case StateType.Chase:
                     UpdateRun();
                     break;
                 //攻撃
@@ -498,7 +547,7 @@ public class Boss : EnemyBase
             m_stopFrame = 0.0f;//リセット
             m_animator.speed = 1.0f;
         }
-        //追いかけるターdゲットがいないなら待機状態にする
+        //追いかけるターゲットがいないなら待機状態にする
         if (!m_isHitSearch)
         {
             ChangeState(StateType.Idle);
@@ -515,6 +564,8 @@ public class Boss : EnemyBase
         //攻撃されたとき
         if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")
         {
+            PlayDamageSE(); //ダメージSEを再生
+
             //体力を減らす
             m_characterStatus.hitPoint -= other.GetComponent<AttackPower>().damage;
             //体力が0以下なら死亡
@@ -539,6 +590,8 @@ public class Boss : EnemyBase
                other.tag == "Healer" ||
                other.tag == "Tank")
             {
+                //攻撃ヒットSEを再生
+                PlayAttackHitSE();
                 if (m_isMeleeAttack)
                 {
                     //ヒットエフェクトを出す

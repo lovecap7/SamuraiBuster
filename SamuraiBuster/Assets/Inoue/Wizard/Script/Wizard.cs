@@ -8,7 +8,7 @@ public class Wizard : EnemyBase
     //左手から魔法を出す
     [SerializeField] private GameObject m_leftHand;
     //体力
-    private const int kHP = 1000;
+    private const int kHP = 900;
     //ダメージ
     private const int kDamage = 100;
     // Start is called before the first frame update
@@ -33,13 +33,17 @@ public class Wizard : EnemyBase
     private const float kKnockBackForce = 1.1f;
     //スコア
     private const int kScorePoint = 1500;
+
+    [SerializeField] protected AudioClip m_magicSE; //魔法SE
+    [SerializeField] protected AudioClip m_damageSE;    //ダメージSE
+
     override protected void Start()
     {
         base.Start();
         //体力
         //人数が多い場合少し体力が増える
         int addHp = 0;
-        if (m_targetList.Length > 2) addHp = 500;
+        if (m_targetList.Length > 2) addHp = 200;
         m_characterStatus.hitPoint = kHP + addHp;
         //体力バーに設定
         Slider hpBar = transform.Find("Canvas_Hp/Hpbar").gameObject.GetComponent<Slider>();
@@ -152,6 +156,23 @@ public class Wizard : EnemyBase
         shotRb.AddForce(m_targetDir * kShotSpeed, ForceMode.Impulse);
         //ダメージを設定する
         magicShot.GetComponent<AttackPower>().damage = kDamage;
+    }
+
+    //ダメージSEを再生する
+    private void PlayDamageSE()
+    {
+        if (m_audioSource != null && m_damageSE != null)
+        {
+            m_audioSource.PlayOneShot(m_damageSE);
+        }
+    }
+    //攻撃SEを再生する
+    private void PlayMagicSE()
+    {
+        if (m_audioSource != null && m_magicSE != null)
+        {
+            m_audioSource.PlayOneShot(m_magicSE);
+        }
     }
     private void UpdateIdle()//待機
     {
@@ -280,7 +301,8 @@ public class Wizard : EnemyBase
                 m_animator.SetBool("Back", false);
                 m_animator.SetBool("Hit", false);
                 m_animator.SetBool("Dead", false);
-                m_isFinishAttackAnim = false;   
+                m_isFinishAttackAnim = false;
+                PlayMagicSE(); //攻撃SEを再生
                 break;
             //やられ
             case StateType.Hit:
@@ -372,6 +394,8 @@ public class Wizard : EnemyBase
         //攻撃されたとき
         if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")
         {
+            PlayDamageSE(); //ダメージSEを再生
+
             //体力を減らす
             m_characterStatus.hitPoint -= other.GetComponent<AttackPower>().damage;
             //体力が0以下なら死亡

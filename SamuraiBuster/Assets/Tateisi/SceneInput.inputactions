@@ -374,6 +374,17 @@
                     "action": "Back",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "58903071-b559-4480-a7dc-5b741476ea7a",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -488,10 +499,21 @@
                 {
                     "name": "",
                     "id": "2420a014-0222-4be8-b5d0-2ee6c4502acc",
-                    "path": "<XInputController>/buttonSouth",
+                    "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
+                    "action": "OK",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3be682b-700b-43dd-8eeb-0d59f37e8767",
+                    "path": "<Keyboard>/z",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "OK",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -499,10 +521,21 @@
                 {
                     "name": "",
                     "id": "a91393fd-33b2-4f0a-8ed4-15227fdbf000",
-                    "path": "<XInputController>/buttonEast",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
+                    "action": "Back",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a8d37209-9e15-4bd0-b78b-1de54bec6b48",
+                    "path": "<Keyboard>/x",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Keyboard&Mouse",
                     "action": "Back",
                     "isComposite": false,
                     "isPartOfComposite": false

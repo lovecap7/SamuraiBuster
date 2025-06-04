@@ -20,16 +20,18 @@ public class RolePlayerIsNum : MonoBehaviour
 
     private void Update()
     {
-        bool allDicided = false;
+        bool allDicided = true;
+        // 全員が選択しているかチェック
         foreach (var role in roleSelects)
         {
-            allDicided |= role.IsDecided();
+            allDicided &= role.IsDecided();
         }
 
         if (!allDicided) return;
 
         int playerId = 0;
 
+        // それぞれが今選んでいる役職を記憶
         foreach (var role in roleSelects)
         {
             string saveString = "PlayerRole" + playerId.ToString();
@@ -37,6 +39,7 @@ public class RolePlayerIsNum : MonoBehaviour
             ++playerId;
         }
 
+        // 行ってらっしゃい
         UnityEngine.SceneManagement.SceneManager.LoadScene("StageScene");
     }
 }
