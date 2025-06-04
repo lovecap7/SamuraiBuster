@@ -21,6 +21,11 @@ public class RolePlayerIsNum : MonoBehaviour
     private void Update()
     {
         bool allDicided = true;
+        if (roleSelects.Count == 0)
+        {
+            //Debug.Log("プレイヤーが0人です");
+            return;
+        }
         // 全員が選択しているかチェック
         foreach (var role in roleSelects)
         {
