@@ -117,51 +117,39 @@ public class IsNumselect : MonoBehaviour
     /// 右に移動するための入力処理
     /// </summary>
     /// <param name="context"></param>
-    public void NumPlayer1OK(InputAction.CallbackContext context)
+    public void NumPlayerOK(InputAction.CallbackContext context)
     {
         if (cantSelectFrame > 0) return;
+        if (!context.started) return;
 
-        //ボタンを押したとき
-        if (Num1Selected && context.started)
+        // ボタンを押したとき
+        // 選んでいたボタンに応じて送るデータを変える
+        // シーンも変える
+        if (Num1Selected)
         {
-            //selectDirector.TryChangeScene();
+            PlayerPrefs.SetInt("PlayerNum", 1);
             UnityEngine.SceneManagement.SceneManager.LoadScene("1PlayRollSelectScene");
+            return;
         }
-    }
-    public void NumPlayer2OK(InputAction.CallbackContext context)
-    {
-        if (cantSelectFrame > 0) return;
-
-        //ボタンを押したとき
-        if (Num2Selected && context.started)
+        else if (Num2Selected)
         {
-            //selectDirector.TryChangeScene();
+            PlayerPrefs.SetInt("PlayerNum", 2);
             UnityEngine.SceneManagement.SceneManager.LoadScene("2PlayRollSelectScene");
+            return;
         }
-    }
-    public void NumPlayer3OK(InputAction.CallbackContext context)
-    {
-        if (cantSelectFrame > 0) return;
-
-        //ボタンを押したとき
-        if (Num3Selected && context.started)
+        else if (Num3Selected)
         {
-            //selectDirector.TryChangeScene();
+            PlayerPrefs.SetInt("PlayerNum", 3);
             UnityEngine.SceneManagement.SceneManager.LoadScene("3PlayRollSelectScene");
+            return;
         }
-    }
-    public void NumPlayer4OK(InputAction.CallbackContext context)
-    {
-        if (cantSelectFrame > 0) return;
-
-        //ボタンを押したとき
-        if (Num4Selected && context.started)
+        else if (Num4Selected)
         {
-            //selectDirector.TryChangeScene();
+            PlayerPrefs.SetInt("PlayerNum", 4);
             UnityEngine.SceneManagement.SceneManager.LoadScene("4PlayRollSelectScene");
+            return;
         }
     }
-
 
     /// <summary>
     /// オブジェクトのスケールを拡大・縮小するメソッド
