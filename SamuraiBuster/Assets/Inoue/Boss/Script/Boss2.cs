@@ -8,10 +8,9 @@ using UnityEngine.UI;
 public class Boss2 : EnemyBase
 {
     //体力
-    private const int kHP = 8500;
+    private const int kHP = 10000;
     //ダメージ
-    private const int kMeleeDamage = 120;
-    private const int kMagicDamage = 80;
+    private const int kMeleeDamage = 200;
     private const int kTackleDamage = 150;
     private AttackPower m_meleePower;
     private AttackPower m_tacklePower;
@@ -25,8 +24,8 @@ public class Boss2 : EnemyBase
     //侍
     [SerializeField] private GameObject m_samurai;
     //生成できる侍の数
-    private const int kMaxSamuraiNum = 10;
-    private List<GameObject> m_samuraiList;
+    private const int kMaxSamuraiNum = 15;//3の倍数にしてほしいです
+    private int m_samuraiNum = 0;
     //チャージエフェクト
     [SerializeField] private GameObject m_chargeEff;
     //タックル中のエフェクト
@@ -43,6 +42,10 @@ public class Boss2 : EnemyBase
     private const float kStopFrame = 0.2f;
     private float m_stopFrame;
 
+    //追いかける速度
+    private float kChaseSpeed = 1000.0f;
+    private float kChaseDis = 1.4f;
+
     //メレーアタック
     private bool m_isMeleeAttack = false;
     //タックル
@@ -52,18 +55,15 @@ public class Boss2 : EnemyBase
     //必殺技
     private bool m_isUltAttack = false;
 
-    //メレーアタックの距離
-    private const float kNearPlayerDis = 2.0f;
-
     //タックルチャージ完了
     private bool m_isChargeCmp = false;
     //タックルの持続時間
     private float kTackleFrame = 40.0f;
     private float m_tackleTime;
     //タックルのスピード
-    private float kTackleSpeed = 1500.0f;
+    private float kTackleSpeed = 2000.0f;
     //スコア
-    private const int kScorePoint = 15000;
+    private const int kScorePoint = 50000;
 
     // Start is called before the first frame update
     override protected void Start()
@@ -100,8 +100,6 @@ public class Boss2 : EnemyBase
 
         //スコア
         m_scorePoint = kScorePoint;
-        //侍の生成準備
-        m_samuraiList = new List<GameObject>();
     }
 
     override protected void SerchTarget()//ターゲットの距離と方向を探索
@@ -204,15 +202,11 @@ public class Boss2 : EnemyBase
     }
     public void InstanseSamurai()
     {
-        if(m_samurai != null)
-        {
-            //空の要素を削除
-            m_samuraiList.RemoveAll(m_samurai => m_samurai == null);//ラムダ式
-        }
         //生成できるかのチェック
-        if(m_samuraiList.Count <= kMaxSamuraiNum)
+        if(m_samuraiNum <= kMaxSamuraiNum)
         {
-            GameObject samurai = Instantiate(m_samurai, m_leftHand.transform.position, Quaternion.identity);
+            //Waveの子オブジェクトとして生成する
+            GameObject samurai = Instantiate(m_samurai, m_leftHand.transform.position, Quaternion.identity,transform.parent);
             //リジッドボディを取得
             Rigidbody shotRb = samurai.GetComponent<Rigidbody>();
             //弾の移動方向
@@ -222,8 +216,7 @@ public class Boss2 : EnemyBase
             }
             //弾の移動
             shotRb.AddForce(m_targetDir * kShotSpeed, ForceMode.Impulse);
-            //リストに保存
-            m_samuraiList.Add(samurai);
+            ++m_samuraiNum;
         }
     }
     private void UpdateIdle()
@@ -241,38 +234,69 @@ public class Boss2 : EnemyBase
         {
             //ランダムでどれか選ぶ
             int seleceAttack;
-            //プレイヤーが近いなら
-            if(m_targetDis <= kNearPlayerDis)
+            seleceAttack = UnityEngine.Random.Range(0, 7);
+            if (seleceAttack >= 0 && seleceAttack < 3)
             {
-                seleceAttack = UnityEngine.Random.Range(0, 2);
-                if (seleceAttack <= 0)
-                {
-                    m_isMeleeAttack = true;
-                }
-                else if (seleceAttack == 1)
-                {
-                    m_isTackleAttack = true;
-                }
+                m_isRangeAttack = true;
+            }
+            else if (seleceAttack >= 3 && seleceAttack < 5)
+            {
+                m_isTackleAttack = true;
             }
             else
             {
-                seleceAttack = UnityEngine.Random.Range(0, 2);
-                if (seleceAttack <= 0)
-                {
-                    m_isRangeAttack = true;
-                }
-                else if (seleceAttack == 1)
-                {
-                    m_isTackleAttack = true;
-                }
+                m_isMeleeAttack = true;
             }
             ChangeState(StateType.Attack);
             return;
         }
+        //近づいたら
+        if (m_targetDis >= kChaseDis)
+        {
+            ChangeState(StateType.Chase);
+            return;
+        }
     }
-    private void UpdateRun()
+    private void UpdateChase()
     {
-        Debug.Log("BossはRun状態\n");
+        Debug.Log("BossはChase状態\n");
+        //移動
+        if (m_targetDir.magnitude > 0.0f)
+        {
+            m_targetDir.Normalize();//正規化
+        }
+        //突進
+        Vector3 moveVec = transform.rotation * Vector3.forward * kChaseSpeed * Time.deltaTime;
+        m_rb.AddForce(moveVec, ForceMode.Force);
+        //モデルの向き更新
+        base.ModelDir();
+        //攻撃
+        if (m_attackCoolTime <= 0.0f)
+        {
+            //ランダムでどれか選ぶ
+            int seleceAttack;
+            seleceAttack = UnityEngine.Random.Range(0, 7);
+            if (seleceAttack >= 0 && seleceAttack < 3)
+            {
+                m_isRangeAttack = true;
+            }
+            else if (seleceAttack >= 3 && seleceAttack < 5)
+            {
+                m_isTackleAttack = true;
+            }
+            else
+            {
+                m_isMeleeAttack = true;
+            }
+            ChangeState(StateType.Attack);
+            return;
+        }
+        //近づいたら
+        if (m_targetDis < kChaseDis)
+        {
+            ChangeState(StateType.Idle);
+            return;
+        }
     }
     private void UpdateAttack()
     {
@@ -407,6 +431,7 @@ public class Boss2 : EnemyBase
                 m_animator.SetBool("RangeA", false);
                 m_animator.SetBool("Freeze", false);
                 m_animator.SetBool("Dead", false);
+                m_animator.SetBool("Chase", false);
                 //リセット
                 m_isMeleeAttack = false;
                 m_isTackleAttack = false;
@@ -418,8 +443,22 @@ public class Boss2 : EnemyBase
                 OffActivemTackleAttack();
                 break;
             //移動
-            case StateType.Run:
-
+            case StateType.Chase:
+                m_animator.SetBool("Chase", true);
+                m_animator.SetBool("MeleeA", false);
+                m_animator.SetBool("TackleA", false);
+                m_animator.SetBool("RangeA", false);
+                m_animator.SetBool("Freeze", false);
+                m_animator.SetBool("Dead", false);
+                //リセット
+                m_isMeleeAttack = false;
+                m_isTackleAttack = false;
+                m_isRangeAttack = false;
+                m_isUltAttack = false;
+                m_attackCoolTime = kAttackCoolTime;//クールタイム
+                m_tackleTime = kTackleFrame;
+                m_isChargeCmp = false;
+                OffActivemTackleAttack();
                 break;
             //攻撃
             case StateType.Attack:
@@ -433,6 +472,7 @@ public class Boss2 : EnemyBase
                     m_animator.SetBool("RangeA", false);
                     m_animator.SetBool("Freeze", false);
                     m_animator.SetBool("Dead", false);
+                    m_animator.SetBool("Chase", false);
                 }
                 else if (m_isTackleAttack)
                 {
@@ -444,6 +484,7 @@ public class Boss2 : EnemyBase
                     m_animator.SetBool("RangeA", false);
                     m_animator.SetBool("Freeze", false);
                     m_animator.SetBool("Dead", false);
+                    m_animator.SetBool("Chase", false);
                 }
                 else if (m_isRangeAttack)
                 {
@@ -453,6 +494,7 @@ public class Boss2 : EnemyBase
                     m_animator.SetBool("RangeA", true);
                     m_animator.SetBool("Freeze", false);
                     m_animator.SetBool("Dead", false);
+                    m_animator.SetBool("Chase", false);
                 }
                 else if (m_isUltAttack)
                 {
@@ -467,6 +509,7 @@ public class Boss2 : EnemyBase
                 m_animator.SetBool("TackleA", false);
                 m_animator.SetBool("Freeze", true);
                 m_animator.SetBool("Dead", false);
+                m_animator.SetBool("Chase", false);
                 m_chargeEff.SetActive(false);
                 m_tackleEff.SetActive(false);
                 break;
@@ -476,6 +519,7 @@ public class Boss2 : EnemyBase
                 m_animator.SetBool("TackleA", false);
                 m_animator.SetBool("Freeze", true);
                 m_animator.SetBool("Dead", true);
+                m_animator.SetBool("Chase", false);
                 m_chargeEff.SetActive(false);
                 m_tackleEff.SetActive(false);
                 break;
@@ -497,8 +541,8 @@ public class Boss2 : EnemyBase
                     UpdateIdle();
                     break;
                 //追いかける
-                case StateType.Run:
-                    UpdateRun();
+                case StateType.Chase:
+                    UpdateChase();
                     break;
                 //攻撃
                 case StateType.Attack:
@@ -593,7 +637,7 @@ public class Boss2 : EnemyBase
 
     private void OnDestroy()
     {
-        GameObject wave = transform.parent.parent.gameObject;
+        GameObject wave = transform.parent.gameObject;
         wave.GetComponent<Wave>().AllEnemyDead();
     }
 }
