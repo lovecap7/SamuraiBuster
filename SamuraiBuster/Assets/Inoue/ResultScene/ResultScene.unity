@@ -366,6 +366,7 @@ GameObject:
   m_Component:
   - component: {fileID: 185964428}
   - component: {fileID: 185964427}
+  - component: {fileID: 185964429}
   m_Layer: 0
   m_Name: ScoreResult
   m_TagString: Untagged
@@ -394,6 +395,8 @@ MonoBehaviour:
   m_rankB: {fileID: 304112761}
   m_rankA: {fileID: 1450257092}
   m_rankS: {fileID: 1683539179}
+  m_retry: {fileID: 2024439616}
+  m_select: {fileID: 752133976}
 --- !u!4 &185964428
 Transform:
   m_ObjectHideFlags: 0
@@ -409,6 +412,72 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &185964429
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 185964426}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: bc8473c9c8e9662469416e29c23bc014, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 185964427}
+        m_TargetAssemblyTypeName: ScoreResult, Assembly-CSharp
+        m_MethodName: RetrySelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 5f2e288b-3fb9-4976-9ee3-5510a6ef17d1
+    m_ActionName: SelectResult/Up[/XInputControllerWindows/dpad/up,/XInputControllerWindows/leftStick/up]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 185964427}
+        m_TargetAssemblyTypeName: ScoreResult, Assembly-CSharp
+        m_MethodName: SelectSelect
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: a466a0a1-b073-474e-8b09-8570844323bc
+    m_ActionName: SelectResult/Down[/XInputControllerWindows/leftStick/down,/XInputControllerWindows/dpad/down]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 2a53c05b-c5d9-4460-930f-0b3183236e05
+    m_ActionName: SelectResult/Deside
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: Gamepad
+  m_DefaultActionMap: SelectResult
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &304112761
 GameObject:
   m_ObjectHideFlags: 0
@@ -755,6 +824,7 @@ GameObject:
   - component: {fileID: 752133977}
   - component: {fileID: 752133979}
   - component: {fileID: 752133978}
+  - component: {fileID: 752133980}
   m_Layer: 5
   m_Name: SelectBack
   m_TagString: Untagged
@@ -823,6 +893,18 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 752133976}
   m_CullTransparentMesh: 1
+--- !u!114 &752133980
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 752133976}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e5fd29f26ffb70f479889dac236c149a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &883323927
 GameObject:
   m_ObjectHideFlags: 0
@@ -2361,9 +2443,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e5fd29f26ffb70f479889dac236c149a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scaleSpeed: 0.5
-  minScale: 0.9
-  maxScale: 1.2
 --- !u!1 &2070163104
 GameObject:
   m_ObjectHideFlags: 0
@@ -2449,6 +2528,6 @@ SceneRoots:
   m_Roots:
   - {fileID: 1721290772}
   - {fileID: 1358599987}
+  - {fileID: 185964428}
   - {fileID: 990618175}
   - {fileID: 688465361}
-  - {fileID: 185964428}

@@ -1,6 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ScoreResult : MonoBehaviour
@@ -24,15 +26,32 @@ public class ScoreResult : MonoBehaviour
     [SerializeField] private GameObject m_rankB;
     [SerializeField] private GameObject m_rankA;
     [SerializeField] private GameObject m_rankS;
+    //ランクの表示にディレイかける
+    private const float kRankActiveFrame = 0.5f;
+    private float m_rankCountFrame = 0;
     //ランク別のスコア
     private const float kRankCScore = 100.0f;
     private const float kRankBScore = 300.0f;
     private const float kRankAScore = 1000.0f;
     private const float kRankSScore = 1700.0f;
-
+    //リトライとセレクトを表示する
+    [SerializeField] private GameObject m_retry;
+    [SerializeField] private GameObject m_select;
+    //リトライとセレクトの表示にディレイかける
+    private const float kSelectUIActiveFrame = 0.3f;
+    private float m_selectUICountFrame = 0;
+   
     // Start is called before the first frame update
     void Start()
     {
+        //最初は非表示
+        m_retry.SetActive(false);
+        m_select.SetActive(false);
+        m_selectUICountFrame = kSelectUIActiveFrame;
+        m_retry.GetComponent<RetryOrBuck>().SetIsActive(true);
+        m_select.GetComponent<RetryOrBuck>().SetIsActive(false);
+
+
         m_annihilationScore = PlayerPrefs.GetFloat("AnnihilationScore", 0.0f);//殲滅スコア
         m_timeScore = PlayerPrefs.GetFloat("TimeScore", 0.0f) * 10.0f;//タイマー
         m_totalScore = m_annihilationScore + m_timeScore;//合計
@@ -56,6 +75,7 @@ public class ScoreResult : MonoBehaviour
         m_rankB.SetActive(false);
         m_rankA.SetActive(false);
         m_rankS.SetActive(false);
+        m_rankCountFrame = kRankActiveFrame;
     }
 
     // Update is called once per frame
@@ -87,32 +107,60 @@ public class ScoreResult : MonoBehaviour
         }
         if(m_isFinishCountScore)
         {
-            //ランクの表示
-            if (m_totalScore <= kRankCScore)
+            m_rankCountFrame -= Time.deltaTime;
+            if(m_rankCountFrame < 0)
             {
-                m_rankC.SetActive(true);
-            }
-            else if (m_totalScore <= kRankBScore)
-            {
-                m_rankB.SetActive(true);
-            }
-            else if (m_totalScore <= kRankAScore)
-            {
-                m_rankA.SetActive(true);
-            }
-            else if (m_totalScore <= kRankSScore)
-            {
-                m_rankS.SetActive(true);
+                if(m_totalScore >= kRankSScore)
+                {
+                    m_rankS.SetActive(true);
+                }
+                else if(m_totalScore >= kRankAScore)
+                {
+                    m_rankA.SetActive(true);
+                }
+                else if (m_totalScore >= kRankBScore)
+                {
+                    m_rankB.SetActive(true);
+                }
+                else 
+                {
+                    m_rankC.SetActive(true);
+                }
+
+                //リトライ等のUI表示
+                m_selectUICountFrame -= Time.deltaTime;
+                if(m_selectUICountFrame < 0)
+                {
+                    m_retry.SetActive(true);
+                    m_select.SetActive(true);
+                }
+
             }
         }
     }
     private void AddScore(ref float countScore, ref float score,ref Text text)
     {
-        countScore = countScore * (1.0f - 0.02f) + score * 0.02f;
+        countScore = countScore * (1.0f - 0.2f) + score * 0.2f;
         text.text = countScore.ToString("0");
     }
-    public void ResetScore()
+  
+    public void RetrySelect(InputAction.CallbackContext context)
     {
-      
+        if (context.performed)
+        {
+            m_retry.GetComponent<RetryOrBuck>().SetIsActive(true);
+            m_select.GetComponent<RetryOrBuck>().SetIsActive(false);
+        }
     }
+
+
+    public void SelectSelect(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            m_retry.GetComponent<RetryOrBuck>().SetIsActive(false);
+            m_select.GetComponent<RetryOrBuck>().SetIsActive(true);
+        }
+    }
+
 }
