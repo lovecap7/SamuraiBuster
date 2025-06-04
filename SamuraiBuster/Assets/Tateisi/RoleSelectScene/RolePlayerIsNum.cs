@@ -20,7 +20,7 @@ public class RolePlayerIsNum : MonoBehaviour
 
     private void Update()
     {
-        bool allDicided = false;
+        bool allDicided = true;
         // 全員が選択しているかチェック
         foreach (var role in roleSelects)
         {
