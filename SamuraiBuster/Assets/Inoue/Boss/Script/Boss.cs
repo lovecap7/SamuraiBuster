@@ -377,6 +377,15 @@ public class Boss : EnemyBase
                 m_animator.SetBool("RangeA", false);
                 m_animator.SetBool("Freeze", false);
                 m_animator.SetBool("Dead", false);
+                //リセット
+                m_isMeleeAttack = false;
+                m_isTackleAttack = false;
+                m_isRangeAttack = false;
+                m_isUltAttack = false;
+                m_attackCoolTime = kAttackCoolTime;//クールタイム
+                m_tackleTime = kTackleFrame;
+                m_isChargeCmp = false;
+                OffActivemTackleAttack();
                 break;
             //移動
             case StateType.Run:
@@ -498,7 +507,7 @@ public class Boss : EnemyBase
             m_stopFrame = 0.0f;//リセット
             m_animator.speed = 1.0f;
         }
-        //追いかけるターdゲットがいないなら待機状態にする
+        //追いかけるターゲットがいないなら待機状態にする
         if (!m_isHitSearch)
         {
             ChangeState(StateType.Idle);
