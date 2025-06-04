@@ -8,11 +8,11 @@ enum  SelectState
     RoleSelect,
     TitleBack
 }
-
 public class SelectDirector : MonoBehaviour
 {
     [SerializeField] private SelectState selectState;
     [SerializeField] GameObject stageSelectText;
+    [SerializeField] CanvasGroup stageCursorImages;
     private void Awake()
     {
         selectState = SelectState.StageSelect;
@@ -66,6 +66,8 @@ public class SelectDirector : MonoBehaviour
             selectState = SelectState.PlayerNumSelect;
             // ステージ選択のテキストを消す
             stageSelectText.SetActive(false);
+            // ステージ選択のカーソルを消す
+            stageCursorImages.alpha = 0;
             return;
         }
         if(selectState == SelectState.PlayerNumSelect)
@@ -87,6 +89,8 @@ public class SelectDirector : MonoBehaviour
             selectState = SelectState.StageSelect;
             // ステージ選択のテキストを出す
             stageSelectText.SetActive(true);
+            // ステージ選択のカーソルを出す
+            stageCursorImages.alpha = 1;
             return;
         }
         if (selectState == SelectState.StageSelect)
