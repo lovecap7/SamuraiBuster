@@ -32,6 +32,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Inoue/ResultScene/ResultScene.unity
     guid: fea2368ef52489143a8c49b4a82ba5b8
+  - enabled: 1
+    path: Assets/Nakahira/Scene/Tank&Healer.unity
+    guid: 5035d2c206b6aca4388ebe0e97545eba
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 77d105754a151ec4ea73713430925cdd, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 6c35fc86a353b754a93fa08d8f02e3b4, type: 3}

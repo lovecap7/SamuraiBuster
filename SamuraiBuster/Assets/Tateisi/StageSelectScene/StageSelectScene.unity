@@ -581,43 +581,7 @@ MonoBehaviour:
         m_CallState: 2
       - m_Target: {fileID: 763643042}
         m_TargetAssemblyTypeName: IsNumselect, Assembly-CSharp
-        m_MethodName: NumPlayer1OK
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 763643042}
-        m_TargetAssemblyTypeName: IsNumselect, Assembly-CSharp
-        m_MethodName: NumPlayer2OK
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 763643042}
-        m_TargetAssemblyTypeName: IsNumselect, Assembly-CSharp
-        m_MethodName: NumPlayer3OK
-        m_Mode: 0
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-      - m_Target: {fileID: 763643042}
-        m_TargetAssemblyTypeName: IsNumselect, Assembly-CSharp
-        m_MethodName: NumPlayer4OK
+        m_MethodName: NumPlayerOK
         m_Mode: 0
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
