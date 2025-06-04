@@ -9,6 +9,8 @@ using UnityEngine.UI;
 
 public class RoleSelectController : MonoBehaviour
 {
+    private GameObject m_playerInput;
+
     // この順番でヒエラルキーに置いてある前提
     public enum RoleKind:int
     {
@@ -38,6 +40,9 @@ public class RoleSelectController : MonoBehaviour
         selectedRole = RoleKind.Fighter; // 初期ロールを設定
         m_players.transform.GetChild((int)selectedRole).gameObject.SetActive(true);
         transform.GetChild((int)selectedRole).gameObject.SetActive(true);
+
+        // 自分が上から何番目かで参照するPlayerInputを決める
+        m_playerInput = GameObject.Find("PlayerInputs").transform.GetChild(transform.GetSiblingIndex()).gameObject;
     }
 
     // 更新処理
