@@ -6,40 +6,56 @@ using UnityEngine.UI;
 public class RetryOrBuck : MonoBehaviour
 {
     // 拡大・縮小の速度
-    [SerializeField] private float scaleSpeed;
+    private float scaleSpeed = 0.5f;
     // 最小スケール
-    [SerializeField] private float minScale;
+    private float minScale = 0.9f;
     // 最大スケール
-    [SerializeField] private float maxScale;
+    private float maxScale = 1.2f;
 
     private bool scalingUp = true;
 
+    //拡大縮小するかをフラグで管理
+    private bool m_isActive = false;
+
     void Update()
     {
-        // 現在のスケールを取得
-        Vector3 currentScale = transform.localScale;
-
-        // 拡大・縮小の方向を判定
-        if (scalingUp)
+        if(m_isActive)
         {
-            currentScale += Vector3.one * scaleSpeed * Time.deltaTime;
-            if (currentScale.x >= maxScale)
+            // 現在のスケールを取得
+            Vector3 currentScale = transform.localScale;
+
+            // 拡大・縮小の方向を判定
+            if (scalingUp)
             {
-                currentScale = Vector3.one * maxScale;
-                scalingUp = false;
+                currentScale += Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale.x >= maxScale)
+                {
+                    currentScale = Vector3.one * maxScale;
+                    scalingUp = false;
+                }
             }
+            else
+            {
+                currentScale -= Vector3.one * scaleSpeed * Time.deltaTime;
+                if (currentScale.x <= minScale)
+                {
+                    currentScale = Vector3.one * minScale;
+                    scalingUp = true;
+                }
+            }
+
+            // スケールを適用
+            transform.localScale = currentScale;
         }
         else
         {
-            currentScale -= Vector3.one * scaleSpeed * Time.deltaTime;
-            if (currentScale.x <= minScale)
-            {
-                currentScale = Vector3.one * minScale;
-                scalingUp = true;
-            }
+            //通常スケールを適用
+            transform.localScale = Vector3.one;
         }
+    }
 
-        // スケールを適用
-        transform.localScale = currentScale;
+    public void SetIsActive(bool active)
+    {
+        m_isActive = active;
     }
 }
