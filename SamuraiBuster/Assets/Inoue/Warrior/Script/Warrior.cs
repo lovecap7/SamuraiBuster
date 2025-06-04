@@ -26,6 +26,9 @@ public class Warrior : EnemyBase
     //スコア
     private const int kScorePoint = 1000;
 
+    [SerializeField] protected AudioClip m_attackHitSE; //攻撃SE
+    [SerializeField] protected AudioClip m_damageSE;    //ダメージSE
+
     // Start is called before the first frame update
     override protected void Start()
     {
@@ -284,6 +287,23 @@ public class Warrior : EnemyBase
         m_attackPower.damage = 0; // 攻撃力をリセット
     }
 
+    //ダメージSEを再生する
+    private void PlayDamageSE()
+    {
+        if (m_audioSource != null && m_damageSE != null)
+        {
+            m_audioSource.PlayOneShot(m_damageSE);
+        }
+    }
+    //攻撃SEを再生する
+    private void PlayAttackHitSE()
+    {
+        if (m_audioSource != null && m_attackHitSE != null)
+        {
+            m_audioSource.PlayOneShot(m_attackHitSE);
+        }
+    }
+
     // Update is called once per frame
     override protected void Update()
     {
@@ -308,6 +328,8 @@ public class Warrior : EnemyBase
         //攻撃されたとき
         if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")
         {
+            PlayDamageSE(); // ダメージSEを再生
+
             //体力を減らす
             m_characterStatus.hitPoint -= other.GetComponent<AttackPower>().damage;
             //体力が0以下なら死亡
@@ -346,9 +368,11 @@ public class Warrior : EnemyBase
                other.tag == "Healer" ||
                other.tag == "Tank")
             {
+                PlayAttackHitSE(); // 攻撃SEを再生
                 //ヒットエフェクトを出す
                 GameObject hitEffect = Instantiate(m_hitEffect, m_sword.transform.position, Quaternion.identity);
             }
         }
     }
+
 }
