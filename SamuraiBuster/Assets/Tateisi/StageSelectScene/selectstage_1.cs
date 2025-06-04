@@ -69,7 +69,7 @@ public class selectstage_1 : MonoBehaviour
     public void Stage1Back(InputAction.CallbackContext context)
     {
         //ƒ{ƒ^ƒ“‚ð‰Ÿ‚µ‚½‚Æ‚«
-        if (stage1Selected && context.canceled)
+        if (stage1Selected && context.started)
         {
             Stage1 = false;
         }
