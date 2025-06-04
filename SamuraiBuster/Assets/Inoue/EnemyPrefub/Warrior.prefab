@@ -1065,7 +1065,7 @@ Transform:
   m_GameObject: {fileID: 2393785634172868314}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: 1, z: -0, w: 0}
-  m_LocalPosition: {x: -2.06, y: 0.82, z: 1.14}
+  m_LocalPosition: {x: 1.0688534, y: 0.3600006, z: 4.3276434}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -1160,8 +1160,8 @@ MonoBehaviour:
   m_isDead: 0
   m_sword: {fileID: 6658694412027999201}
   m_hitEffect: {fileID: 6823302871133167919, guid: ce80ed66d591faf41825e8f585787b3f, type: 3}
-  m_attackHitSE: {fileID: 0}
-  m_damageSE: {fileID: 0}
+  m_attackHitSE: {fileID: 8300000, guid: aabcc5eae24bb644e8782e8ae06b6787, type: 3}
+  m_damageSE: {fileID: 8300000, guid: abd52680b564b2945be7f84ade0088ff, type: 3}
 --- !u!114 &1713024850293527197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1186,7 +1186,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.5
+  m_Volume: 1
   m_Pitch: 1
   Loop: 0
   Mute: 0
