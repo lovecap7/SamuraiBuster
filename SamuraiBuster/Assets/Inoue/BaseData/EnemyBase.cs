@@ -63,6 +63,9 @@ abstract public class EnemyBase : MonoBehaviour
     private GameObject m_score;
     protected int m_scorePoint = 0;
 
+    //SE
+    protected AudioSource m_audioSource;
+    
     // Start is called before the first frame update
     virtual protected void Start()
     {
@@ -71,7 +74,9 @@ abstract public class EnemyBase : MonoBehaviour
         m_animator = GetComponent<Animator>();
 
         m_characterStatus = GetComponent<CharacterStatus>();
-    
+
+        m_audioSource = GetComponent<AudioSource>();
+
         m_attackCoolTime = kAttackCoolTime;
 
         //プレイヤーをまとめたオブジェクトを探す

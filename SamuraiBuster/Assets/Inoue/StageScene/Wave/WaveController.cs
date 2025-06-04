@@ -200,6 +200,10 @@ public class WaveController : MonoBehaviour
         GameDirector.Instance.IsOpenRightDoor = false;
     }
 
+    public bool IsWave1() { return m_isWave1; }
+    public bool IsWave2() { return m_isWave2; }
+    public bool IsWave3() { return m_isWave3; }
+
     private void OnTriggerEnter(Collider other)
     {
         //プレイヤーが右に進んだら
