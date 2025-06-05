@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Threading;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class ScoreResult : MonoBehaviour
@@ -40,7 +41,9 @@ public class ScoreResult : MonoBehaviour
     //リトライとセレクトの表示にディレイかける
     private const float kSelectUIActiveFrame = 0.3f;
     private float m_selectUICountFrame = 0;
-   
+    //フェード
+    [SerializeField] private ResultFade m_resultFade;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -81,62 +84,79 @@ public class ScoreResult : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //殲滅スコアの加算
-        AddScore(ref m_countAnnihiScore, ref m_annihilationScore, ref m_annihilationScoreText);
-        Debug.Log(m_countAnnihiScore);
-        if (m_countAnnihiScore >= m_annihilationScore - 0.5f)
+        if (m_resultFade.IsFadeInFinish())
         {
-            m_countAnnihiScore = m_annihilationScore;
-            //タイマーの加算
-            AddScore(ref m_countTimeScore, ref m_timeScore, ref m_timerScoreText);
-
-        }
-        if (m_countTimeScore >= m_timeScore - 0.5f)
-        {
-            m_countTimeScore = m_timeScore;
-            //合計スコアの加算
-            AddScore(ref m_countTotalScore, ref m_totalScore, ref m_totalScoreText);
-        }
-        //合計スコアの加算が終わったら
-        if (m_countTotalScore >= m_totalScore - 0.5f)
-        {
-            m_countAnnihiScore = m_annihilationScore;
-            m_countTimeScore = m_timeScore;
-            m_countTotalScore = m_totalScore;
-            m_isFinishCountScore = true;
-        }
-        if(m_isFinishCountScore)
-        {
-            m_rankCountFrame -= Time.deltaTime;
-            if(m_rankCountFrame < 0)
+            //殲滅スコアの加算
+            AddScore(ref m_countAnnihiScore, ref m_annihilationScore, ref m_annihilationScoreText);
+            Debug.Log(m_countAnnihiScore);
+            if (m_countAnnihiScore >= m_annihilationScore - 0.5f)
             {
-                if(m_totalScore >= kRankSScore)
-                {
-                    m_rankS.SetActive(true);
-                }
-                else if(m_totalScore >= kRankAScore)
-                {
-                    m_rankA.SetActive(true);
-                }
-                else if (m_totalScore >= kRankBScore)
-                {
-                    m_rankB.SetActive(true);
-                }
-                else 
-                {
-                    m_rankC.SetActive(true);
-                }
-
-                //リトライ等のUI表示
-                m_selectUICountFrame -= Time.deltaTime;
-                if(m_selectUICountFrame < 0)
-                {
-                    m_retry.SetActive(true);
-                    m_select.SetActive(true);
-                }
+                m_countAnnihiScore = m_annihilationScore;
+                //タイマーの加算
+                AddScore(ref m_countTimeScore, ref m_timeScore, ref m_timerScoreText);
 
             }
+            if (m_countTimeScore >= m_timeScore - 0.5f)
+            {
+                m_countTimeScore = m_timeScore;
+                //合計スコアの加算
+                AddScore(ref m_countTotalScore, ref m_totalScore, ref m_totalScoreText);
+            }
+            //合計スコアの加算が終わったら
+            if (m_countTotalScore >= m_totalScore - 0.5f)
+            {
+                m_countAnnihiScore = m_annihilationScore;
+                m_countTimeScore = m_timeScore;
+                m_countTotalScore = m_totalScore;
+                m_isFinishCountScore = true;
+            }
+            if (m_isFinishCountScore)
+            {
+                m_rankCountFrame -= Time.deltaTime;
+                if (m_rankCountFrame < 0)
+                {
+                    if (m_totalScore >= kRankSScore)
+                    {
+                        m_rankS.SetActive(true);
+                    }
+                    else if (m_totalScore >= kRankAScore)
+                    {
+                        m_rankA.SetActive(true);
+                    }
+                    else if (m_totalScore >= kRankBScore)
+                    {
+                        m_rankB.SetActive(true);
+                    }
+                    else
+                    {
+                        m_rankC.SetActive(true);
+                    }
+
+                    //リトライ等のUI表示
+                    m_selectUICountFrame -= Time.deltaTime;
+                    if (m_selectUICountFrame <= 0.0f)
+                    {
+                        m_retry.SetActive(true);
+                        m_select.SetActive(true);
+                    }
+
+                }
+            }
         }
+        if (m_resultFade.IsFadeOutFinish())
+        {
+            if (m_retry.GetComponent<RetryOrBuck>().GetIsActive())
+            {
+                //リトライ
+                SceneManager.LoadScene("StageScene");
+            }
+            else if (m_select.GetComponent<RetryOrBuck>().GetIsActive())
+            {
+                //セレクト
+                SceneManager.LoadScene("StageSelectScene");
+            }
+        }
+
     }
     private void AddScore(ref float countScore, ref float score,ref Text text)
     {
@@ -146,21 +166,40 @@ public class ScoreResult : MonoBehaviour
   
     public void RetrySelect(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (m_selectUICountFrame <= 0.0f)
         {
-            m_retry.GetComponent<RetryOrBuck>().SetIsActive(true);
-            m_select.GetComponent<RetryOrBuck>().SetIsActive(false);
+            if (context.performed)
+            {
+                m_retry.GetComponent<RetryOrBuck>().SetIsActive(true);
+                m_select.GetComponent<RetryOrBuck>().SetIsActive(false);
+            }
         }
     }
-
-
     public void SelectSelect(InputAction.CallbackContext context)
     {
-        if (context.performed)
+        if (m_selectUICountFrame <= 0.0f)
         {
-            m_retry.GetComponent<RetryOrBuck>().SetIsActive(false);
-            m_select.GetComponent<RetryOrBuck>().SetIsActive(true);
+            if (context.performed)
+            {
+                m_retry.GetComponent<RetryOrBuck>().SetIsActive(false);
+                m_select.GetComponent<RetryOrBuck>().SetIsActive(true);
+            }
         }
+    }
+    //決定処理
+    public void OnDecide(InputAction.CallbackContext context)
+    {
+        if (context.performed && m_isFinishCountScore)
+        {
+            m_resultFade.OnIsFadeOut();
+        }
+        //else
+        //{
+        //    m_countAnnihiScore = m_annihilationScore;
+        //    m_countTimeScore = m_timeScore;
+        //    m_countTotalScore = m_totalScore;
+        //    m_isFinishCountScore = true;
+        //}
     }
 
 }
