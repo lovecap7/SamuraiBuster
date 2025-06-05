@@ -1,15 +1,10 @@
 using DG.Tweening;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor;
 using UnityEngine;
-using UnityEngine.InputSystem;
-using UnityEngine.InputSystem.Users;
-using UnityEngine.UI;
 
-public class RoleSelectController : MonoBehaviour
+public class RoleSelectController : MonoBehaviour, IInputReceiver
 {
-    private GameObject m_playerInput;
+    private Tweener m_punch;
+    private Vector3 initPos;
 
     // この順番でヒエラルキーに置いてある前提
     public enum RoleKind:int
@@ -41,8 +36,11 @@ public class RoleSelectController : MonoBehaviour
         m_players.transform.GetChild((int)selectedRole).gameObject.SetActive(true);
         transform.GetChild((int)selectedRole).gameObject.SetActive(true);
 
-        // 自分が上から何番目かで参照するPlayerInputを決める
-        m_playerInput = GameObject.Find("PlayerInputs").transform.GetChild(transform.GetSiblingIndex()).gameObject;
+        // 自分が上から何番目かで紐づけるPlayerInputを決める
+        GameInputManager gameInputManager = GameObject.Find("PlayerInputs").GetComponent<GameInputManager>();
+        gameInputManager.m_receivers.Add(this);
+
+        initPos = transform.localPosition;
     }
 
     // 更新処理
@@ -51,54 +49,16 @@ public class RoleSelectController : MonoBehaviour
     }
 
     /// <summary>
-    /// ロール選択の上入力の処理
-    /// </summary>
-    /// <param name="context"></param>
-    public void UpRole(InputAction.CallbackContext context)
-    {
-        if (isDecided) return; // 決定済みの場合は何もしない
-        if (context.started)
-        {
-            Debug.Log("1P_UpRole");
-            Back();
-        }
-    }
-
-    /// <summary>
-    /// ロール選択の下入力の処理
-    /// </summary>
-    /// <param name="context"></param>
-    public void DownRole(InputAction.CallbackContext context)
-    {
-        if (isDecided) return; // 決定済みの場合は何もしない
-        if (context.started)
-        {
-            Debug.Log("1P_DownRole");
-            Proceed();
-        }
-    }
-
-
-    public void Decide(InputAction.CallbackContext context)
-    {
-        Debug.Log("1P_True");
-        isDecided = true; // 決定済みフラグを立てる
-    }
-
-    public void Cancel(InputAction.CallbackContext context)
-    {
-        Debug.Log("1P_False");
-        isDecided = false; // 決定をキャンセルする
-    }
-
-    /// <summary>
     /// ロール選択の上入力時の動き
     /// </summary>
-    private void Proceed()
+    private void Up()
     {
+        m_punch?.Kill();
+        transform.localPosition = initPos;
+
         RoleKind before = selectedRole;
-        selectedRole = (RoleKind)(((int)selectedRole + 1 + (int)RoleKind.Max) % (int)RoleKind.Max);
-        transform.DOPunchPosition(new Vector3(0, 2, 0), 1.0f);
+        selectedRole = (RoleKind)(((int)selectedRole - 1 + (int)RoleKind.Max) % (int)RoleKind.Max);
+        m_punch = transform.DOPunchPosition(new Vector3(0,10,0), 0.2f);
         ChangeIcon(before, selectedRole);
         ChangeModel(before, selectedRole);
     }
@@ -106,11 +66,14 @@ public class RoleSelectController : MonoBehaviour
     /// <summary>
     /// ロール選択の下入力時の動き
     /// </summary>
-    private void Back()
+    private void Down()
     {
+        m_punch?.Kill();
+        transform.localPosition = initPos;
+
         RoleKind before = selectedRole;
-        selectedRole = (RoleKind)(((int)selectedRole - 1 + (int)RoleKind.Max) % (int)RoleKind.Max);
-        transform.DOPunchPosition(new Vector3(0,2,0), 1.0f);
+        selectedRole = (RoleKind)(((int)selectedRole + 1 + (int)RoleKind.Max) % (int)RoleKind.Max);
+        m_punch = transform.DOPunchPosition(new Vector3(0,-10,0), 0.2f);
         ChangeIcon(before, selectedRole);
         ChangeModel(before, selectedRole);
     }
@@ -127,5 +90,54 @@ public class RoleSelectController : MonoBehaviour
     {
         m_players.transform.GetChild((int)beforeRole).gameObject.SetActive(false);
         m_players.transform.GetChild((int)nextRole).gameObject.SetActive(true);
+    }
+
+    public void Submit()
+    {
+        isDecided = true; // 決定済みフラグを立てる
+    }
+
+    public void Cancel()
+    {
+        isDecided = false; // 決定をキャンセルする
+    }
+
+    public void TriggerUp()
+    {
+        if (isDecided) return; // 決定済みの場合は何もしない
+        Up();
+    }
+
+    public void TriggerDown()
+    {
+        if (isDecided) return; // 決定済みの場合は何もしない
+
+        Down();
+    }
+
+    public void TriggerRight()
+    {
+        return;
+    }
+
+    public void TriggerLeft()
+    {
+        return;
+    }
+
+    public void Attack()
+    {
+        return;
+    }
+
+    public void Skill()
+    {
+        return;
+    }
+
+    public void Move(Vector2 axis)
+    {
+        // 何もしない
+        return;
     }
 }
