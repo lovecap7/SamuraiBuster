@@ -1,3 +1,4 @@
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -9,8 +10,10 @@ public class GameInputManager : MonoBehaviour
     List<GameInputHolder> m_inputHolders = new();
 
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
+        yield return null;
+
         // Input関連を消えないようにする
         // これがゲームを通して存在することで、デバイスがシャッフルされるのを防ぐ
         DontDestroyOnLoad(gameObject);

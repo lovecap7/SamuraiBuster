@@ -1,10 +1,14 @@
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RoleSelectController : MonoBehaviour, IInputReceiver
 {
     private Tweener m_punch;
     private Vector3 initPos;
+    private GameObject m_upArrow;
+    private GameObject m_downArrow;
+    private GameObject m_player;
 
     // この順番でヒエラルキーに置いてある前提
     public enum RoleKind:int
@@ -41,6 +45,9 @@ public class RoleSelectController : MonoBehaviour, IInputReceiver
         gameInputManager.m_receivers.Add(this);
 
         initPos = transform.localPosition;
+
+        m_upArrow = transform.GetChild(4).gameObject;
+        m_downArrow = transform.GetChild(5).gameObject;
     }
 
     // 更新処理
@@ -95,11 +102,17 @@ public class RoleSelectController : MonoBehaviour, IInputReceiver
     public void Submit()
     {
         isDecided = true; // 決定済みフラグを立てる
+
+        transform.DOPunchScale(Vector3.one, 0.2f);
+        m_upArrow.GetComponent<Image>().color = Color.gray;
+        m_downArrow.GetComponent<Image>().color = Color.gray;
     }
 
     public void Cancel()
     {
         isDecided = false; // 決定をキャンセルする
+        m_upArrow.GetComponent<Image>().color = Color.white;
+        m_downArrow.GetComponent<Image>().color = Color.white;
     }
 
     public void TriggerUp()

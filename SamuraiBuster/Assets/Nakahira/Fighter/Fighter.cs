@@ -10,12 +10,12 @@ public class Fighter : PlayerBase
 
     const int kSkillInterval = 60;
     const int kDodgeInvincibleFrame = 30;
-    protected override int MaxHP { get => 750; }
+    [SerializeField] protected override int MaxHP { get => 750; }
     // çUåÇ1Å`3íiñ⁄ÇÃçUåÇóÕ
-    const int kAttackPower1 = 200;
-    const int kAttackPower2 = 300;
-    const int kAttackPower3 = 500;
-    const int kAttackRandomRange = 100;
+    [SerializeField] int kAttackPower1 = 200;
+    [SerializeField] int kAttackPower2 = 300;
+    [SerializeField] int kAttackPower3 = 500;
+    [SerializeField] int kAttackRandomRange = 100;
 
     Vector3 kDodgeForce = new(0,0,10.0f);
 
@@ -30,6 +30,7 @@ public class Fighter : PlayerBase
         m_attackPower = m_katana.GetComponent<AttackPower>();
         m_katanaCollider.enabled = false;
         m_characterStatus.hitPoint = MaxHP;
+        m_skillTimer = kSkillInterval;
     }
 
     // Update is called once per frame
