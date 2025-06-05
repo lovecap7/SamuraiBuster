@@ -58,4 +58,8 @@ public class RetryOrBuck : MonoBehaviour
     {
         m_isActive = active;
     }
+    public bool GetIsActive()
+    {
+        return m_isActive;
+    }
 }

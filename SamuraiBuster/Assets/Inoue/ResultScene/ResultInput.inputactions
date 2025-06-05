@@ -81,10 +81,10 @@
                 {
                     "name": "",
                     "id": "8cfd38e2-4604-4380-847a-a9d65dfbbb29",
-                    "path": "",
+                    "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": ";Gamepad",
                     "action": "Deside",
                     "isComposite": false,
                     "isPartOfComposite": false
