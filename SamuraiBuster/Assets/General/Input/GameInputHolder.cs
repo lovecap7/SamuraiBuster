@@ -7,6 +7,8 @@ using UnityEngine.InputSystem;
 // クソコードなのは百も承知
 public class GameInputHolder : MonoBehaviour
 {
+    public IInputReceiver receiver;
+
     public bool    submit        {  get; private set; }
     public bool    cancel        {  get; private set; }
     public bool    triggerLeft   {  get; private set; }
@@ -19,47 +21,64 @@ public class GameInputHolder : MonoBehaviour
 
     public void OnSubmit(InputAction.CallbackContext context)
     {
-        submit = context.started;
+        if (!context.started) return;
+
+        receiver?.Submit();
     }
 
     public void OnCancel(InputAction.CallbackContext context)
     {
-        cancel = context.started;
+        if (!context.started) return;
+
+        receiver?.Cancel();
     }
 
     public void OnTriggerLeft(InputAction.CallbackContext context)
     {
-        triggerLeft = context.started;
+        if (!context.started) return;
+
+        receiver?.TriggerLeft();
     }
 
     public void OnTriggerRight(InputAction.CallbackContext context)
     {
-        triggerRight = context.started;
+        if (!context.started) return;
+
+        receiver?.TriggerRight();
     }
 
     public void OnTriggerUp(InputAction.CallbackContext context)
     {
-        triggerUp = context.started;
+        if (!context.started) return;
+
+        receiver?.TriggerUp();
     }
 
     public void OnTriggerDown(InputAction.CallbackContext context)
     {
-        triggerDown = context.started;
+        if (!context.started) return;
+
+        receiver?.TriggerDown();
     }
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        moveAxis = context.ReadValue<Vector2>();
+        if (!context.started) return;
+
+        receiver?.Move(context.ReadValue<Vector2>());
     }
 
     public void OnAttack(InputAction.CallbackContext context)
     {
-        triggerAttack = context.started;
+        if (!context.started) return;
+
+        receiver?.Attack();
     }
 
     public void OnSkill(InputAction.CallbackContext context)
     {
-        triggerSkill = context.started;
-        Debug.Log("aaaaa");
+        if (!context.started) return;
+
+        receiver?.Skill();
     }
 }
