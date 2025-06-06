@@ -5,19 +5,24 @@ using UnityEngine.UI;
 
 public class Wizard : EnemyBase
 {
+    //体力
+    [SerializeField] private int kHP = 900;
+    //増加体力
+    [SerializeField] private int kAddHP = 200;
+    //ダメージ
+    [SerializeField] private int kDamage = 100;
+    //弾の速度
+    [SerializeField] private float kShotSpeed = 5.0f;
+    //近づく速度
+    [SerializeField] private float kChaseSpeed = 30.0f;
+    //スコア
+    [SerializeField] private int kScorePoint = 1500;
+
+  
     //左手から魔法を出す
     [SerializeField] private GameObject m_leftHand;
-    //体力
-    private const int kHP = 900;
-    //ダメージ
-    private const int kDamage = 100;
-    // Start is called before the first frame update
     //弾
     [SerializeField] private GameObject m_magicShotPrefab;
-    //弾の速度
-    private const float kShotSpeed = 5.0f;
-    //近づく速度
-    private const float kChaseSpeed = 30.0f;
     //敵が離れすぎていると近づく
     private const float kChaseDis = 3.0f;
     //離れる速度
@@ -31,8 +36,7 @@ public class Wizard : EnemyBase
     private bool m_isFinishAnimBack = false;
     //のけぞる
     private const float kKnockBackForce = 1.1f;
-    //スコア
-    private const int kScorePoint = 1500;
+  
 
     [SerializeField] protected AudioClip m_magicSE; //魔法SE
     [SerializeField] protected AudioClip m_damageSE;    //ダメージSE
@@ -43,7 +47,7 @@ public class Wizard : EnemyBase
         //体力
         //人数が多い場合少し体力が増える
         int addHp = 0;
-        if (m_targetList.Length > 2) addHp = 200;
+        if (m_targetList.Length > 2) addHp = kAddHP;
         m_characterStatus.hitPoint = kHP + addHp;
         //体力バーに設定
         Slider hpBar = transform.Find("Canvas_Hp/Hpbar").gameObject.GetComponent<Slider>();

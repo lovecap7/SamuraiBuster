@@ -8,10 +8,33 @@ using UnityEngine.UI;
 public class Boss2 : EnemyBase
 {
     //体力
-    private const int kHP = 10000;
+    [SerializeField] private int kHP = 10000;
+    //増加体力
+    [SerializeField] private int kAddHP = 6000;
     //ダメージ
-    private const int kMeleeDamage = 200;
-    private const int kTackleDamage = 150;
+    [SerializeField] private int kMeleeDamage = 200;
+    [SerializeField] private int kTackleDamage = 150;
+    //硬直フレーム
+    [SerializeField] private float kFreezeFrame = 3.0f;
+    //生成できる侍の数
+    [SerializeField] private int kMaxSamuraiNum = 15;//3の倍数にしてほしいです
+    //タックルの持続時間
+    [SerializeField] private float kTackleFrame = 40.0f;
+    //タックルのスピード
+    [SerializeField] private float kTackleSpeed = 2000.0f;
+    //スコア
+    [SerializeField] private int kScorePoint = 50000;
+    //追いかける速度
+    [SerializeField] private float kChaseSpeed = 1000.0f;
+    //ダメージを受けたときに少し止まる
+    private const float kStopFrame = 0.2f;
+    private float m_stopFrame;
+
+  
+    //追いかける距離
+    private float kChaseDis = 1.4f;
+    //硬直
+    private float m_freezeTime;
     private AttackPower m_meleePower;
     private AttackPower m_tacklePower;
     //攻撃判定
@@ -24,7 +47,6 @@ public class Boss2 : EnemyBase
     //侍
     [SerializeField] private GameObject m_samurai;
     //生成できる侍の数
-    private const int kMaxSamuraiNum = 15;//3の倍数にしてほしいです
     private int m_samuraiNum = 0;
     //チャージエフェクト
     [SerializeField] private GameObject m_chargeEff;
@@ -32,20 +54,7 @@ public class Boss2 : EnemyBase
     [SerializeField] private GameObject m_tackleEff;
     //ヒットエフェクト
     [SerializeField] private GameObject m_hitEffect;
-    //弾の速度
-    private const float kShotSpeed = 5.0f;
-
-    //硬直フレーム
-    private const float kFreezeFrame = 3.0f;
-    private float m_freezeTime;
-    //ダメージを受けたときに少し止まる
-    private const float kStopFrame = 0.2f;
-    private float m_stopFrame;
-
-    //追いかける速度
-    private float kChaseSpeed = 1000.0f;
-    private float kChaseDis = 1.4f;
-
+ 
     //メレーアタック
     private bool m_isMeleeAttack = false;
     //タックル
@@ -57,13 +66,11 @@ public class Boss2 : EnemyBase
 
     //タックルチャージ完了
     private bool m_isChargeCmp = false;
-    //タックルの持続時間
-    private float kTackleFrame = 40.0f;
+    //タックルフレームをカウント
     private float m_tackleTime;
-    //タックルのスピード
-    private float kTackleSpeed = 2000.0f;
-    //スコア
-    private const int kScorePoint = 50000;
+    //弾の速度
+    private const float kShotSpeed = 5.0f;
+
 
     // Start is called before the first frame update
     override protected void Start()
@@ -71,7 +78,7 @@ public class Boss2 : EnemyBase
         base.Start();
         //人数が多い場合少し体力が増える
         int addHp = 0;
-        if (m_targetList.Length > 2) addHp = 6000;
+        if (m_targetList.Length > 2) addHp = kAddHP;
         m_characterStatus.hitPoint = kHP + addHp;
         //体力バーに設定
         Slider hpBar = transform.Find("Canvas_Hp/Hpbar").gameObject.GetComponent<Slider>();
