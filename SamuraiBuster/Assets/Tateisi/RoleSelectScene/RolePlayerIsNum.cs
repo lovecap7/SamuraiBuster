@@ -45,6 +45,7 @@ public class RolePlayerIsNum : MonoBehaviour
         }
 
         // 行ってらっしゃい
-        UnityEngine.SceneManagement.SceneManager.LoadScene("StageScene");
+        // 先のシーンで選んでいたシーンへ飛ぶ
+        UnityEngine.SceneManagement.SceneManager.LoadScene("Stage" + PlayerPrefs.GetInt("StageNum").ToString() + "Scene");
     }
 }
