@@ -44,6 +44,9 @@ public class RolePlayerIsNum : MonoBehaviour
             ++playerId;
         }
 
+        // プレイヤーを生成
+        GameObject.Find("Players").GetComponent<PlayerGenerator>().GeneratePlayer();
+
         // 行ってらっしゃい
         // 先のシーンで選んでいたシーンへ飛ぶ
         UnityEngine.SceneManagement.SceneManager.LoadScene("Stage" + PlayerPrefs.GetInt("StageNum").ToString() + "Scene");

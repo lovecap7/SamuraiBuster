@@ -9,8 +9,12 @@ public class PlayerGenerator : MonoBehaviour
     private int m_playerNum;
     [SerializeField] private GameObject[] m_playerPrefabs = new GameObject[4];
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
+
+    public void GeneratePlayer()
     {
         // PlayerPrefs‚©‚çƒf[ƒ^‚ğ”qØ
         m_playerNum = PlayerPrefs.GetInt("PlayerNum");
