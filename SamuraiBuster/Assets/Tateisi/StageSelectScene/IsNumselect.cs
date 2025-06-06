@@ -113,14 +113,25 @@ public class IsNumselect : MonoBehaviour
         if (cantSelectFrame < 0) cantSelectFrame = 0;  
     }
 
-    /// <summary>
-    /// 右に移動するための入力処理
-    /// </summary>
-    /// <param name="context"></param>
+
     public void NumPlayerOK(InputAction.CallbackContext context)
     {
         if (cantSelectFrame > 0) return;
         if (!context.started) return;
+
+        // ステージ情報を送る
+        if (selectstage_1.Instance.Stage1)
+        {
+            PlayerPrefs.SetInt("StageNum", 1);
+        }
+        else if (selectstage_2.Instance.Stage2)
+        {
+            PlayerPrefs.SetInt("StageNum", 2);
+        }
+        else if (selectstage_3.Instance.Stage3)
+        {
+            PlayerPrefs.SetInt("StageNum", 3);
+        }
 
         // ボタンを押したとき
         // 選んでいたボタンに応じて送るデータを変える
