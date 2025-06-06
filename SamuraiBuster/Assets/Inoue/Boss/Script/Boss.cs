@@ -7,11 +7,25 @@ using UnityEngine.UI;
 public class Boss : EnemyBase
 {
     //体力
-    private const int kHP = 8500;
+    [SerializeField] private const int kHP = 8500;
+    //増加体力
+    [SerializeField] private int kAddHP = 6000;
     //ダメージ
-    private const int kMeleeDamage = 110;
-    private const int kMagicDamage = 110;
-    private const int kTackleDamage = 100;
+    [SerializeField] private int kMeleeDamage = 110;
+    [SerializeField] private int kMagicDamage = 110;
+    [SerializeField] private int kTackleDamage = 100;
+    //弾の速度
+    [SerializeField] private float kShotSpeed = 5.0f;
+    //タックルの持続時間
+    [SerializeField] private float kTackleFrame = 40.0f;
+    //タックルのスピード
+    [SerializeField] private float kTackleSpeed = 1500.0f;
+    //硬直時間
+    [SerializeField] private float kFreezeFrame = 3.0f;
+    //スコア
+    [SerializeField] private int kScorePoint = 12000;
+
+
     private AttackPower m_meleePower;
     private AttackPower m_tacklePower;
     //攻撃判定
@@ -29,11 +43,8 @@ public class Boss : EnemyBase
     [SerializeField] private GameObject m_tackleEff;
     //ヒットエフェクト
     [SerializeField] private GameObject m_hitEffect;
-    //弾の速度
-    private const float kShotSpeed = 5.0f;
-
+   
     //硬直フレーム
-    private const float kFreezeFrame = 3.0f;
     private float m_freezeTime;
     //ダメージを受けたときに少し止まる
     private const float kStopFrame = 0.2f;
@@ -51,17 +62,12 @@ public class Boss : EnemyBase
     //タックルチャージ完了
     private bool m_isChargeCmp = false;
     //タックルの持続時間
-    private float kTackleFrame = 40.0f;
     private float m_tackleTime;
-    //タックルのスピード
-    private float kTackleSpeed = 1500.0f;
-    //スコア
-    private const int kScorePoint = 12000;
 
-    [SerializeField] protected AudioClip m_attackHitSE; //攻撃ヒットSE
-    [SerializeField] protected AudioClip m_chargeSE; //チャージSE
-    [SerializeField] protected AudioClip m_magicSE; //魔法SE
-    [SerializeField] protected AudioClip m_damageSE;    //ダメージSE
+    [SerializeField] private AudioClip m_attackHitSE; //攻撃ヒットSE
+    [SerializeField] private AudioClip m_chargeSE; //チャージSE
+    [SerializeField] private AudioClip m_magicSE; //魔法SE
+    [SerializeField] private AudioClip m_damageSE;    //ダメージSE
 
     // Start is called before the first frame update
     override protected void Start()
@@ -69,7 +75,7 @@ public class Boss : EnemyBase
         base.Start();
         //人数が多い場合少し体力が増える
         int addHp = 0;
-        if (m_targetList.Length > 2) addHp = 6000;
+        if (m_targetList.Length > 2) addHp = kAddHP;
         m_characterStatus.hitPoint = kHP + addHp;
         //体力バーに設定
         Slider hpBar = transform.Find("Canvas_Hp/Hpbar").gameObject.GetComponent<Slider>();

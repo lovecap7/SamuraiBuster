@@ -7,24 +7,25 @@ using static UnityEngine.GraphicsBuffer;
 public class Warrior : EnemyBase
 {
     //体力
-    private int kHP = 1000;
+    [SerializeField] private int kHP = 1000;
+    //増加体力
+    [SerializeField] private int kAddHP = 200;
     //ダメージ
-    private int kDamage = 150;
+    [SerializeField] private int kDamage = 150;
     private AttackPower m_attackPower;
+    //追いかける速度
+    [SerializeField] private float kChaseSpeed = 35.0f;
+    //スコア
+    [SerializeField] private const int kScorePoint = 1000;
+
     //攻撃判定
     [SerializeField] private GameObject m_sword;
     private CapsuleCollider m_swordCollider;
     //ヒットエフェクト
     [SerializeField] private GameObject m_hitEffect;
-
-    //追いかける速度
-    private float kChaseSpeed = 35.0f;
     private float kChaseDis = 1.4f;
     //のけぞる
     private float kKnockBackForce = 1.1f;
-
-    //スコア
-    private const int kScorePoint = 1000;
 
     [SerializeField] protected AudioClip m_attackHitSE; //攻撃SE
     [SerializeField] protected AudioClip m_damageSE;    //ダメージSE
@@ -36,7 +37,7 @@ public class Warrior : EnemyBase
         //体力とダメージ
         //人数が多い場合少し体力が増える
         int addHp = 0;
-        if (m_targetList.Length > 2) addHp = 200;
+        if (m_targetList.Length > 2) addHp = kAddHP;
         m_characterStatus.hitPoint = kHP + addHp;
         //体力バーに設定
         Slider hpBar = transform.Find("Canvas_Hp/Hpbar").gameObject.GetComponent<Slider>();
