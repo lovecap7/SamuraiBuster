@@ -123,6 +123,7 @@ abstract public class PlayerBase : MonoBehaviour, IInputReceiver
     // ƒ[ƒ‹‚É‚æ‚Á‚ÄÀ‘•‚ğ•Ï‚¦‚é
     abstract public void PlayerAttack();
     abstract public void PlayerSkill();
+    abstract public void PlayerReleaceSkill();
     abstract public void OnDamage(int damage);
     abstract public PlayerRole GetRole();
 
@@ -266,5 +267,10 @@ abstract public class PlayerBase : MonoBehaviour, IInputReceiver
     public void Skill()
     {
         PlayerSkill();
+    }
+
+    public void ReleaceSkill()
+    {
+        PlayerReleaceSkill();
     }
 }

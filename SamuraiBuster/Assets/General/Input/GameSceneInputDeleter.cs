@@ -5,15 +5,8 @@ using UnityEngine;
 // ゲームシーンに置いて、PlayerInputsがいらなくなったら消す
 public class GameSceneInputDeleter : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    private void OnDestroy()
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GameObject.Destroy(GameObject.Find("PlayerInputs"));   
     }
 }

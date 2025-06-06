@@ -11,5 +11,6 @@ public interface IInputReceiver
     void TriggerLeft();
     void Attack();
     void Skill();
+    void ReleaceSkill();
     void Move(Vector2 axis);
 }

@@ -133,4 +133,9 @@ public class Fighter : PlayerBase
     {
         m_attackPower.damage = kAttackPower3 + (int)Random.Range(kAttackRandomRange * -0.5f, kAttackRandomRange * 0.5f);
     }
+
+    public override void PlayerReleaceSkill()
+    {
+        return;
+    }
 }

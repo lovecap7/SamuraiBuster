@@ -48,13 +48,6 @@ public class Mage : PlayerBase
         ++m_attackTimer;
         if (m_attackTimer > kAttackInterval) m_attackTimer = kAttackInterval;
 
-        // もしスキルボタンが押されていなかったら
-        if (!m_inputHolder.IsSkilling)
-        {
-            // アニメーションにも反映
-            m_anim.SetBool("Skilling", false);
-        }
-
         // もしサークルが存在していたら
         if (m_previewCircleInstance != null)
         {
@@ -95,7 +88,12 @@ public class Mage : PlayerBase
         // サークルを出して隕石を落とす
         if (m_skillTimer < kSkillInterval) return;
 
-        m_anim.SetTrigger("Skilling");
+        m_anim.SetBool("Skilling", true);
+    }
+
+    public override void PlayerReleaceSkill()
+    {
+        m_anim.SetBool("Skilling", false);
     }
 
     public override void OnDamage(int damage)

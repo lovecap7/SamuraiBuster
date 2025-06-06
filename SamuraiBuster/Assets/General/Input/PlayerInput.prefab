@@ -200,6 +200,18 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+      - m_Target: {fileID: 7743186570623048064}
+        m_TargetAssemblyTypeName: GameInputHolder, Assembly-CSharp
+        m_MethodName: OnReleaceSkill
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: 81f882ca-5673-4835-a41c-b364075ee2b7
     m_ActionName: Game/Skill[/Keyboard/x,/XInputControllerWindows1/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 0

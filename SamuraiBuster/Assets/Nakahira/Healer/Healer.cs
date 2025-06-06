@@ -41,12 +41,6 @@ public class Healer : PlayerBase
         ++m_attackTimer;
         if (m_attackTimer > kAttackInterval) m_attackTimer = kAttackInterval;
 
-        // 入力をアニメーション側に反映
-        if (!m_inputHolder.IsSkilling)
-        {
-            m_anim.SetBool("Skill", false);
-        }
-
         // もしサークルが存在していたら
         if (m_healCirclePreviewInstance != null)
         {
@@ -89,9 +83,14 @@ public class Healer : PlayerBase
 
         if (m_isDeath) return;
 
-        m_anim.SetTrigger("Skill");
+        m_anim.SetBool("Skill", true);
 
         // この時点ではタイマーリセットはしない
+    }
+
+    public override void PlayerReleaceSkill()
+    {
+        m_anim.SetBool("Skill", false);
     }
 
     public override void OnDamage(int damage)

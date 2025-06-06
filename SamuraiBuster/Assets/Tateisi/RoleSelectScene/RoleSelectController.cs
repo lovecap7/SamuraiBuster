@@ -103,6 +103,9 @@ public class RoleSelectController : MonoBehaviour, IInputReceiver
 
     public void Submit()
     {
+        // すでに決定してるなら実行しない
+        if (isDecided) return;
+
         isDecided = true; // 決定済みフラグを立てる
 
         transform.DOPunchScale(Vector3.one, 0.2f);
@@ -114,6 +117,9 @@ public class RoleSelectController : MonoBehaviour, IInputReceiver
 
     public void Cancel()
     {
+        // 決定状態で無ければ実行しない
+        if (!isDecided) return;
+
         isDecided = false; // 決定をキャンセルする
         m_upArrow.GetComponent<Image>().color = Color.white;
         m_downArrow.GetComponent<Image>().color = Color.white;
@@ -158,6 +164,11 @@ public class RoleSelectController : MonoBehaviour, IInputReceiver
     public void Move(Vector2 axis)
     {
         // 何もしない
+        return;
+    }
+
+    public void ReleaceSkill()
+    {
         return;
     }
 }

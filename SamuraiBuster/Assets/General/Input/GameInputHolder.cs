@@ -9,16 +9,6 @@ public class GameInputHolder : MonoBehaviour
 {
     public IInputReceiver receiver;
 
-    public bool    submit        {  get; private set; }
-    public bool    cancel        {  get; private set; }
-    public bool    triggerLeft   {  get; private set; }
-    public bool    triggerRight  {  get; private set; }
-    public bool    triggerUp     {  get; private set; }
-    public bool    triggerDown   {  get; private set; }
-    public Vector2 moveAxis      {  get; private set; }
-    public bool    triggerAttack {  get; private set; }
-    public bool    triggerSkill  {  get; private set; }
-
     public void OnSubmit(InputAction.CallbackContext context)
     {
         if (!context.started) return;
@@ -78,5 +68,12 @@ public class GameInputHolder : MonoBehaviour
         if (!context.started) return;
 
         receiver?.Skill();
+    }
+
+    public void OnReleaceSkill(InputAction.CallbackContext context)
+    {
+        if (!context.canceled) return;
+
+        receiver?.ReleaceSkill();
     }
 }

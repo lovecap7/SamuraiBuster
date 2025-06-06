@@ -143,4 +143,9 @@ public class Tank : PlayerBase
     {
         return m_isSkilling;
     }
+
+    public override void PlayerReleaceSkill()
+    {
+        return;
+    }
 }
