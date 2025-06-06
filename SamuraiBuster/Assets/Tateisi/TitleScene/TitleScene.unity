@@ -1192,6 +1192,7 @@ GameObject:
   m_Component:
   - component: {fileID: 24625120}
   - component: {fileID: 24625119}
+  - component: {fileID: 24625121}
   m_Layer: 0
   m_Name: MainSoundObject
   m_TagString: Untagged
@@ -1310,6 +1311,18 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &24625121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 24625118}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2f3f5388f143d740ac18927ab5698fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &25799687
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35418,8 +35431,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2f3f5388f143d740ac18927ab5698fe, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bgm: {fileID: 24625119}
-  sceneName: 
 --- !u!4 &930364196
 Transform:
   m_ObjectHideFlags: 0
