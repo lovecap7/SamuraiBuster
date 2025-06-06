@@ -75,7 +75,6 @@ public class Boss2 : EnemyBase
     // Start is called before the first frame update
     override protected void Start()
     {
-        base.Start();
         //人数が多い場合少し体力が増える
         int addHp = 0;
         if (m_targetList.Length > 2) addHp = kAddHP;
@@ -574,6 +573,7 @@ public class Boss2 : EnemyBase
     // Update is called once per frame
     override protected void Update()
     {
+       
         base.Update();
         //死亡していたら
         if (m_isDead)
@@ -588,11 +588,7 @@ public class Boss2 : EnemyBase
             m_stopFrame = 0.0f;//リセット
             m_animator.speed = 1.0f;
         }
-        //追いかけるターゲットがいないなら待機状態にする
-        if (!m_isHitSearch)
-        {
-            ChangeState(StateType.Idle);
-        }
+     
         //状態に合わせた処理
         UpdateState();
 
@@ -601,6 +597,7 @@ public class Boss2 : EnemyBase
 
     private void OnTriggerEnter(Collider other)
     {
+        if (m_isUpdateStop) return;
         if (m_isDead) return;//死亡していたら何もしない
         //攻撃されたとき
         if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")

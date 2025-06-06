@@ -41,9 +41,10 @@ public class Wizard : EnemyBase
     [SerializeField] protected AudioClip m_magicSE; //魔法SE
     [SerializeField] protected AudioClip m_damageSE;    //ダメージSE
 
-    override protected void Start()
+    override protected IEnumerator Start()
     {
-        base.Start();
+        yield return base.Start();
+
         //体力
         //人数が多い場合少し体力が増える
         int addHp = 0;
@@ -374,6 +375,7 @@ public class Wizard : EnemyBase
     // Update is called once per frame
     override protected void Update()
     {
+        if (m_isUpdateStop) return;
         base.Update();
         //バックステップのクールタイム
         m_backCoolTime -= Time.deltaTime;
@@ -383,17 +385,14 @@ public class Wizard : EnemyBase
         {
             ChangeState(StateType.Dead);
         }
-        //追いかけるターdゲットがいないなら待機状態にする
-        else if (!m_isHitSearch)
-        {
-            ChangeState(StateType.Idle);
-        }
+     
         //状態に合わせた処理
         UpdateState();
     }
 
     private void OnTriggerEnter(Collider other)
     {
+        if (m_isUpdateStop) return;
         if (m_isDead) return;//死亡していたら何もしない
         //攻撃されたとき
         if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")

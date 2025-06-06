@@ -307,25 +307,21 @@ public class Warrior : EnemyBase
 
     // Update is called once per frame
     override protected void Update()
-    {
+    {    
         base.Update();
         //€–S‚µ‚Ä‚¢‚½‚ç
         if (m_isDead)
         {
             ChangeState(StateType.Dead);
         }
-        //’Ç‚¢‚©‚¯‚éƒ^[ƒQƒbƒg‚ª‚¢‚È‚¢‚È‚ç‘Ò‹@ó‘Ô‚É‚·‚é
-        else if (!m_isHitSearch)
-        {
-            ChangeState(StateType.Idle);
-        }
+        
         //ó‘Ô‚É‡‚í‚¹‚½ˆ—
         UpdateState();
     }
 
     private void OnTriggerEnter(Collider other)
     {
-        if(m_isDead) return;//€–S‚µ‚Ä‚¢‚½‚ç‰½‚à‚µ‚È‚¢
+        if (m_isDead) return;//€–S‚µ‚Ä‚¢‚½‚ç‰½‚à‚µ‚È‚¢
         //UŒ‚‚³‚ê‚½‚Æ‚«
         if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")
         {

@@ -72,7 +72,6 @@ public class Boss : EnemyBase
     // Start is called before the first frame update
     override protected void Start()
     {
-        base.Start();
         //人数が多い場合少し体力が増える
         int addHp = 0;
         if (m_targetList.Length > 2) addHp = kAddHP;
@@ -553,11 +552,7 @@ public class Boss : EnemyBase
             m_stopFrame = 0.0f;//リセット
             m_animator.speed = 1.0f;
         }
-        //追いかけるターゲットがいないなら待機状態にする
-        if (!m_isHitSearch)
-        {
-            ChangeState(StateType.Idle);
-        }
+    
         //状態に合わせた処理
         UpdateState();
 

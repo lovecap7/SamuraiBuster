@@ -49,6 +49,12 @@ public class ScoreResult : MonoBehaviour
     //フェード
     [SerializeField] private ResultFade m_resultFade;
 
+    //BGM
+    [SerializeField] private AudioClip m_winBgm;
+    [SerializeField] private AudioClip m_loseBgm;
+    private AudioSource m_audioSource;
+   
+
     // Start is called before the first frame update
     void Start()
     {
@@ -59,19 +65,21 @@ public class ScoreResult : MonoBehaviour
         m_retry.GetComponent<RetryOrBuck>().SetIsActive(true);
         m_select.GetComponent<RetryOrBuck>().SetIsActive(false);
 
-
+        m_audioSource = GetComponent<AudioSource>();
         m_annihilationScore = PlayerPrefs.GetFloat("AnnihilationScore", 0.0f);//殲滅スコア
         m_timeScore = PlayerPrefs.GetFloat("TimeScore", 0.0f) * 10.0f;//タイマー
         m_totalScore = m_annihilationScore + m_timeScore;//合計
         if (m_timeScore <= 0.0f)
         {
+            m_audioSource.clip = m_loseBgm;
             m_finishResultText.text = "時間切れ";
         }
         else
         {
+            m_audioSource.clip = m_winBgm;
             m_finishResultText.text = "勝利";
         }
-
+        m_audioSource.Play();
         //最初は0で表示
         m_annihilationScoreText.text = m_countAnnihiScore.ToString("0");
         m_timerScoreText.text = m_countTimeScore.ToString("0");

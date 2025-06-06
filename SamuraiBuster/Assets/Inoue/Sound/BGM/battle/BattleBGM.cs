@@ -36,7 +36,6 @@ public class BattleBGM : MonoBehaviour
         //É{ÉXêÌÇÃBGMÇ…ïœçX
         if (m_bossBgm != null)
         {
-            m_audioSource.Stop();
             m_audioSource.clip = m_bossBgm;
             m_audioSource.Play();
         }
