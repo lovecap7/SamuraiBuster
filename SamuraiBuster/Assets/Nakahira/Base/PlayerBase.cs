@@ -2,7 +2,7 @@ using UnityEngine;
 using PlayerCommon;
 using JetBrains.Annotations;
 
-abstract public class PlayerBase : MonoBehaviour
+abstract public class PlayerBase : MonoBehaviour, IInputReceiver
 {
     const float kMoveSpeed = 2000.0f;
     const float kRotateSpeed = 0.2f;
@@ -63,28 +63,10 @@ abstract public class PlayerBase : MonoBehaviour
             return;
         }
 
-        // “ü—Í‚ğó‚¯æ‚é
-        GetInput();
-
         Move();
-
-        if (m_inputHolder.IsAttacking && m_canAttack)
-        {
-            Attack();
-        }
-
-        if (m_inputHolder.IsSkilling)
-        {
-            Skill();
-        }
 
         // –³“GŠÔ‚ÌŒo‰ß
         --m_isInvincibleFrame;
-    }
-
-    private void GetInput()
-    {
-        m_inputAxis = m_inputHolder.InputAxis;
     }
 
     private void Move()
@@ -139,8 +121,8 @@ abstract public class PlayerBase : MonoBehaviour
     abstract public float GetHitPointRatio();
     abstract public float GetSkillChargeRatio();
     // ƒ[ƒ‹‚É‚æ‚Á‚ÄÀ‘•‚ğ•Ï‚¦‚é
-    abstract public void Attack();
-    abstract public void Skill();
+    abstract public void PlayerAttack();
+    abstract public void PlayerSkill();
     abstract public void OnDamage(int damage);
     abstract public PlayerRole GetRole();
 
@@ -237,5 +219,52 @@ abstract public class PlayerBase : MonoBehaviour
             m_healEffect.SetActive(false);
             return;
         }
+    }
+
+    public void Submit()
+    {
+        return;
+    }
+
+    public void Cancel()
+    {
+        return;
+    }
+
+    public void TriggerUp()
+    {
+        return;
+    }
+
+    public void TriggerDown()
+    {
+        return;
+    }
+
+    public void TriggerRight()
+    {
+        return;
+    }
+
+    public void TriggerLeft()
+    {
+        return;
+    }
+
+    public void Move(Vector2 axis)
+    {
+        m_inputAxis = axis;
+    }
+
+    public void Attack()
+    {
+        if (!m_canAttack) return;
+
+        PlayerAttack();
+    }
+
+    public void Skill()
+    {
+        PlayerSkill();
     }
 }

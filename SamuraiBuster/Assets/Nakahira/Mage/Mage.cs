@@ -78,7 +78,7 @@ public class Mage : PlayerBase
         return (float)m_skillTimer / (float)kSkillInterval;
     }
 
-    public override void Attack()
+    public override void PlayerAttack()
     {
         // タイマーがクールタイムに達していないと何もしない
         if (m_attackTimer < kAttackInterval) return;
@@ -90,7 +90,7 @@ public class Mage : PlayerBase
         m_attackTimer = 0;
     }
 
-    public override void Skill()
+    public override void PlayerSkill()
     {
         // サークルを出して隕石を落とす
         if (m_skillTimer < kSkillInterval) return;

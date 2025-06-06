@@ -203,7 +203,7 @@ MonoBehaviour:
     m_ActionId: 81f882ca-5673-4835-a41c-b364075ee2b7
     m_ActionName: Game/Skill[/Keyboard/x,/XInputControllerWindows1/buttonSouth]
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: Game
+  m_DefaultControlScheme: 
   m_DefaultActionMap: Game
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}

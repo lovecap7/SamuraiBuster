@@ -8,7 +8,7 @@ public class RoleSelectController : MonoBehaviour, IInputReceiver
     private Vector3 initPos;
     private GameObject m_upArrow;
     private GameObject m_downArrow;
-    private GameObject m_player;
+    private GameObject m_activeStandModel;
 
     // この順番でヒエラルキーに置いてある前提
     public enum RoleKind:int
@@ -37,12 +37,13 @@ public class RoleSelectController : MonoBehaviour, IInputReceiver
     void Start()
     {
         selectedRole = RoleKind.Fighter; // 初期ロールを設定
-        m_players.transform.GetChild((int)selectedRole).gameObject.SetActive(true);
+        m_activeStandModel = m_players.transform.GetChild((int)selectedRole).gameObject;
+        m_activeStandModel.SetActive(true);
         transform.GetChild((int)selectedRole).gameObject.SetActive(true);
 
         // 自分が上から何番目かで紐づけるPlayerInputを決める
         GameInputManager gameInputManager = GameObject.Find("PlayerInputs").GetComponent<GameInputManager>();
-        gameInputManager.m_receivers.Add(this);
+        gameInputManager.AddReceiver(this);
 
         initPos = transform.localPosition;
 
@@ -95,8 +96,9 @@ public class RoleSelectController : MonoBehaviour, IInputReceiver
 
     private void ChangeModel(RoleKind beforeRole, RoleKind nextRole)
     {
-        m_players.transform.GetChild((int)beforeRole).gameObject.SetActive(false);
-        m_players.transform.GetChild((int)nextRole).gameObject.SetActive(true);
+        m_activeStandModel.SetActive(false);
+        m_activeStandModel = m_players.transform.GetChild((int)nextRole).gameObject;
+        m_activeStandModel.SetActive(true);
     }
 
     public void Submit()
@@ -106,6 +108,8 @@ public class RoleSelectController : MonoBehaviour, IInputReceiver
         transform.DOPunchScale(Vector3.one, 0.2f);
         m_upArrow.GetComponent<Image>().color = Color.gray;
         m_downArrow.GetComponent<Image>().color = Color.gray;
+        // プレイヤーにエモートさせる
+        m_activeStandModel.GetComponent<Animator>().SetTrigger("Emote");
     }
 
     public void Cancel()
@@ -113,6 +117,9 @@ public class RoleSelectController : MonoBehaviour, IInputReceiver
         isDecided = false; // 決定をキャンセルする
         m_upArrow.GetComponent<Image>().color = Color.white;
         m_downArrow.GetComponent<Image>().color = Color.white;
+        // プレイヤーにエモートさせる
+        // 同じトリガーでキャンセルもさせてます
+        m_activeStandModel.GetComponent<Animator>().SetTrigger("Emote");
     }
 
     public void TriggerUp()

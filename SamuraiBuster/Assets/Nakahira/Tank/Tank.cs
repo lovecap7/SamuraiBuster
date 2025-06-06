@@ -72,7 +72,7 @@ public class Tank : PlayerBase
         return (float)m_skillTimer / (float)kSkillInterval;
     }
 
-    public override void Attack()
+    public override void PlayerAttack()
     {
         if (m_attackTimer < kAttackInterval) return;
 
@@ -86,7 +86,7 @@ public class Tank : PlayerBase
         m_attackTimer = 0;
     }
 
-    public override void Skill()
+    public override void PlayerSkill()
     {
         // —Y‚½‚¯‚Ñ‚ðã‚°‚ÄƒwƒCƒg‚ðW‚ß‚é
         if (m_skillTimer < kSkillInterval) return;
