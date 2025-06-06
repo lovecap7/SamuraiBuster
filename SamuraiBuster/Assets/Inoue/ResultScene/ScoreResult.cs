@@ -80,7 +80,7 @@ public class ScoreResult : MonoBehaviour
         m_updateText.SetActive(false);
         m_highScore = PlayerPrefs.GetFloat("HighScore", 0.0f);
         //ハイスコアの更新
-        if (m_totalScore >= m_highScore)
+        if (m_totalScore > m_highScore)
         {
             m_highScore = m_totalScore;
             PlayerPrefs.SetFloat("HighScore", m_highScore);
