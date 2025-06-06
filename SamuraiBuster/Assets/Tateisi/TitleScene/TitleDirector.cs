@@ -11,8 +11,8 @@ public class TitleDirector : MonoBehaviour
         if(context.performed)
         {
             Debug.Log("Press Any Button");
-            //UnityEngine.SceneManagement.SceneManager.LoadScene("StageSelectScene");
-           UnityEngine.SceneManagement.SceneManager.LoadScene("ResultScene");
+            UnityEngine.SceneManagement.SceneManager.LoadScene("StageSelectScene");
+            //UnityEngine.SceneManagement.SceneManager.LoadScene("ResultScene");
         }
     }
 }

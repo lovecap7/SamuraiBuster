@@ -8,15 +8,25 @@ using UnityEngine.UI;
 
 public class ScoreResult : MonoBehaviour
 {
+    //ランク別のスコア
+    [SerializeField] private float kRankBScore = 3000.0f;
+    [SerializeField] private float kRankAScore = 10000.0f;
+    [SerializeField] private float kRankSScore = 17000.0f;
+
     private float m_annihilationScore = 0;
     private float m_timeScore = 0;
     private float m_totalScore = 0;
     private float m_countAnnihiScore = 0;
     private float m_countTimeScore = 0;
     private float m_countTotalScore = 0;
-    private  bool m_isFinishCountScore = false;
+    private bool m_isFinishCountScore = false;
+    private float m_highScore = 0;
+
     //結果
     [SerializeField] private Text m_finishResultText;
+    //更新の文字
+    [SerializeField] private GameObject m_updateText;
+
     // スコア表示用UIテキスト
     [SerializeField] private Text m_annihilationScoreText;
     [SerializeField] private Text m_timerScoreText;
@@ -30,11 +40,6 @@ public class ScoreResult : MonoBehaviour
     //ランクの表示にディレイかける
     private const float kRankActiveFrame = 0.5f;
     private float m_rankCountFrame = 0;
-    //ランク別のスコア
-    private const float kRankCScore = 100.0f;
-    private const float kRankBScore = 300.0f;
-    private const float kRankAScore = 1000.0f;
-    private const float kRankSScore = 1700.0f;
     //リトライとセレクトを表示する
     [SerializeField] private GameObject m_retry;
     [SerializeField] private GameObject m_select;
@@ -58,7 +63,7 @@ public class ScoreResult : MonoBehaviour
         m_annihilationScore = PlayerPrefs.GetFloat("AnnihilationScore", 0.0f);//殲滅スコア
         m_timeScore = PlayerPrefs.GetFloat("TimeScore", 0.0f) * 10.0f;//タイマー
         m_totalScore = m_annihilationScore + m_timeScore;//合計
-        if(m_timeScore <= 0.0f)
+        if (m_timeScore <= 0.0f)
         {
             m_finishResultText.text = "時間切れ";
         }
@@ -71,8 +76,19 @@ public class ScoreResult : MonoBehaviour
         m_annihilationScoreText.text = m_countAnnihiScore.ToString("0");
         m_timerScoreText.text = m_countTimeScore.ToString("0");
         m_totalScoreText.text = m_countTotalScore.ToString("0");
-        m_highScoreText.text = PlayerPrefs.GetInt("HighScore", 1000).ToString("0");
-       
+
+        m_updateText.SetActive(false);
+        m_highScore = PlayerPrefs.GetFloat("HighScore", 0.0f);
+        //ハイスコアの更新
+        if (m_totalScore >= m_highScore)
+        {
+            m_highScore = m_totalScore;
+            PlayerPrefs.SetFloat("HighScore", m_highScore);
+            m_updateText.SetActive(true);
+        }
+        m_highScoreText.text = m_highScore.ToString("0");
+
+
         //ランク非表示
         m_rankC.SetActive(false);
         m_rankB.SetActive(false);
@@ -158,12 +174,12 @@ public class ScoreResult : MonoBehaviour
         }
 
     }
-    private void AddScore(ref float countScore, ref float score,ref Text text)
+    private void AddScore(ref float countScore, ref float score, ref Text text)
     {
         countScore = countScore * (1.0f - 0.2f) + score * 0.2f;
         text.text = countScore.ToString("0");
     }
-  
+
     public void RetrySelect(InputAction.CallbackContext context)
     {
         if (m_selectUICountFrame <= 0.0f)
@@ -201,5 +217,4 @@ public class ScoreResult : MonoBehaviour
         //    m_isFinishCountScore = true;
         //}
     }
-
 }
