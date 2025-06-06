@@ -63,8 +63,6 @@ public class GameInputHolder : MonoBehaviour
 
     public void OnMove(InputAction.CallbackContext context)
     {
-        if (!context.started) return;
-
         receiver?.Move(context.ReadValue<Vector2>());
     }
 

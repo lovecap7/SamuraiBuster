@@ -53,7 +53,7 @@ public class Fighter : PlayerBase
         return (float)m_skillTimer / (float)kSkillInterval;
     }
 
-    public override void Attack()
+    public override void PlayerAttack()
     {
         // “‚ğU‚é
         m_anim.SetTrigger("Attack");
@@ -62,7 +62,7 @@ public class Fighter : PlayerBase
         // ƒKƒ“ƒKƒ“‰£‚êI
     }
 
-    public override void Skill()
+    public override void PlayerSkill()
     {
         // ƒhƒbƒWƒ[ƒ‹
         if (m_skillTimer < kSkillInterval) return;
