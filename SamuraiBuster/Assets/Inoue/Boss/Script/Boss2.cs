@@ -597,7 +597,6 @@ public class Boss2 : EnemyBase
 
     private void OnTriggerEnter(Collider other)
     {
-        if (m_isUpdateStop) return;
         if (m_isDead) return;//€–S‚µ‚Ä‚¢‚½‚ç‰½‚à‚µ‚È‚¢
         //UŒ‚‚³‚ê‚½‚Æ‚«
         if (other.tag == "PlayerMeleeAttack" || other.tag == "PlayerRangeAttack")

@@ -99,7 +99,6 @@ abstract public class EnemyBase : MonoBehaviour
     // Update is called once per frame
     virtual protected void Update()
     {
-        if (m_isUpdateStop) return;
         //一番近い敵をターゲットに
         SerchTarget();
         //攻撃クールタイム

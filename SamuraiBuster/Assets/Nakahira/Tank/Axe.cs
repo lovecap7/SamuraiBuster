@@ -7,22 +7,21 @@ public class Axe : MonoBehaviour
     [SerializeField]
     GameObject m_hitEffect;
 
-    private readonly string[] m_ignoreTags =
+    private readonly string[] m_hitTags =
     {
-        "Fighter",
-        "Healer",
-        "Mage",
-        "Tank",
-        "Ground"
+        "RangeEnemy",
+        "MeleeEnemy",
+        "Boss",
+        "Wall"
     };
 
     private void OnTriggerEnter(Collider other)
     {
         // ブラックリストとホワイトリスト、どっちが楽か…
         // 敵、壁に当たったら火花を散らす
-        foreach (string ignTag in m_ignoreTags)
+        foreach (string hitTag in m_hitTags)
         {
-            if (other.CompareTag(ignTag)) return;
+            if (!other.CompareTag(hitTag)) return;
         }
 
         Instantiate(m_hitEffect, transform.position, transform.rotation);
