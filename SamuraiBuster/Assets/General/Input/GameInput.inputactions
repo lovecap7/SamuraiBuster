@@ -102,7 +102,7 @@
                 {
                     "name": "",
                     "id": "b273f33e-7ad3-4a97-a03c-f475d65ccb4a",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<XInputController>/buttonSouth",
                     "interactions": "Press",
                     "processors": "",
                     "groups": "Game",
@@ -124,7 +124,7 @@
                 {
                     "name": "",
                     "id": "11416948-0983-4e7c-b862-97d631ba78d8",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<XInputController>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Game",
@@ -212,7 +212,7 @@
                 {
                     "name": "",
                     "id": "f5c8f2ab-ab5e-42c3-b610-9f86e8629f0b",
-                    "path": "<Gamepad>/buttonEast",
+                    "path": "<XInputController>/buttonSouth",
                     "interactions": "",
                     "processors": "",
                     "groups": "Game",
@@ -245,7 +245,7 @@
                 {
                     "name": "",
                     "id": "7fe670ce-32b0-4fab-bff1-753a68b5c96c",
-                    "path": "<Gamepad>/buttonSouth",
+                    "path": "<XInputController>/buttonEast",
                     "interactions": "",
                     "processors": "",
                     "groups": "Game",

@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class GameInputManager : MonoBehaviour
 {
@@ -15,7 +15,11 @@ public class GameInputManager : MonoBehaviour
     // Start is called before the first frame update
     IEnumerator Start()
     {
+        // 1フレ遅らせる
         yield return null;
+
+        // シーンが切り替わったときに実行する関数を登録
+        SceneManager.sceneLoaded += SceneLoded;
 
         // Input関連を消えないようにする
         // これがゲームを通して存在することで、デバイスがシャッフルされるのを防ぐ
@@ -69,5 +73,25 @@ public class GameInputManager : MonoBehaviour
     public void AddReceiver(IInputReceiver receiver)
     {
         m_receivers.Add(receiver);
+    }
+
+    private void SceneLoded(Scene nextScene, LoadSceneMode mode)
+    {
+        // シーンが切り替わったら、前のシーンにあったReceiverは消えるので削除しておく
+        m_receivers.Clear();
+
+        foreach (var holder in m_inputHolders)
+        {
+            holder.receiver = null;
+        }
+
+        StartCoroutine(SetInterfaceCoroutine());
+    }
+
+    IEnumerator SetInterfaceCoroutine()
+    {
+        yield return null;
+
+        SetInterface();
     }
 }

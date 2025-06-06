@@ -8,8 +8,10 @@ public class PlayersInitPos : MonoBehaviour
     private GameObject[] m_players; //プレイヤーのオブジェクト
     private Vector3[] m_initPos; //プレイヤーの初期位置
     // Start is called before the first frame update
-    void Start()
+    IEnumerator Start()
     {
+        yield return null;
+
         // 子オブジェクト達を入れる配列の初期化
         m_players = new GameObject[this.gameObject.transform.childCount];
         m_initPos = new Vector3[this.gameObject.transform.childCount];
