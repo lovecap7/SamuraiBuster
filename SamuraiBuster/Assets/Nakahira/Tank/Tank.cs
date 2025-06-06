@@ -10,17 +10,18 @@ public class Tank : PlayerBase
     GameObject m_buffEffect;
     AttackPower m_attackPower;
 
-    const int kSkillInterval = 420;
-    protected override int MaxHP { get => 1000; }
-    const float kDamageCutRate = 0.5f;
-    const int kAttackInterval = 90;
-    const int kSkillDuration = 360;
-    const int kAttackPower = 250;
-    const int kAttackPowerRandomRange = 50;
+    public int kSkillInterval = 420;
+    public int Hp = 1000;
+    protected override int MaxHP { get => Hp; }
+    public float kDamageCutRate = 0.5f;
+    public int kAttackInterval = 90;
+    public int kSkillDuration = 360;
+    public int kAttackPower = 250;
+    public int kAttackPowerRandomRange = 50;
 
     // 最初はスキルもたまっている
-    int m_skillTimer = kSkillInterval;
-    int m_attackTimer = kAttackInterval;
+    int m_skillTimer;
+    int m_attackTimer;
     // スキルの効果が続いているかどうか
     bool m_isSkilling = false;
 
@@ -38,6 +39,8 @@ public class Tank : PlayerBase
         m_attackPower = m_axe.GetComponent<AttackPower>();
         m_axeCollider.enabled = false;
         m_characterStatus.hitPoint = MaxHP;
+        m_skillTimer = kSkillInterval;
+        m_attackTimer = kAttackInterval;
     }
 
     // Update is called once per frame

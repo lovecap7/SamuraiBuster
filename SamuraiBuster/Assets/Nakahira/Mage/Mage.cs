@@ -12,9 +12,10 @@ public class Mage : PlayerBase
     [SerializeField]
     GameObject m_meterPrefab;
 
-    const int kAttackInterval = 120;
-    const int kSkillInterval = 600;
-    protected override int MaxHP { get => 375; }
+    public int kAttackInterval = 120;
+    public int kSkillInterval = 600;
+    public int Hp = 375;
+    protected override int MaxHP { get => Hp; }
     const float kCircleMoveSpeed = 0.5f;
 
     Quaternion kFireRotation = Quaternion.AngleAxis(20, Vector3.up);
