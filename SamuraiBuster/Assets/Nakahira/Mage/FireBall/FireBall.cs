@@ -11,11 +11,11 @@ public class FireBall : MonoBehaviour
     int m_timer = 0;
     [SerializeField]
     GameObject m_hitEffect;
-    const int kLifeTime = 300;
+    public int kLifeTime = 300;
     Vector3 kAppearSpeed = new(1.0f/ kAppearFrame, 1.0f / kAppearFrame, 1.0f / kAppearFrame);
     const int kAppearFrame = 60;
-    const int kAttackPower = 200;
-    const int kAttackPowerRandomRange = 100;
+    public int kAttackPower = 200;
+    public int kAttackPowerRandomRange = 100;
     AttackPower m_attackPower;
 
     // Start is called before the first frame update
