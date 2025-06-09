@@ -1,6 +1,8 @@
 using UnityEngine;
 using PlayerCommon;
 using JetBrains.Annotations;
+using Unity.VisualScripting;
+using UnityEngine.SceneManagement;
 
 abstract public class PlayerBase : MonoBehaviour, IInputReceiver
 {
@@ -48,6 +50,8 @@ abstract public class PlayerBase : MonoBehaviour, IInputReceiver
         // 自分が何Pなのかを把握する
         int playerNumber = transform.GetSiblingIndex();
         transform.Find("PlayerNumber").GetChild(playerNumber).gameObject.SetActive(true);
+
+        SceneManager.sceneLoaded += OnSceneChanged;
     }
 
     // Update is called once per frame
@@ -272,5 +276,11 @@ abstract public class PlayerBase : MonoBehaviour, IInputReceiver
     public void ReleaceSkill()
     {
         PlayerReleaceSkill();
+    }
+
+    private void OnSceneChanged(Scene nextScene, LoadSceneMode mode)
+    {
+        // シーンが切り替わったら、カメラを再検索
+        m_camera = Camera.main.gameObject;
     }
 }

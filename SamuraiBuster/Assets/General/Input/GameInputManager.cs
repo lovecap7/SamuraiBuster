@@ -77,21 +77,11 @@ public class GameInputManager : MonoBehaviour
 
     private void SceneLoded(Scene nextScene, LoadSceneMode mode)
     {
-        // シーンが切り替わったら、前のシーンにあったReceiverは消えるので削除しておく
-        m_receivers.Clear();
-
-        foreach (var holder in m_inputHolders)
-        {
-            holder.receiver = null;
-        }
-
-        StartCoroutine(SetInterfaceCoroutine());
+        SetInterface();
     }
 
-    IEnumerator SetInterfaceCoroutine()
+    public void ClearReceiver()
     {
-        yield return null;
-
-        SetInterface();
+        m_receivers.Clear();
     }
 }

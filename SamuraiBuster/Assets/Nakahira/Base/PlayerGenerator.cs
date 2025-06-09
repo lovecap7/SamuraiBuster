@@ -1,17 +1,18 @@
-using PlayerCommon;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // ステージに生成する時に使う
 public class PlayerGenerator : MonoBehaviour
 {
     private int m_playerNum;
     [SerializeField] private GameObject[] m_playerPrefabs = new GameObject[4];
+    private GameInputManager m_gameInputManager;
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
+
+        SceneManager.sceneLoaded += OnSceneChanged;
     }
 
     public void GeneratePlayer()
@@ -19,17 +20,26 @@ public class PlayerGenerator : MonoBehaviour
         // PlayerPrefsからデータを拝借
         m_playerNum = PlayerPrefs.GetInt("PlayerNum");
 
-        GameInputManager inputManager = GameObject.Find("PlayerInputs").GetComponent<GameInputManager>();
+        m_gameInputManager = GameObject.Find("PlayerInputs").GetComponent<GameInputManager>();
 
+        // 生成
         for (int i = 0; i < m_playerNum; ++i)
         {
             int role = PlayerPrefs.GetInt("PlayerRole" + i.ToString());
             GameObject player = Instantiate(m_playerPrefabs[role], transform);
-            // 初期位置とか
-            player.transform.position = i * new Vector3(1, 0, 0);
+        }
+    }
 
-            // 入力を紐づける
-            inputManager.AddReceiver(player.GetComponent<PlayerBase>());
+    private void OnSceneChanged(Scene nextScene, LoadSceneMode mode)
+    {
+        // こちら側でレシーバーを消す
+        // InputManagerでやると実行順の都合が悪い
+        m_gameInputManager.ClearReceiver();
+
+        // 今作られているプレイヤーの入力を登録しなおす
+        for (int i = 0; i < m_playerNum; ++i)
+        {
+            m_gameInputManager.AddReceiver(transform.GetChild(i).GetComponent<PlayerBase>());
         }
     }
 }
