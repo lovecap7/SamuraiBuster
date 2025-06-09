@@ -5,14 +5,29 @@ using UnityEngine.InputSystem;
 
 public class TitleDirector : MonoBehaviour
 {
-    public void PrassAnyButton(InputAction.CallbackContext context)
+    [SerializeField] private FadeManager m_fadeManager;
+
+    private void Start()
     {
-        //ボタンを押したとき
-        if(context.performed)
+        m_fadeManager.m_isFadeIn = true;
+    }
+
+    private void Update()
+    {
+        if(m_fadeManager.m_fadeAlpha >= 1.0f)
         {
             Debug.Log("Press Any Button");
             UnityEngine.SceneManagement.SceneManager.LoadScene("StageSelectScene");
             //UnityEngine.SceneManagement.SceneManager.LoadScene("ResultScene");
+        }
+    }
+
+    public void PrassAnyButton(InputAction.CallbackContext context)
+    {
+        //ボタンを押したとき
+        if(context.performed && !m_fadeManager.m_isFadeOut)
+        {
+            m_fadeManager.m_isFadeOut = true;
         }
     }
 }
