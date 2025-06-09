@@ -13,7 +13,7 @@ public class FadeManager : MonoBehaviour
     [SerializeField] private float m_fadeSpeed = 0.1f;
     public float m_fadeAlpha = 0.0f;
     private bool m_init = false;
-
+    public bool m_isFadeFinish = false;
     // Start is called before the first frame update
     void Start()
     {
@@ -31,6 +31,7 @@ public class FadeManager : MonoBehaviour
             {
                 m_fadeAlpha = 1.0f;
                 m_init = true;
+                m_isFadeFinish = false;
             }
             m_isFading = true;
             m_fade.color = new Color(0, 0, 0, m_fadeAlpha);
@@ -40,6 +41,7 @@ public class FadeManager : MonoBehaviour
                 m_fadeAlpha = 0.0f;
                 m_isFading = false;
                 m_isFadeIn = false;
+                m_isFadeFinish = true;
             }
         }
         //ˆÃ‚­‚È‚Á‚Ä‚¢‚­
@@ -50,6 +52,7 @@ public class FadeManager : MonoBehaviour
             {
                 m_fadeAlpha = 0.0f;
                 m_init = true;
+                m_isFadeFinish = false;
             }
             m_isFading = true;
             m_fade.color = new Color(0, 0, 0, m_fadeAlpha);
@@ -59,6 +62,7 @@ public class FadeManager : MonoBehaviour
                 m_fadeAlpha = 1.0f;
                 m_isFading = false;
                 m_isFadeOut = false;
+                m_isFadeFinish = true;
             }
         }
     }
