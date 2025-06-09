@@ -19,11 +19,11 @@ public class PlayersInitPos : MonoBehaviour
     private void Init(Scene next, LoadSceneMode mode)
     {
         // 子オブジェクト達を入れる配列の初期化
-        m_players = new GameObject[this.gameObject.transform.childCount];
-        m_initPos = new Vector3[this.gameObject.transform.childCount];
+        m_players = new GameObject[gameObject.transform.childCount];
+        m_initPos = new Vector3[gameObject.transform.childCount];
         for (int i = 0; i < m_players.Length; ++i)
         {
-            m_players[i] = this.gameObject.transform.GetChild(i).gameObject;
+            m_players[i] = gameObject.transform.GetChild(i).gameObject;
 
             // プレイヤーを適切な位置に
             m_players[i].transform.position = kInitPos + kPosOffset*i;
