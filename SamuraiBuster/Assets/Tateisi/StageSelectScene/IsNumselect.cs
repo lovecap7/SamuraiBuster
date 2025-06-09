@@ -47,6 +47,12 @@ public class IsNumselect : MonoBehaviour
     // じゃないとステージ選択の入力が流れて入ってしまうため
     public int cantSelectFrame = kCantSelectFrameCount;
 
+    //このシーンでは二つのオブジェクトがフェードを持ってるので
+    //フェードアウトをした本人が誰かを把握しなければいけない
+    [SerializeField] FadeManager m_fadeManager;
+    bool m_isFadeOwner = false;
+
+
     void Start()
     {
         Num1Selected = false;
@@ -56,6 +62,11 @@ public class IsNumselect : MonoBehaviour
     }
     void Update()
     {
+        if (m_fadeManager.m_fadeAlpha >= 1.0f && m_isFadeOwner)
+        {
+            ChangeScene();
+        }
+
         // ステージ選択画面なら、何もしない
         if (!selectstage_1.Instance.Stage1 && !selectstage_2.Instance.Stage2 && !selectstage_3.Instance.Stage3)
         {
@@ -116,6 +127,7 @@ public class IsNumselect : MonoBehaviour
 
     public void NumPlayerOK(InputAction.CallbackContext context)
     {
+        if (m_fadeManager.m_isFadeOut)return;
         if (cantSelectFrame > 0) return;
         if (!context.started) return;
 
@@ -132,6 +144,12 @@ public class IsNumselect : MonoBehaviour
         {
             PlayerPrefs.SetInt("StageNum", 3);
         }
+        m_fadeManager.m_isFadeOut = true;
+        m_isFadeOwner = true;
+    }
+
+    private void ChangeScene()
+    {
 
         // ボタンを押したとき
         // 選んでいたボタンに応じて送るデータを変える
@@ -160,6 +178,7 @@ public class IsNumselect : MonoBehaviour
             UnityEngine.SceneManagement.SceneManager.LoadScene("4PlayRollSelectScene");
             return;
         }
+      
     }
 
     /// <summary>

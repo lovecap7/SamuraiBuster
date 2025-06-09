@@ -7,6 +7,7 @@ public class RolePlayerIsNum : MonoBehaviour
 {
     private List<RoleSelectController> roleSelects;
 
+    [SerializeField] private FadeManager m_fadeManager;
     private void Start()
     {
         // プレイヤーの人数を把握
@@ -20,6 +21,11 @@ public class RolePlayerIsNum : MonoBehaviour
 
     private void Update()
     {
+        if(m_fadeManager.m_fadeAlpha >= 1.0f&& m_fadeManager.m_isFadeFinish)
+        {
+            ChangeScene();
+        }
+        if (m_fadeManager.m_isFadeOut) return;
         bool allDicided = true;
         if (roleSelects.Count == 0)
         {
@@ -33,7 +39,11 @@ public class RolePlayerIsNum : MonoBehaviour
         }
 
         if (!allDicided) return;
+        m_fadeManager.m_isFadeOut = true;
+    }
 
+    private void ChangeScene()
+    {
         int playerId = 0;
 
         // それぞれが今選んでいる役職を記憶
