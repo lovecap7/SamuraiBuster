@@ -6,7 +6,6 @@ using PlayerCommon;
 
 public class PlayerUI : MonoBehaviour
 {
-    [SerializeField]
     GameObject m_players;
 
     int m_playersCount;
@@ -22,12 +21,10 @@ public class PlayerUI : MonoBehaviour
         Icons,
     };
 
-    IEnumerator Start()
+    void Start()
     {
-        // 1フレーム遅らせる
-        // これは確実にプレイヤーを生成させてから実行するため
-        // 頼むからバグらないでくれ
-        yield return null;
+        // プレイヤーの親取得
+        m_players = GameObject.Find("Players");
 
         // 人数把握
         m_playersCount = m_players.transform.childCount;
