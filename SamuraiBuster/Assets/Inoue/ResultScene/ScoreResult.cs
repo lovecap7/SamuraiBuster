@@ -171,11 +171,21 @@ public class ScoreResult : MonoBehaviour
         {
             if (m_retry.GetComponent<RetryOrBuck>().GetIsActive())
             {
+                // プレイヤーのリセット
+                var players = GameObject.Find("Players");
+                players.GetComponent<PlayerGenerator>().RefreshPlayers();
+                players.GetComponent<PlayersInitPos>().InitPlayersPos();
+
                 //リトライ
-                SceneManager.LoadScene("StageScene");
+                string stageName = "Stage" + PlayerPrefs.GetInt("StageNum").ToString() + "Scene";
+                SceneManager.LoadScene(stageName);
             }
             else if (m_select.GetComponent<RetryOrBuck>().GetIsActive())
             {
+                // オブジェクト消す
+                Destroy(GameObject.Find("Players"));
+                Destroy(GameObject.Find("PlayerInputs"));
+
                 //セレクト
                 SceneManager.LoadScene("StageSelectScene");
             }

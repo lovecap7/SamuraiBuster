@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -7,6 +8,7 @@ public class PlayerGenerator : MonoBehaviour
     private int m_playerNum;
     [SerializeField] private GameObject[] m_playerPrefabs = new GameObject[4];
     private GameInputManager m_gameInputManager;
+    private List<PlayerBase> m_players = new(); 
 
     private void Start()
     {
@@ -27,6 +29,8 @@ public class PlayerGenerator : MonoBehaviour
         {
             int role = PlayerPrefs.GetInt("PlayerRole" + i.ToString());
             GameObject player = Instantiate(m_playerPrefabs[role], transform);
+
+            m_players.Add(player.GetComponent<PlayerBase>());
         }
     }
 
@@ -40,6 +44,14 @@ public class PlayerGenerator : MonoBehaviour
         for (int i = 0; i < m_playerNum; ++i)
         {
             m_gameInputManager.AddReceiver(transform.GetChild(i).GetComponent<PlayerBase>());
+        }
+    }
+
+    public void RefreshPlayers()
+    {
+        foreach(var player in m_players)
+        {
+            player.Refresh();
         }
     }
 }

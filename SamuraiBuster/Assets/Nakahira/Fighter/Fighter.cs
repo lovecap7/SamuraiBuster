@@ -138,4 +138,10 @@ public class Fighter : PlayerBase
     {
         return;
     }
+
+    public override void Refresh()
+    {
+        m_characterStatus.hitPoint = MaxHP;
+        m_skillTimer = kSkillInterval;
+    }
 }

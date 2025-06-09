@@ -27,6 +27,7 @@ public class PlayersInitPos : MonoBehaviour
 
             // プレイヤーを適切な位置に
             m_players[i].transform.position = kInitPos + kPosOffset*i;
+            m_players[i].transform.rotation = Quaternion.Euler(new(0, 180, 0));
 
             m_initPos[i] = m_players[i].transform.position;//初期位置登録
         }

@@ -283,4 +283,6 @@ abstract public class PlayerBase : MonoBehaviour, IInputReceiver
         // シーンが切り替わったら、カメラを再検索
         m_camera = Camera.main.gameObject;
     }
+
+    abstract public void Refresh();
 }

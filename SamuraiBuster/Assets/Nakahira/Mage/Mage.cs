@@ -162,4 +162,10 @@ public class Mage : PlayerBase
         // ƒŠƒZƒbƒg
         m_skillTimer = 0;
     }
+
+    public override void Refresh()
+    {
+        m_characterStatus.hitPoint = MaxHP;
+        m_skillTimer = kSkillInterval;
+    }
 }
