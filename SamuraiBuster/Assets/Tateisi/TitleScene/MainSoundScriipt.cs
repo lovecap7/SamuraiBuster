@@ -39,7 +39,10 @@ public class MainSoundScriipt : MonoBehaviour
         }
         else if ((SceneManager.GetActiveScene().name == "TitleScene") ||
                  (SceneManager.GetActiveScene().name == "StageSelectScene") ||
-                 (SceneManager.GetActiveScene().name == "RoleSelectScene"))
+                 (SceneManager.GetActiveScene().name == "1PlayRollSelectScene")||
+                 (SceneManager.GetActiveScene().name == "2PlayRollSelectScene") ||
+                 (SceneManager.GetActiveScene().name == "3PlayRollSelectScene") ||
+                 (SceneManager.GetActiveScene().name == "4PlayRollSelectScene"))
         {
             audioSource = this.GetComponent<AudioSource>();
             if (!audioSource.isPlaying)

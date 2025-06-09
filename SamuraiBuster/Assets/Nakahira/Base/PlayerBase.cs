@@ -22,7 +22,7 @@ abstract public class PlayerBase : MonoBehaviour, IInputReceiver
     protected Animator m_anim;
     protected Rigidbody m_rigid;
     // UŒ‚—Í‚ÆHP‚Í‚±‚±‚É“ü‚Á‚Ä‚¢‚ÄAŠO‚ÉŒ©‚¹‚ç‚ê‚é
-    protected CharacterStatus m_characterStatus;
+    public CharacterStatus m_characterStatus;
     protected Vector2 m_inputAxis = new();
     protected int m_isInvincibleFrame = 0;
     // €‚ñ‚¾‚ç“§–¾‚É‚È‚é
