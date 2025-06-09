@@ -4,11 +4,11 @@ using System.Diagnostics;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-//[DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public class MainSoundScriipt : MonoBehaviour
 {
     // 自分が既に存在しているかを確認するためのフラグ  
     private static bool isInstanceExisnt = false;
+    public AudioSource audioSource;
 
     public void Awake()
     {
@@ -29,13 +29,27 @@ public class MainSoundScriipt : MonoBehaviour
     {
         if ((SceneManager.GetActiveScene().name == "Stage1Scene") ||
             (SceneManager.GetActiveScene().name == "Stage2Scene") ||
-            (SceneManager.GetActiveScene().name == "Stage3Scene"))
+            (SceneManager.GetActiveScene().name == "Stage3Scene")||
+            (SceneManager.GetActiveScene().name == "ResuktScene"))
         {
-            Destroy(this.gameObject); // 自分自身を破棄して終了  
+            audioSource = this.GetComponent<AudioSource>();
+            audioSource.Stop();
+            //Destroy(this.gameObject); // 自分自身を破棄して終了  
             return;
         }
-        // シーンを遷移してもオブジェクトを破棄しないようにする  
-        DontDestroyOnLoad(this.gameObject);
+        else if ((SceneManager.GetActiveScene().name == "TitleScene") ||
+                 (SceneManager.GetActiveScene().name == "StageSelectScene") ||
+                 (SceneManager.GetActiveScene().name == "RoleSelectScene"))
+        {
+            audioSource = this.GetComponent<AudioSource>();
+            if (!audioSource.isPlaying)
+            {
+                audioSource.Play();
+            }
+            return;
+        }
+            // シーンを遷移してもオブジェクトを破棄しないようにする  
+            DontDestroyOnLoad(this.gameObject);
     } // 修正: Update メソッドの閉じ括弧を追加  
 
     private string GetDebuggerDisplay()
