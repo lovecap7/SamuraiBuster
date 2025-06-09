@@ -25,7 +25,7 @@ public class BattleBGM : MonoBehaviour
     void Update()
     {
         //Wave3‚É“ü‚Á‚½‚çƒ{ƒXí‚ÌBGM‚É•ÏX
-        if (m_waveController.GetComponent<WaveController>().IsWave3())
+        if (m_waveController.GetComponent<WaveController>().IsWave3() && m_audioSource.clip != m_bossBgm)
         {
             ChangeBossBGM();
         }
