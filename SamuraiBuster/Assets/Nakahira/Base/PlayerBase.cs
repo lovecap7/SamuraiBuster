@@ -54,6 +54,12 @@ abstract public class PlayerBase : MonoBehaviour, IInputReceiver
         SceneManager.sceneLoaded += OnSceneChanged;
     }
 
+    private void OnDestroy()
+    {
+        // è¡ãé
+        SceneManager.sceneLoaded -= OnSceneChanged;
+    }
+
     // Update is called once per frame
     protected virtual void Update()
     {

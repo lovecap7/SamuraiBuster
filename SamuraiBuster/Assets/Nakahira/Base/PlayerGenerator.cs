@@ -54,4 +54,10 @@ public class PlayerGenerator : MonoBehaviour
             player.Refresh();
         }
     }
+
+    private void OnDestroy()
+    {
+        // ‚«‚¿‚ñ‚Æˆ—‚µ‚È‚¢‚Æ‚¢‚¯‚È‚¢‚Á‚Û‚¢
+        SceneManager.sceneLoaded -= OnSceneChanged;
+    }
 }

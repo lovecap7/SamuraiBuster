@@ -40,4 +40,11 @@ public class PlayersInitPos : MonoBehaviour
             m_players[i].transform.position = m_initPos[i]; //‰ŠúˆÊ’u‚É–ß‚·
         }
     }
+
+
+    private void OnDestroy()
+    {
+        // ‚«‚¿‚ñ‚Æˆ—‚µ‚È‚¢‚Æ‚¢‚¯‚È‚¢‚Á‚Û‚¢
+        SceneManager.sceneLoaded -= InitPos;
+    }
 }
