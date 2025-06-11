@@ -1,13 +1,7 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using StageKind;
 
-enum StageKind
-{
-    Stage1,
-    Stage2,
-    Stage3,
-    StageNum
-}
 public class PointerController : MonoBehaviour
 {
 
@@ -23,12 +17,14 @@ public class PointerController : MonoBehaviour
     public bool IsSelect_2 { get; private set; }
     public bool IsSelect_3 { get; private set; }
 
-    private StageKind stageKind;
+    private StageKindEnum stageKind;
+
+    private LightColor m_lightColor;
 
 
     private void Awake()
     {
-        stageKind = StageKind.Stage1; // 初期ステージ番号を設定
+        stageKind = StageKindEnum.Stage1; // 初期ステージ番号を設定
 
         // シングルトンインスタンスの設定
         if (Instance != null && Instance != this)
@@ -45,23 +41,25 @@ public class PointerController : MonoBehaviour
         IsSelect_2 = false;
         IsSelect_3 = false;
         targetPos = transform.position;
+
+        m_lightColor = GameObject.Find("Directional Light").GetComponent<LightColor>();
     }
     void Update()
     {
         IsSelect_1 = false;
         IsSelect_2 = false;
         IsSelect_3 = false;
-        if (stageKind == StageKind.Stage1)
+        if (stageKind == StageKindEnum.Stage1)
         {
             IsSelect_1 = true;
         }
 
-        if (stageKind == StageKind.Stage2)
+        if (stageKind == StageKindEnum.Stage2)
         {
             IsSelect_2 = true;
         }
 
-        if (stageKind == StageKind.Stage3)
+        if (stageKind == StageKindEnum.Stage3)
         {
             IsSelect_3 = true;
         }
@@ -100,8 +98,9 @@ public class PointerController : MonoBehaviour
     /// </summary>
     private void SelectStateProceed()
     {
-        stageKind = (StageKind)(((int)stageKind + 1 + (int)StageKind.StageNum) % (int)StageKind.StageNum);
+        stageKind = (StageKindEnum)(((int)stageKind + 1 + (int)StageKindEnum.StageNum) % (int)StageKindEnum.StageNum);
         targetPos.x = stageUIs[(int)stageKind].transform.position.x;
+        m_lightColor.ChangeLightColor(stageKind);
     }
 
     /// <summary>
@@ -109,7 +108,8 @@ public class PointerController : MonoBehaviour
     /// </summary>
     private void SelectStateBack()
     {
-        stageKind = (StageKind)(((int)stageKind - 1 + (int)StageKind.StageNum) % (int)StageKind.StageNum);
+        stageKind = (StageKindEnum)(((int)stageKind - 1 + (int)StageKindEnum.StageNum) % (int)StageKindEnum.StageNum);
         targetPos.x = stageUIs[(int)stageKind].transform.position.x;
+        m_lightColor.ChangeLightColor(stageKind);
     }
 }

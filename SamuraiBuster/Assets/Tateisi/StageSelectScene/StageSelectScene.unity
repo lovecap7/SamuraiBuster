@@ -37,8 +37,8 @@ RenderSettings:
   m_ReflectionBounces: 1
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
-  m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.4222233, g: 0.4526434, b: 0.47430027, a: 1}
+  m_Sun: {fileID: 1641896249}
+  m_IndirectSpecularColor: {r: 0.4363315, g: 0.47471368, b: 0.5147132, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -27238,7 +27238,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &755218657
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -62497,6 +62497,7 @@ GameObject:
   - component: {fileID: 1641896250}
   - component: {fileID: 1641896249}
   - component: {fileID: 1641896248}
+  - component: {fileID: 1641896251}
   m_Layer: 0
   m_Name: Directional Light
   m_TagString: Untagged
@@ -62511,7 +62512,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641896247}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2cbc34af2f69f4d4aa6ebf3668b9c581, type: 3}
   m_Name: 
@@ -62528,7 +62529,7 @@ Light:
   serializedVersion: 10
   m_Type: 1
   m_Shape: 0
-  m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
+  m_Color: {r: 0.39215687, g: 0.078431375, b: 0.39215687, a: 1}
   m_Intensity: 1
   m_Range: 10
   m_SpotAngle: 30
@@ -62587,13 +62588,25 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1641896247}
   serializedVersion: 2
-  m_LocalRotation: {x: 0.9000034, y: 0.0043641324, z: 0.43163365, w: 0.060557593}
-  m_LocalPosition: {x: 0, y: 4.62, z: 0}
+  m_LocalRotation: {x: -0.07547913, y: 0.4980974, z: -0.043577895, w: -0.86272997}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_LocalEulerAnglesHint: {x: -546.041, y: 668.573, z: -3.46698}
+  m_LocalEulerAnglesHint: {x: 10, y: 300, z: 0}
+--- !u!114 &1641896251
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1641896247}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a36b858d0a21b2040af81809b985574a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1655171608
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -63897,7 +63910,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &1676699433
 BoxCollider:
   m_ObjectHideFlags: 0

@@ -75,6 +75,8 @@ public class Boss2 : EnemyBase
     // Start is called before the first frame update
     override protected void Start()
     {
+        base.Start();
+
         //l”‚ª‘½‚¢ê‡­‚µ‘Ì—Í‚ª‘‚¦‚é
         int addHp = 0;
         if (m_targetList.Length > 2) addHp = kAddHP;
