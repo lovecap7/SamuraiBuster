@@ -211,6 +211,17 @@
                 },
                 {
                     "name": "",
+                    "id": "595a1d44-d925-479b-b10f-a42f678fde50",
+                    "path": "<Gamepad>/dpad",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";Game",
+                    "action": "Move",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "f5c8f2ab-ab5e-42c3-b610-9f86e8629f0b",
                     "path": "<XInputController>/buttonSouth",
                     "interactions": "",
