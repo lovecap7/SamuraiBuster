@@ -8,7 +8,7 @@ public class FadeManager : MonoBehaviour
     [SerializeField] private Image m_fade;
 
     public bool m_isFading = false;
-    public bool m_isFadeIn = false;
+    public bool m_isFadeIn = true;
     public bool m_isFadeOut = false;
     [SerializeField] private float m_fadeSpeed = 0.1f;
     public float m_fadeAlpha = 0.0f;
@@ -16,11 +16,21 @@ public class FadeManager : MonoBehaviour
     public bool m_isFadeFinish = false;
     // Start is called before the first frame update
     void Start()
-    {
-        
+    { //–¾‚é‚­‚È‚Á‚Ä‚¢‚­
+        if (m_isFadeIn)
+        {
+            m_fadeAlpha = 1.0f;
+            m_isFadeFinish = false;
+        }
+        if (m_isFadeOut)
+        {
+            m_fadeAlpha = 0.0f;
+            m_isFadeFinish = false;
+        }
+
     }
 
-    // Update is called once per frame
+            // Update is called once per frame
     void Update()
     {
         //–¾‚é‚­‚È‚Á‚Ä‚¢‚­
@@ -34,8 +44,6 @@ public class FadeManager : MonoBehaviour
                 m_isFadeFinish = false;
             }
             m_isFading = true;
-            m_fade.color = new Color(0, 0, 0, m_fadeAlpha);
-            m_fadeAlpha -= m_fadeSpeed * Time.deltaTime;
             if (m_fadeAlpha <= 0.0f)
             {
                 m_fadeAlpha = 0.0f;
@@ -43,6 +51,8 @@ public class FadeManager : MonoBehaviour
                 m_isFadeIn = false;
                 m_isFadeFinish = true;
             }
+            m_fade.color = new Color(0, 0, 0, m_fadeAlpha);
+            m_fadeAlpha -= m_fadeSpeed * Time.deltaTime;
         }
         //ˆÃ‚­‚È‚Á‚Ä‚¢‚­
         else if (m_isFadeOut)
@@ -55,8 +65,6 @@ public class FadeManager : MonoBehaviour
                 m_isFadeFinish = false;
             }
             m_isFading = true;
-            m_fade.color = new Color(0, 0, 0, m_fadeAlpha);
-            m_fadeAlpha += m_fadeSpeed * Time.deltaTime;
             if (m_fadeAlpha >= 1.0f)
             {
                 m_fadeAlpha = 1.0f;
@@ -64,6 +72,8 @@ public class FadeManager : MonoBehaviour
                 m_isFadeOut = false;
                 m_isFadeFinish = true;
             }
+            m_fade.color = new Color(0, 0, 0, m_fadeAlpha);
+            m_fadeAlpha += m_fadeSpeed * Time.deltaTime;
         }
     }
 }
