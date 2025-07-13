@@ -1,4 +1,5 @@
 using DG.Tweening;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -42,13 +43,18 @@ public class RoleSelectController : MonoBehaviour, IInputReceiver
         transform.GetChild((int)selectedRole).gameObject.SetActive(true);
 
         // ©•ª‚ªã‚©‚ç‰½”Ô–Ú‚©‚Å•R‚Ã‚¯‚éPlayerInput‚ğŒˆ‚ß‚é
-        GameInputManager gameInputManager = GameObject.Find("PlayerInputs").GetComponent<GameInputManager>();
-        gameInputManager.AddReceiver(this);
+        SetReciever(transform.GetSiblingIndex());
 
         initPos = transform.localPosition;
 
         m_upArrow = transform.GetChild(4).gameObject;
         m_downArrow = transform.GetChild(5).gameObject;
+    }
+
+    void SetReciever(int index)
+    {
+        GameInputManager gameInputManager = GameObject.Find("PlayerInputs").GetComponent<GameInputManager>();
+        gameInputManager.AddReceiver(this, index);
     }
 
     // XVˆ—

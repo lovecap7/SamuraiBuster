@@ -13,11 +13,8 @@ public class GameInputManager : MonoBehaviour
     List<GameInputHolder> m_inputHolders = new();
 
     // Start is called before the first frame update
-    IEnumerator Start()
+    void Awake()
     {
-        // 1フレ遅らせる
-        yield return null;
-
         // シーンが切り替わったときに実行する関数を登録
         SceneManager.sceneLoaded += SceneLoded;
 
@@ -27,10 +24,14 @@ public class GameInputManager : MonoBehaviour
 
         // プレイヤーの人数分入力機構を生成
         int playerNum = PlayerPrefs.GetInt("PlayerNum");
+
         var pad = Gamepad.all;
         int padCount = pad.Count;
         for (int i = 0; i < playerNum; ++i)
         {
+            // プレイヤーの人数分要素を補充
+            m_receivers.Add(null);
+
             Gamepad gamepad;
 
             // 例えば四人プレイを選択して3台しかコントローラがつながっていなければ
@@ -47,20 +48,20 @@ public class GameInputManager : MonoBehaviour
 
             var instance = PlayerInput.Instantiate(m_inputPrefab, i, "Game", -1, gamepad);
             instance.transform.SetParent(transform, false);
+            // ちゃんと並んでる？
+            //instance.transform.SetSiblingIndex(i);
+            // InputHolderを把握
+            m_inputHolders.Add(instance.GetComponent<GameInputHolder>());
         }
 
-        // 数だけ取得
-        for (int i = 0; i < transform.childCount; ++i)
-        {
-            m_inputHolders.Add(transform.GetChild(i).GetComponent<GameInputHolder>());
-        }
-
-        SetInterface();
+        StartCoroutine(SetInterface());
     }
 
     // 各GameInputに対応したインターフェースを渡す
-    void SetInterface()
+    IEnumerator SetInterface()
     {
+        yield return null;
+
         // 同じだけ存在すると思いたい
         int id = 0;
         foreach (var holder  in m_inputHolders)
@@ -70,14 +71,20 @@ public class GameInputManager : MonoBehaviour
         }
     }
 
-    public void AddReceiver(IInputReceiver receiver)
+    public void AddReceiver(IInputReceiver receiver, int index)
     {
-        m_receivers.Add(receiver);
+        if (index >= m_receivers.Count)
+        {
+            Debug.Log("おい！要素数より大きいインデックスが来てるぞ！");
+            return;
+        }
+
+        m_receivers[index] = receiver;
     }
 
     private void SceneLoded(Scene nextScene, LoadSceneMode mode)
     {
-        SetInterface();
+        StartCoroutine(SetInterface());
     }
 
     public void ClearReceiver()

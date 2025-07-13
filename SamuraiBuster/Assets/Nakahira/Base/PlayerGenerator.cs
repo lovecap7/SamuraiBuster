@@ -8,13 +8,22 @@ public class PlayerGenerator : MonoBehaviour
     private int m_playerNum;
     [SerializeField] private GameObject[] m_playerPrefabs = new GameObject[4];
     private GameInputManager m_gameInputManager;
-    private List<PlayerBase> m_players = new(); 
+    private List<PlayerBase> m_players = new();
+
+    [SerializeField]
+    private bool m_isSpawnPlayer_Debug = false;
+
 
     private void Start()
     {
         DontDestroyOnLoad(gameObject);
 
         SceneManager.sceneLoaded += OnSceneChanged;
+
+        if (m_isSpawnPlayer_Debug)
+        {
+            GeneratePlayer();
+        }
     }
 
     public void GeneratePlayer()
@@ -38,12 +47,12 @@ public class PlayerGenerator : MonoBehaviour
     {
         // こちら側でレシーバーを消す
         // InputManagerでやると実行順の都合が悪い
-        m_gameInputManager.ClearReceiver();
+        //m_gameInputManager.ClearReceiver();
 
         // 今作られているプレイヤーの入力を登録しなおす
         for (int i = 0; i < m_playerNum; ++i)
         {
-            m_gameInputManager.AddReceiver(transform.GetChild(i).GetComponent<PlayerBase>());
+            m_gameInputManager.AddReceiver(transform.GetChild(i).GetComponent<PlayerBase>(), i);
         }
     }
 
