@@ -82,6 +82,11 @@ public class GameInputManager : MonoBehaviour
         m_receivers[index] = receiver;
     }
 
+    private void OnDestroy()
+    {
+        SceneManager.sceneLoaded -= SceneLoded;
+    }
+
     private void SceneLoded(Scene nextScene, LoadSceneMode mode)
     {
         StartCoroutine(SetInterface());

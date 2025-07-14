@@ -105,7 +105,7 @@ public class ScoreResult : MonoBehaviour, IInputReceiver
         m_rankCountFrame = kRankActiveFrame;
 
         // “ü—Í‚ð1P‚É•R‚Ã‚¯‚é
-        GameObject.Find("PlayerInputs").transform.GetChild(0).GetComponent<GameInputHolder>().receiver = this;
+        GameObject.Find("PlayerInputs").GetComponent<GameInputManager>().AddReceiver(this, 0);
     }
 
     // Update is called once per frame
