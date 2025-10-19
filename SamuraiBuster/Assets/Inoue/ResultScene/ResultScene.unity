@@ -386,9 +386,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b021293fbb6e372449d83a45e9508216, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  kRankBScore: 3000
-  kRankAScore: 10000
-  kRankSScore: 17000
+  kRankBScore: 34000
+  kRankAScore: 34500
+  kRankSScore: 34800
   m_finishResultText: {fileID: 1332926776}
   m_updateText: {fileID: 803109991}
   m_annihilationScoreText: {fileID: 1345160254}
